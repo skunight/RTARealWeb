@@ -209,7 +209,16 @@
                    </div>
                     <div class="form-group">
                         <label for="subType" class="col-md-2 control-label">产品子类</label>
-                        <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入产品子类" id="subType"></div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="subType">
+                                <option value="1">
+                                    电子票
+                                </option>
+                                <option value="2">
+                                    实体票
+                                </option>
+                            </select>
+                        </div>
                     </div>
                    <div class="form-group">
                        <label for="content" class="col-md-2 control-label">包含内容</label>
@@ -217,7 +226,9 @@
                    </div>
                    <div class="form-group">
                        <label for="intro" class="col-md-2 control-label">产品简介</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入产品简介" id="intro"></div>
+                       <div class="col-md-10">
+                           <textarea class="form-control" id="intro" rows="3" placeholder="请输入产品简介"></textarea>
+                       </div>
                    </div>
                    <div class="form-group">
                        <label for="image" class="col-md-2 control-label">图片</label>
