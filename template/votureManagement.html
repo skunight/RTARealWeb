@@ -8,6 +8,7 @@
     <title>ProjectName-moduleName</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/bootstrap-switch.css" rel="stylesheet">
+    <link href="./css/jquery.fileupload.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
 </head>
 <body>
@@ -163,24 +164,24 @@
                 <table id="provider" class="table table-bordered table-hover" ="0" width="100%">
                  <thead>
                  <tr>
-                     <th>手机(登录名)</th>
-                     <th>姓名</th>
-                     <th>邮箱</th>
-                     <th>电话</th>
-                     <th>性别</th>
-                     <th>开通时间</th>
-                     <th>供应商</th>
+                     <th>餐券名称</th>
+                     <th>城市</th>
+                     <th>推荐指数</th>
+                     <th>有效期开始</th>
+                     <th>有效期结束</th>
+                     <th>创建时间</th>
+                     <th>产品子类</th>
                      <th>是否有效</th>
                  </tr>
                  </thead>
                  <tr>
-                     <td>18666666666</td>
-                     <td>王大伟</td>
-                     <td>a@b.com</td>
-                     <td>28769999</td>
-                     <td>男</td>
+                     <td>1元大闸蟹畅吃</td>
+                     <td>阳澄湖</td>
+                     <td>AAAA</td>
+                     <td>2012-01-01</td>
+                     <td>2012-02-01</td>
                      <td>2010-01-01</td>
-                     <td>华为旅行社</td>
+                     <td>餐券</td>
                      <td>是</td>
                  </tr>
              </table>
@@ -200,65 +201,119 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">新增供应商账号</h4>
+                <h4 class="modal-title">新增优惠券产品</h4>
             </div>
             <form role="form" class="form-horizontal">
             <div class="modal-body">
                    <div class="form-group">
-                        <label for="name" class="col-md-2 control-label">账号</label>
-                        <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入手机号" id="name"></div>
+                        <label for="name" class="col-md-2 control-label">产品名称</label>
+                        <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入产品名称" id="name"></div>
+                   </div>
+                    <div class="form-group">
+                        <label for="subType" class="col-md-2 control-label">产品子类</label>
+                        <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入产品子类" id="subType"></div>
+                    </div>
+                   <div class="form-group">
+                       <label for="content" class="col-md-2 control-label">包含内容</label>
+                       <div class="col-md-10"><textarea row=3 class="form-control" placeholder="请输入产品所包含的内容" id="content"></textarea></div>
                    </div>
                    <div class="form-group">
-                       <label for="contactName" class="col-md-2 control-label">姓名</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入姓名" id="contactName"></div>
+                       <label for="intro" class="col-md-2 control-label">产品简介</label>
+                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入产品简介" id="intro"></div>
                    </div>
                    <div class="form-group">
-                       <label for="contactPhone" class="col-md-2 control-label">邮箱</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入邮箱" id="contactPhone"></div>
+                       <label for="image" class="col-md-2 control-label">图片</label>
+                        <span class="col-md-2 btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Select files...</span>
+                    <!-- The file input field used as target for the file upload widget -->
+                            <input type="file" multiple="" name="files[]" id="fileupload">
+                        </span>
                    </div>
                    <div class="form-group">
-                       <label for="proCode" class="col-md-2 control-label">联系电话</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入联系电话" id="proCode"></div>
+                       <label for="city" class="col-md-2 control-label">所属城市</label>
+                       <div class="col-md-4">
+                           <select class="form-control"  id="city">
+                               <option value="shanghai">上海</option>
+                           </select>
+                       </div>
+                       <label for="level" class="col-md-2 control-label">产品级别</label>
+                       <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入产品级别" id="level"></div>
                    </div>
                    <div class="form-group">
-                       <label for="balanceType" class="col-md-2 control-label">性别</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入性别" id="balanceType"></div>
+                       <label for="openTime" class="col-md-2 control-label">使用时间</label>
+                       <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入使用时间" id="openTime"></div>
                    </div>
                    <div class="form-group">
-                       <label for="returnType" class="col-md-2 control-label">身份证</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入身份证号码" id="returnType"></div>
+                       <label for="addr" class="col-md-2 control-label">地址</label>
+                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入详细地址" id="addr"></div>
                    </div>
-                   <div class="form-group">
-                       <label for="providerInfo" class="col-md-2 control-label">所属供应商</label>
-                       <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="lat" class="col-md-2 control-label">经度</label>
+                        <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入地址经度" id="lat"></div>
+                        <label for="lon" class="col-md-2 control-label">纬度</label>
+                        <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入地址纬度" id="lon"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookRule" class="col-md-2 control-label">兑换规则</label>
+                        <div class="col-md-10"><textarea row=3 class="form-control" placeholder="请输入兑换规则" id="bookRule"></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="useRule" class="col-md-2 control-label">使用规则</label>
+                        <div class="col-md-10"><textarea row=3 class="form-control" placeholder="请输入使用规则" id="useRule"></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cancelRule" class="col-md-2 control-label">取消规则</label>
+                        <div class="col-md-10"><textarea row=3 class="form-control" placeholder="请输入取消规则" id="cancelRule"></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="transportation" class="col-md-2 control-label">交通指南</label>
+                        <div class="col-md-10"><textarea row=3 class="form-control" placeholder="请输入交通指南" id="transportation"></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="effectDate" class="col-md-2 control-label">有效期</label>
+                        <div class="col-md-4"><input type="text" class="form-control" placeholder="有效期开始" id="effectDate"></div>
+                        <div class="col-md-1">~~</div>
+                        <div class="col-md-4"><input type="text" class="form-control" placeholder="有效期结束" id="expiryDate"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="providerInfo" class="col-md-2 control-label">所属供应商</label>
+                        <div class="col-md-10">
                             <select class="form-control" id="providerInfo">
                                 <option value="providerID">providerName</option>
                             </select>
-                       </div>
-                   </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactName" class="col-md-2 control-label">联系人</label>
+                        <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入产品联系人" id="contactName"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tel" class="col-md-2 control-label">电话</label>
+                        <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入联系人电话" id="tel"></div>
+                        <label for="fax" class="col-md-2 control-label">传真</label>
+                        <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入联系人传真" id="fax"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="operatorName" class="col-md-2 control-label">操作员</label>
+                        <div class="col-md-10"><input type="text" class="form-control" id="operatorName" readonly></div>
+                    </div>
                    <div class="form-group">
-                    <label for="passwd" class="col-md-2 control-label">初始密码</label>
-                    <div class="col-md-10"><input type="password" class="form-control" placeholder="请输入账号密码" id="passwd"></div>
-                   </div>
-                   <div class="form-group">
-                      <label for="operatorName" class="col-md-2 control-label">操作员</label>
-                      <div class="col-md-10"><input type="password" value="" class="form-control" id="operatorName" readonly></div>
-                   </div>
-                   <div class="form-group">
-                       <label for="isEnable" class="col-md-2 control-labdffel">是否启用</label>
+                       <label for="isEnable" class="col-md-2 control-label">是否启用</label>
                        <div class="col-md-10">
                             <div class="switch switch-small">
                                 <input id="isEnable" type="checkbox" checked />
                             </div>
                        </div>
                    </div>
-
             </div>
+            </form>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary" id="createProvider">保存</button>
             </div>
-            </form>
+
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
