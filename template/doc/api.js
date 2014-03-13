@@ -438,10 +438,9 @@ output:
 
 
 ##############产品价格库存审核######################
-post： /product/ticket|hotel|voture/price/audit
+post： /product/ticket|hotel|voture/price/audit/{id}
 ------------------------
 input:
-_id:
 status:(1新录入 2 已通过  0已拒绝 3 已禁用)
 
 以下自动生成:
@@ -464,7 +463,7 @@ output:
 
 
 ##############产品价格|库存修改######################
-post： /product/ticket|hotel|voture/price/update
+post： /product/ticket|hotel|voture/price/update/{id}
 -----------------------
 input:
 _id:(PRICE表中的_ID)
@@ -490,10 +489,9 @@ output：
 
 
 ##############产品价格|库存查询######################
-post： /product/ticket|hotel|voture|package/price/list
+get： /product/ticket|hotel|voture|package/price/list/{id}
 -----------------------
 input:
-productID:
 effiectDate:
 expiryDate:
 -----------------------
