@@ -49,10 +49,10 @@
 32. post：/product/hotel/price/update      酒店价格库存审核
 33. post：/product/voture/price/update     优惠券价格库存审核
 
-34. post：/product/ticket/price/list       门票价格库存查询
-35. post：/product/hotel/price/list        酒店价格库存查询
-36. post：/product/voture/price/list       优惠券价格库存查询
-37. post：/product/package/price/list      打包产品价格库存查询
+34. get：/product/ticket/price/list       门票价格库存查询
+35. get：/product/hotel/price/list        酒店价格库存查询
+36. get：/product/voture/price/list       优惠券价格库存查询
+37. get：/product/package/price/list      打包产品价格库存查询
 
 ##########################################################
 38: get: /product/ticket/shortList                    获取门票产品列表
