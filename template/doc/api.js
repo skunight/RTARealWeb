@@ -525,12 +525,12 @@ errorMsg:""}
 get： /product/ticket|hotel|voture|/priceLog/list
 
 input:
-productID
-startDate
-endDate
-operatorID
-providerID
-status
+productID(optional)
+startDate(optional)
+endDate(optional)
+operatorID(optional)
+providerID(optional)
+status(必填)
 
 output:
 {
@@ -577,7 +577,7 @@ output:
 get: /product/package/RelatedProduct/{id}
 返回关联产品的名称、id、天数、以及对应数量
 ------------------------------------------------------
-input:
+input:null
 ------------------------------------------------------
 output:
 {data:[
@@ -598,10 +598,9 @@ output:{data:[{_id:'',name:''},{}]}
 
 #####################查询模块列表#####################################
 get: /module/shortList
-输出的时候按照order进行排正序,仅查询isEnable=true的数据，根据operatorID查到他应有的模块列表
+输出的时候按照order进行排正序,仅查询isEnable=true的数据，根据operatorID查到他应有的模块列表（调试期间不判断)
 ---------------------
 input:operator:'operatorID'(必填)
-null
 ---------------------
 output:
 {data:[
