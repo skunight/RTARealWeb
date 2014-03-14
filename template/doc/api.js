@@ -401,7 +401,7 @@ updateTime:
 
 
 ##############产品价格库存录入######################
-post： /product/ticket|hotel|voture|package/price/create
+post： /product/ticket|hotel|voture/price/create
 
 input:
 
@@ -425,6 +425,7 @@ providerID：
 
 以下自动生成
 createTime
+productType (1 TICKET/2 HOTEL/3 VOTURE)
 
 ------------------------
 output:
