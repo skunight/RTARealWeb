@@ -271,11 +271,11 @@ operatorName(由operatorID派生)
 post: /product/ticket|hotel|voture|package/create
 name:
 subType:
-relatedProductID:
+relatedProductID:[{product:"dfdfdfdfdfdf",day:1,qty:1},{},{}]
 content:
 intro:
 image:  abdee.gif:图片1,abcdefg:图片2 (不同图片之间用逗号，图片文件名和图片描述之间用冒号)
-cityID:
+city:
 addr:
 GPS:29384.22,2323.233 （顺序是lat,lon)
 level:
@@ -290,13 +290,14 @@ isEnable:
 contactName:
 tel:
 fax:
+operator:(string)
 
 以下自动生成
 
 createTime:
 updateTime:
 type:1
-operatorID： ObjectID('*************')
+
 
 #################更新产品#################
 post: /product/ticket|hotel|voture|package/update/{id}
@@ -422,6 +423,8 @@ inventoryType (1.大库存 0单天库存,如果前端传过来是大库存，则
 weekend： [5,6](周一是1，听见没？）
 status：
 providerID：
+operator:(string)
+
 
 以下自动生成
 createTime
