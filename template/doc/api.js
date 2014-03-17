@@ -49,20 +49,24 @@
 32. post：/product/hotel/price/update      酒店价格库存审核
 33. post：/product/voture/price/update     优惠券价格库存审核
 
-34. post：/product/ticket/price/list       门票价格库存查询
-35. post：/product/hotel/price/list        酒店价格库存查询
-36. post：/product/voture/price/list       优惠券价格库存查询
-37. post：/product/package/price/list      打包产品价格库存查询
+34. get：/product/ticket/price/list       门票价格库存查询
+35. get：/product/hotel/price/list        酒店价格库存查询
+36. get：/product/voture/price/list       优惠券价格库存查询
+37. get：/product/package/price/list      打包产品价格库存查询
 
 ##########################################################
-38: get: /product/ticket/shortList
-39: get: /product/hotel/shortList
-40: get: /product/voture/shortList
-42: get: /product/package/RelatedProduct/{id}
-43: get: /provider/shortList
-44: get: /module/shortList
-45: get: /city/shortList
-46: get：/product/ticket|hotel|voture|/priceLog/list
+38: get: /product/ticket/shortList                    获取门票产品列表
+39: get: /product/hotel/shortList                     获取酒店产品列表
+40: get: /product/voture/shortList                    获取优惠券产品列表
+42: get: /product/package/RelatedProduct/{id}         获取关联产品信息
+43: get: /provider/shortList                          获取供应商列表
+44: get: /module/shortList                            获取模块列表
+45: get: /city/shortList                              获取城市列表
+46: get：/product/ticket|hotel|voture|/priceLog/list  价格录入查询
+##########################################################
+post: /member/logout                                  登入
+post: /member/login                                   登出
+get: /product/ticket|hotel|voture|package/image/{id}  查看图片列表
 ##########################################################
 
 
@@ -267,11 +271,11 @@ operatorName(由operatorID派生)
 post: /product/ticket|hotel|voture|package/create
 name:
 subType:
-relatedProductID:
+relatedProductID:[{product:"dfdfdfdfdfdf",day:1,qty:1},{},{}]
 content:
 intro:
 image:  abdee.gif:图片1,abcdefg:图片2 (不同图片之间用逗号，图片文件名和图片描述之间用冒号)
-cityID:
+city:
 addr:
 GPS:29384.22,2323.233 （顺序是lat,lon)
 level:
@@ -286,13 +290,14 @@ isEnable:
 contactName:
 tel:
 fax:
+operator:(string)
 
 以下自动生成
 
 createTime:
 updateTime:
 type:1
-operatorID： ObjectID('*************')
+
 
 #################更新产品#################
 post: /product/ticket|hotel|voture|package/update/{id}
@@ -397,7 +402,7 @@ updateTime:
 
 
 ##############产品价格库存录入######################
-post： /product/ticket|hotel|voture|package/price/create
+post： /product/ticket|hotel|voture/price/create
 
 input:
 
@@ -418,9 +423,12 @@ inventoryType (1.大库存 0单天库存,如果前端传过来是大库存，则
 weekend： [5,6](周一是1，听见没？）
 status：
 providerID：
+operator:(string)
+
 
 以下自动生成
 createTime
+productType (1 TICKET/2 HOTEL/3 VOTURE)
 
 ------------------------
 output:
@@ -514,16 +522,19 @@ inventoryE:库存对应的结束时间(当且仅当inventoryType=1时才需要�
 ,error:0,
 errorMsg:""}
 
+
+
+
 ##############产品价格|库存日志查询######################
 get： /product/ticket|hotel|voture|/priceLog/list
 
 input:
-productID
-startDate
-endDate
-operatorID
-providerID
-status
+productID(optional)
+startDate(optional)
+endDate(optional)
+operatorID(optional)
+providerID(optional)
+status(必填)
 
 output:
 {
@@ -559,8 +570,8 @@ get: /product/ticket|hotel|voture|package/shortList
 仅选取isEnable=true的产品
 -----------
 input:
-cityID 没有传入cityID时返回所有产品
-name   按照正则来匹配产品名称
+cityID (optional)没有传入cityID时返回所有产品
+name   (optional)按照正则来匹配产品名称
 -----------
 output:
 {data:[{name:'',_id:''}]}
@@ -570,7 +581,7 @@ output:
 get: /product/package/RelatedProduct/{id}
 返回关联产品的名称、id、天数、以及对应数量
 ------------------------------------------------------
-input:
+input:null
 ------------------------------------------------------
 output:
 {data:[
@@ -591,10 +602,9 @@ output:{data:[{_id:'',name:''},{}]}
 
 #####################查询模块列表#####################################
 get: /module/shortList
-输出的时候按照order进行排正序,仅查询isEnable=true的数据
+输出的时候按照order进行排正序,仅查询isEnable=true的数据，根据operatorID查到他应有的模块列表（调试期间不判断)
 ---------------------
-input:
-null
+input:operator:'operatorID'(必填)
 ---------------------
 output:
 {data:[
@@ -619,6 +629,7 @@ output:
 [{
 _id:"dfsdfsdffsdf3434343dfdfd"
 ,name:"上海"
+,provinceName:"广东"
 }]
 }
 ---------------------
@@ -627,5 +638,45 @@ _id:"dfsdfsdffsdf3434343dfdfd"
 保留/city/list 接口供城市列表维护功能，先暂不开发。
 
 
+#####################查询图片列表#####################################
+get: /product/ticket|hotel|voture|package/image/detail/{id}
+-------------------------
+input:null
+-------------------------
+output:{data:[
+{url:'dfdf.jpg',intro:''},
+{url:'dfdf.jpg',intro:''},{url:'dfdf.jpg',intro:''}
+]}
+--------------------------
 
+####################登录#############################################
+post: /member/login
+input:
+mobile:''(必填)
+passwd:''（必填)
+output:
+{
+data:{loggedIn:true}
+}
 
+####################修改密码#############################################
+
+post: /member/logout
+-------------
+input:mobile(必填)
+
+output:
+{
+data:{loggedIn:false}
+}
+
+####################删除图片#############################################
+删除数组中对应位置的图片,返回删除后的image列表
+post: /product/ticket|hotel|voture|package/image/delete/{id}
+-------------
+input: position=1  (位置从0开始)
+------------
+output:{data:[
+{url:'dfdf.jpg',intro:''},
+{url:'dfdf.jpg',intro:''},{url:'dfdf.jpg',intro:''}
+]}
