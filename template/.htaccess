@@ -644,7 +644,7 @@ FileETag None
 #
 #   If you have the following content in a file
 #
-#       <!--#include file="libs/jquery.js" -->
+
 #       <!--#include file="plugins/jquery.timer.js" -->
 #
 #   Apache will replace it with the content from the specified files.
