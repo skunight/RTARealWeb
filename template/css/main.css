@@ -11,6 +11,8 @@ padding-top: 60px;
 
 .MyNav{
        list-style: none outside none;
+       /*margin: 0;*/
+       /*padding: 0;*/
     /*height: auto;*/
 }
 

@@ -141,7 +141,7 @@
             </div>
 
 
-            
+
             <div class="row">
                 <!--这一部分是按钮栏-->
                 <div class="col-md-12">
@@ -152,43 +152,33 @@
             <div class="row">
                 <!--这一部分是分页栏 以及 表格栏-->
                 <div class="col-md-12">
-                    <ul class="pagination">
-                        <li><a href="#">&laquo;</a></li>
-                        <li><a href="#"> 1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">55</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
+                    <ul id="pageDiv"></ul>
                     <table id="provider" class="myTable table table-bordered table-hover" ="0" width="100%">
                     <thead>
-                    <%data.forEach(function(obj){
-
-                            })%>
-                    <tr>
-                        <th>景点名称</th>
-                        <th>城市</th>
-                        <th>级别</th>
-                        <th>有效期开始</th>
-                        <th>有效期结束</th>
-                        <th>创建时间</th>
-                        <th>产品子类</th>
-                        <th>是否有效</th>
-                    </tr>
+                        <tr>
+                            <th>景点名称</th>
+                            <th>城市</th>
+                            <th>级别</th>
+                            <th>有效期开始</th>
+                            <th>有效期结束</th>
+                            <th>创建时间</th>
+                            <th>产品子类</th>
+                            <th>是否有效</th>
+                        </tr>
                     </thead>
-                    <tr>
-                        <td>中华3日游</td>
-                        <td>上海</td>
-                        <td>AAAA</td>
-                        <td>2012-01-01</td>
-                        <td>2012-02-01</td>
-                        <td>2010-01-01</td>
-                        <td>单门票</td>
-                        <td>是</td>
-                    </tr>
-                    </table>
+                    <%data.forEach(function(obj){%>
+                        <tr id="<%=obj._id%>">
+                                <td><%=obj.name%></td>
+                                <td><%=obj.city.name%></td>
+                                <td><%=obj.level%></td>
+                                <td><%=obj.effectDate%></td>
+                                <td><%=obj.expiryDate%></td>
+                                <td><%=obj.createTime%></td>
+                                <td><%=obj.subType%></td>
+                                <td><%=obj.isEnable%></td>
+                         </tr>
+                    <% })%>
+                 </table>
                 </div>
             </div>
         </div>
@@ -342,11 +332,14 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/bootstrap-switch.js"></script>
 <script src="./js/footer.js"></script>
+<script src="./js/bootstrap-paginator.min.js"></script>
+<script src="./js/ejs.js"></script>
 
 
 <script>
     $(document).ready(function() {
         $('#isEnable').bootstrapSwitch();
+        refreshPaginator(<%=currentPage%>,<%=totalPage%>);
     } );
 </script>
 
