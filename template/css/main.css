@@ -21,3 +21,7 @@ padding-top: 60px;
 .MyNav a {
     text-decoration: none;
 }
+
+tr .rowSelected {
+   background: green;
+}
