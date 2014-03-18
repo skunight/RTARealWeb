@@ -1,6 +1,7 @@
 /**
  * Created by cloudbian on 14-3-14.
  */
+
 //save provider
     $('#createProvider').click(function(e){
         console.log($('#providerForm').serialize());
@@ -12,7 +13,7 @@
 //            dataType:"json",
             data:$('#providerForm').serialize(),
             success: function(data, textStatus){
-
+                console.log(data);
             },
             complete: function(XMLHttpRequest, textStatus){
                 //HideLoading();
@@ -65,3 +66,9 @@ $('#showEdit').click(function(e){
         }
     });
 });
+
+
+//select table row
+function selectRow(row){
+    console.log(row);
+}
