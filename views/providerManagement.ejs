@@ -8,6 +8,7 @@
     <title><%=proName%>-<%=modName%></title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/bootstrap-switch.css" rel="stylesheet">
+    <link href="./css/bootstrapv3.min.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
 </head>
 <body>
@@ -114,22 +115,7 @@
          </div>
          <div class="row">
              <!--这一部分是分页栏 以及 表格栏-->
-             <div class="col-md-12">
-                <ul class="pagination">
-                 <li><a href="#">首页</a></li>
-                 <li><a href="#">&laquo;</a></li>
-                    <%var i=0;%>
-                    <%if(currentPage%5){i=currentPage;}%>
-                    <%for(i;i<=totalPage;i++){%>
-                        <% if(i===currentPage){%>
-                                <li><a href="#" class="active"><%=i%></a></li>
-                        <% }else{%>
-                            <li><a href="#"><%=i%></a></li>
-                        <% }%>
-                    <% }%>
-                 <li><a href="#">&raquo;</a></li>
-                 <li><a href="#">末页</a></li>
-             </ul>
+             <ul id="pageDiv"></ul>
                 <table id="provider" class="table table-bordered table-hover" ="0" width="100%">
                  <thead>
                  <tr>
@@ -142,21 +128,22 @@
                      <th>是否有效</th>
                  </tr>
                  </thead>
-                 <tr>
-                     <td>企业名称</td>
-                     <td>联系人</td>
-                     <td>邮箱</td>
-                     <td>手机</td>
-                     <td>代码</td>
-                     <td>开通时间</td>
-                     <td>是否有效</td>
-                 </tr>
+                <%data.forEach(function(obj){%>
+                        <tr id="tbl_<%=obj._id%>" onclick="selectRow(this);">
+                            <td> <%=obj.name%></td>
+                            <td> <%=obj.contactName%></td>
+                            <td> <%=obj.contactEmail%></td>
+                            <td> <%=obj.contactPhone%></td>
+                            <td> <%=obj.proCode%></td>
+                            <td> <%=obj.isEnable%></td>
+                            <td> <%=obj.createTime%></td>
+                        </tr>
+                <%});%>
              </table>
              </div>
-         </div>
+     </div>
     </div>
     </div>
-</div>
 
 </body>
 
@@ -223,32 +210,28 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- warnning dailog-->
-<div class="modal fade" id="showInfo" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">提示信息</h4>
-            </div>
-            <div class="modal-body" id="workMsg">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 <script src="./js/jquery.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/bootstrap-switch.js"></script>
 <script src="./js/footer.js"></script>
 <script src="./js/common/provider.js"></script>
+<script src="./js/bootstrap-paginator.min.js"></script>
 
 <script>
     $(document).ready(function() {
         $('#isEnable').bootstrapSwitch();
+        var opt = {
+            bootstrapMajorVersion:3,
+            useBootstrapTooltip:true,
+            currentPage:<%=currentPage%>,
+            totalPages:<%=totalPage%>,
+            size:"normal",
+            alignment:"left",
+            pageUrl : function(type,page,current){
+               return  "/provider?currentPage="+current;
+            }
+        };
+        $('#pageDiv').bootstrapPaginator(opt);
     } );
 </script>
 

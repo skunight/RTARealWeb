@@ -2,39 +2,74 @@
  * Created by cloudbian on 14-3-14.
  */
 var httpClient = require('./../tools/HttpClient.js');
+var opt = {
+    hostname:'172.16.0.15',
+    port:3000
+};
+//view
 exports.viewProviderManger = function(req,res){
-    //todo 获取列表
+    var currentPage = 0;
+    if(req.body.currentPage){
+        currentPage = req.body.currentPage;
+    }
+    opt.path="/ent/provider/list?page="+currentPage;
+    opt.method="GET";
+    var ret = {};
+    try{
+        var http = new httpClient(opt);
+        http.getRes(function(err,result){
+            ret = JSON.parse(result);
+            ret.proName = "供应商";
+            ret.modName = "供应商管理";
+            ret.currentPage = currentPage;
+            ret.totalPage +=1;
+            ret.currentPage +=1;
+            console.log(ret)
+            res.render("providerManagement",ret);
+        });
+    } catch(e){
+        ret.error = 1;
+        ret.errMsg = e.message+"，请联系管理员！";
+        res.render("providerManagement",ret);
+    }
 
-    res.render("providerManagement",{proName:"不知道",modName:"供应商管理",currentPage:1,totalPage:10,totalCount:200});
+
 };
 exports.addProvider = function(req,res){
     var params = req.body;
-    req.body.operator = "283shs73hs32he2h232323";
-    var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
-        path:'/ent/provider/create',
-        method:'POST'
-    };
+    opt.path="/ent/provider/create";
+    opt.method="POST";
     try{
         var http = new httpClient(opt);
-        var cb;
-        http.postRes(params,cb);
+        http.postRes(params,function(err,response){
+        });
+        //refresh table
+        opt.path="/ent/provider/list";
+        opt.method="GET";
+        http = new httpClient(opt);
+        http.getRes(function(err,result){
+            var ret = {};
+            ret = JSON.parse(result);
+            ret.proName = "供应商";
+            ret.modName = "供应商管理";
+            ret.currentPage = currentPage;
+            ret.totalPage +=1;
+            ret.currentPage +=1;
+            console.log(ret+"aaaaa");
+            res.json(ret);
+        });
     } catch(e){
         console.log(e.message);
+        res.json({error:1,errMsg: e.message});
     }
 
-    res.json({name:cb});
-}
+
+};
 
 exports.updateProvider = function(req,res){
     var params = req.body;
-    var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
-        path:' /ent/provider/update/{id}',
-        method:'POST'
-    };
+    opt.path="/ent/provider/update/{id}";
+    opt.method="POST";
     try{
         var http = new httpClient(opt);
         var cb;
