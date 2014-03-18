@@ -1,12 +1,18 @@
 /**
  * Created by cloudbian on 14-3-14.
  */
-//save provider
+//save or update provider
     $('#createProvider').click(function(e){
+        var url
         $(this).button("loading");
+        if("save"===$('#tabActive').val()){
+            url = "/provider/add";
+        }else{
+            url =  "/provider/update/"+$('#selectedId').val();
+        }
         $.ajax({
             type: "post",
-            url: "/provider/add",
+            url: url,
             cache:false,
 //            dataType:"json",
             data:$('#providerForm').serialize(),
@@ -24,71 +30,77 @@
             },
             error: function(){
                 //请求出错处理
-
+                alert("网络异常，请重试！");
             }
         });
         return false;
-    });
+});
 
 //show create dailog
 $('#showCreate').click(function(e){
+    $('#tabActive').val("save");
     $('#modalTilte').val("新建供应商");
     $('#providerForm')[0].reset();
 });
 
 //show edit dailog
 $('#showEdit').click(function(e){
+    $('#tabActive').val("update");
     $('#modalTilte').val("编辑供应商");
     $(this).button("loading");
     $('#createProviderModal').modal("hide");
-    $.ajax({
-        type: "post",
-        url: "/provider/update",
-        cache:false,
+    var _id = $('#selectedId').val();
+    console.log(_id,_id.length);
+    if(""===_id||undefined===_id||_id.length<=0){
+        alert("请选择需要编辑的供应商！");
+        $('#showEdit').button("reset");
+    }else{
+        $.ajax({
+            type: "post",
+            url: "/provider/detail",
+            cache:false,
 //            dataType:"json",
-        data:"abc",
-        success: function(data, textStatus){
-            $('#name').val(data.name);
-            $('#contactName').val(data.contactName);
-            $('#contactPhone').val(data.contactPhone);
-            $('#proCode').val(data.proCode);
-            $('#balanceType').val(data.balanceType);
-            $('#returnType').val(data.returnType);
-            $('#remark').val(data.remark);
-            $('#isEnable').val(data.isEnable);
-            $('#operatorName').val(data.operatorName);
-        },
-        complete: function(XMLHttpRequest, textStatus){
-            //HideLoading();
-            $('#createProviderModal').modal("show");
-            $('#showEdit').button("reset");
-        },
-        error: function(){
-            //请求出错处理
+            data:{id:_id},
+            success: function(data, textStatus){
+                if(data.error===0){
+                    $('#name').val(data.data.name);
+                    $('#contactName').val(data.data.contactName);
+                    $('#contactPhone').val(data.data.contactPhone);
+                    $('#proCode').val(data.data.proCode);
+                    $('#balanceType').val(data.data.balanceType);
+                    $('#returnType').val(data.data.returnType);
+                    $('#remark').val(data.data.remark);
+                    $('#isEnable').val(data.data.isEnable);
+                    $('#operatorName').val("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+                }else{
+                    alert("获取详情出错："+data.errMsg);
+                }
+            },
+            complete: function(XMLHttpRequest, textStatus){
+                //HideLoading();
+                $('#createProviderModal').modal("show");
+                $('#showEdit').button("reset");
+            },
+            error: function(){
+                //请求出错处理
+                alert("网络异常，请重试！");
+            }
+        });
+    }
 
-        }
-    });
 });
-
-
-//select table row
-function selectRow(row){
-    console.log(row);
-}
 
 //refresh paginator
 function refreshPaginator(currentPage,totalPage){
     var opt = {
         //paginator
         bootstrapMajorVersion:3,
-        useBootstrapTooltip:true,
         currentPage:currentPage,
         totalPages:totalPage,
         size:"normal",
         alignment:"left",
-        pageUrl : function(type,page,current){
-            console.log(page);
-            return  "/provider/list?page="+current;
+        onPageClicked:function(event, originalEvent, type, page){
+            refreshTable(page);
         }
     };
     $('#pageDiv').bootstrapPaginator(opt);
@@ -103,7 +115,6 @@ function refreshTable(currentPage){
 //            dataType:"json",
         data:{current:currentPage},
         success: function(data, textStatus){
-            console.log(data);
             var html = new EJS({url:"./template/temp_provider.ejs"}).render(data);
             $('#tblcontent').html(html);
             refreshPaginator(data.currentPage,data.totalPage);
@@ -113,7 +124,7 @@ function refreshTable(currentPage){
         },
         error: function(e){
             //请求出错处理
-            alert(e.message);
+            alert("网络异常，请重试！");
         }
     });
 }

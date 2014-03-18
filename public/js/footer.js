@@ -3,8 +3,13 @@
  */
 
 $('.myTable').on('click','tr',function(){
-
-
-    $(this).parent().children('tr.selected').removeClass('selected');
-    $(this).addClass('selected');
+    if($(this).hasClass('selected')){
+        $(this).removeClass('selected');
+        $('#selectedId').val("");
+    }else{
+        $(this).parent().children('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+        console.log($(this).attr("id"));
+        $('#selectedId').val($(this).attr("id"));
+    }
 });

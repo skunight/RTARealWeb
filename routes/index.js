@@ -13,7 +13,8 @@ module.exports = function(app){
     });
     app.get('/provider',ProviderAction.viewProviderManger);
     app.post('/provider/add',ProviderAction.addProvider);
-    app.post('/provider/update',ProviderAction.updateProvider);
+    app.post('/provider/detail',ProviderAction.getProviderDetail);
+    app.post('/provider/update/:id',ProviderAction.updateProvider);
     app.post('/provider/list',ProviderAction.getProviders);
     app.get('/ticketManagementAction',ticketManagementAction.viewTicketInfo);
 };

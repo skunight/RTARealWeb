@@ -2,7 +2,6 @@
  * Created by cloudbian on 14-3-14.
  */
 var httpClient = require('./../tools/HttpClient.js');
-var ejs = require('ejs');
 
 //view
 exports.viewProviderManger = function(req,res){
@@ -34,6 +33,7 @@ exports.viewProviderManger = function(req,res){
 
 
 };
+
 exports.addProvider = function(req,res){
     var params = req.body;
     var opt = {
@@ -53,39 +53,48 @@ exports.addProvider = function(req,res){
     }
 };
 
+//detail
+exports.getProviderDetail = function(req,res){
+    var opt = {
+        hostname:'172.16.0.15',
+        port:3000,
+        path:"/ent/provider/detail/"+req.body.id,
+        method:"GET"
+    };
+    try{
+        var http = new httpClient(opt);
+        http.getRes(function(err,result){
+            res.json(result);
+        });
+    } catch(e){
+        console.log(e.message);
+        res.json({error:1,errMsg: e.message});
+    }
+};
+
 exports.updateProvider = function(req,res){
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+req.params.id);
     var params = req.body;
     var opt = {
         hostname:'172.16.0.15',
         port:3000,
-        path:"/ent/provider/update/{id}",
+        path:"/ent/provider/update/"+req.params.id,
         method:"POST"
     };
     try{
         var http = new httpClient(opt);
-        var cb;
-        http.postRes(params,cb);
-        console.log(cb.toString());
+        http.postRes(params,function(err,result){
+            res.json(result);
+        });
     } catch(e){
         console.log(e.message);
+        res.json({error:1,errMsg: e.message});
     }
-    res.json({
-        name:'abc',
-        contactName:'abcd',
-        contactPhone:'13900000000',
-        proCode:"123",
-        balanceType:"fangshi",
-        returnType:"ret",
-        remark:"",
-        isEnable:true,
-        operatorName:"aaaaaaaaaaaaaaaaaaaa"
-    });
 };
 
 exports.getProviders = function(req,res){
-    console.log(req.body);
     var page = 0;
-    if(req.body.current){
+    if(req.body.current&&req.body.current>0){
         page = req.body.current-1;
     }
     var opt = {
@@ -97,10 +106,8 @@ exports.getProviders = function(req,res){
     var ret = {};
     try{
         new httpClient(opt).getRes(function(err,result){
-            console.log(err,result);
             ret = result;
             ret.currentPage = page+1;
-            console.log(ret)
             res.json(ret);
         });
     } catch(e){
