@@ -20,7 +20,7 @@ HttpClient.prototype.getRes = function(cb) {
 		});
 		
 		res.on('end',function(){
-			cb(null,_data);
+			cb(null,JSON.parse(_data));
 		});
 	});
 
@@ -50,7 +50,7 @@ HttpClient.prototype.postRes = function(post_data, cb) {
 		});
 		
 		res.on('end',function(){
-			cb(null,_data);
+			cb(null,JSON.parse(_data));
 		});
 	});
 

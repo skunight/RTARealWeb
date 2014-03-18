@@ -3,27 +3,26 @@
  */
 var httpClient = require('./../tools/HttpClient.js');
 var ejs = require('ejs');
-var opt = {
-    hostname:'172.16.0.15',
-    port:3000
-};
+
 //view
 exports.viewProviderManger = function(req,res){
     //init
-    opt.path="/ent/provider/list?page=0";
-    opt.method="GET";
+    var opt = {
+        hostname:'172.16.0.15',
+        port:3000,
+        path:"/ent/provider/list?page=0",
+        method:"GET"
+    };
+
     var ret = {};
     try{
         var http = new httpClient(opt);
         http.getRes(function(err,result){
+            ret = result;
             ret.proName = "供应商";
             ret.modName = "供应商管理";
             ret.currentPage =1;
-            ret.totalPage = JSON.parse(result).totalPage;
-            ejs.renderFile("./public/template/temp_provider.ejs",JSON.parse(result),function(err,response){
-                ret.table = response;
-                res.render("providerManagement",ret);
-            });
+            res.render("providerManagement",ret);
         });
 
     } catch(e){
@@ -37,8 +36,12 @@ exports.viewProviderManger = function(req,res){
 };
 exports.addProvider = function(req,res){
     var params = req.body;
-    opt.path="/ent/provider/create";
-    opt.method="POST";
+    var opt = {
+        hostname:'172.16.0.15',
+        port:3000,
+        path:"/ent/provider/create",
+        method:"POST"
+    };
     try{
         new httpClient(opt).postRes(params,function(err,response){
 //                    console.log("save provider finish..."+err+","+response);
@@ -52,8 +55,12 @@ exports.addProvider = function(req,res){
 
 exports.updateProvider = function(req,res){
     var params = req.body;
-    opt.path="/ent/provider/update/{id}";
-    opt.method="POST";
+    var opt = {
+        hostname:'172.16.0.15',
+        port:3000,
+        path:"/ent/provider/update/{id}",
+        method:"POST"
+    };
     try{
         var http = new httpClient(opt);
         var cb;
@@ -81,13 +88,17 @@ exports.getProviders = function(req,res){
     if(req.body.current){
         page = req.body.current-1;
     }
-    opt.path="/ent/provider/list?page="+page;
-    opt.method="GET";
+    var opt = {
+        hostname:'172.16.0.15',
+        port:3000,
+        path:"/ent/provider/list?page="+page,
+        method:"GET"
+    };
     var ret = {};
     try{
-        var http = new httpClient(opt);
-        http.getRes(function(err,result){
-            ret = JSON.parse(result);
+        new httpClient(opt).getRes(function(err,result){
+            console.log(err,result);
+            ret = result;
             ret.currentPage = page+1;
             console.log(ret)
             res.json(ret);

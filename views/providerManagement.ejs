@@ -116,7 +116,7 @@
          <div class="row">
              <!--这一部分是分页栏 以及 表格栏-->
              <ul id="pageDiv"></ul>
-                <table id="provider" class="table table-bordered table-hover" ="0" width="100%">
+                <table id="provider" class="myTable table table-bordered table-hover" ="0" width="100%">
                  <thead>
                  <tr>
                      <th>名称</th>
@@ -129,7 +129,17 @@
                  </tr>
                  </thead>
                  <tbody id="tblcontent">
-                 <%-table%>
+                     <%data.forEach(function(obj){%>
+                     <tr id="tbl_<%=obj._id%>" onclick="selectRow(this);">
+                         <td> <%=obj.name%></td>
+                         <td> <%=obj.contactName%></td>
+                         <td> <%=obj.contactEmail%></td>
+                         <td> <%=obj.contactPhone%></td>
+                         <td> <%=obj.proCode%></td>
+                         <td> <%=obj.isEnable%></td>
+                         <td> <%=obj.createTime%></td>
+                     </tr>
+                     <%});%>
                  </tbody>
              </table>
              </div>

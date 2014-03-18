@@ -87,7 +87,8 @@ function refreshPaginator(currentPage,totalPage){
         size:"normal",
         alignment:"left",
         pageUrl : function(type,page,current){
-            return  "/provider?currentPage="+current;
+            console.log(page);
+            return  "/provider/list?page="+current;
         }
     };
     $('#pageDiv').bootstrapPaginator(opt);
@@ -100,7 +101,7 @@ function refreshTable(currentPage){
         url: "/provider/list",
         cache:false,
 //            dataType:"json",
-        current:currentPage,
+        data:{current:currentPage},
         success: function(data, textStatus){
             console.log(data);
             var html = new EJS({url:"./template/temp_provider.ejs"}).render(data);
