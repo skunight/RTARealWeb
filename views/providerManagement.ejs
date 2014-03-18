@@ -128,17 +128,9 @@
                      <th>是否有效</th>
                  </tr>
                  </thead>
-                <%data.forEach(function(obj){%>
-                        <tr id="tbl_<%=obj._id%>" onclick="selectRow(this);">
-                            <td> <%=obj.name%></td>
-                            <td> <%=obj.contactName%></td>
-                            <td> <%=obj.contactEmail%></td>
-                            <td> <%=obj.contactPhone%></td>
-                            <td> <%=obj.proCode%></td>
-                            <td> <%=obj.isEnable%></td>
-                            <td> <%=obj.createTime%></td>
-                        </tr>
-                <%});%>
+                 <tbody id="tblcontent">
+                 <%-table%>
+                 </tbody>
              </table>
              </div>
      </div>
@@ -216,22 +208,11 @@
 <script src="./js/footer.js"></script>
 <script src="./js/common/provider.js"></script>
 <script src="./js/bootstrap-paginator.min.js"></script>
-
+<script src="./js/ejs.js"></script>
 <script>
     $(document).ready(function() {
         $('#isEnable').bootstrapSwitch();
-        var opt = {
-            bootstrapMajorVersion:3,
-            useBootstrapTooltip:true,
-            currentPage:<%=currentPage%>,
-            totalPages:<%=totalPage%>,
-            size:"normal",
-            alignment:"left",
-            pageUrl : function(type,page,current){
-               return  "/provider?currentPage="+current;
-            }
-        };
-        $('#pageDiv').bootstrapPaginator(opt);
+        refreshPaginator(<%=currentPage%>,<%=totalPage%>);
     } );
 </script>
 

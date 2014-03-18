@@ -1,0 +1,11 @@
+<%data.forEach(function(obj){%>
+<tr id="tbl_<%=obj._id%>" onclick="selectRow(this);">
+    <td> <%=obj.name%></td>
+    <td> <%=obj.contactName%></td>
+    <td> <%=obj.contactEmail%></td>
+    <td> <%=obj.contactPhone%></td>
+    <td> <%=obj.proCode%></td>
+    <td> <%=obj.isEnable%></td>
+    <td> <%=obj.createTime%></td>
+</tr>
+<%});%>

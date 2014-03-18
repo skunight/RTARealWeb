@@ -1,10 +1,8 @@
 /**
  * Created by cloudbian on 14-3-14.
  */
-
 //save provider
     $('#createProvider').click(function(e){
-        console.log($('#providerForm').serialize());
         $(this).button("loading");
         $.ajax({
             type: "post",
@@ -13,11 +11,16 @@
 //            dataType:"json",
             data:$('#providerForm').serialize(),
             success: function(data, textStatus){
-                console.log(data);
+                if(data.error!==0){
+                    alert("保存供应商错误："+data.errMsg);
+                }else{
+                    refreshTable(1);
+                }
             },
             complete: function(XMLHttpRequest, textStatus){
                 //HideLoading();
                 $('#createProvider').button("reset");
+                $('#createProviderModal').modal("toggle");
             },
             error: function(){
                 //请求出错处理
@@ -71,4 +74,45 @@ $('#showEdit').click(function(e){
 //select table row
 function selectRow(row){
     console.log(row);
+}
+
+//refresh paginator
+function refreshPaginator(currentPage,totalPage){
+    var opt = {
+        //paginator
+        bootstrapMajorVersion:3,
+        useBootstrapTooltip:true,
+        currentPage:currentPage,
+        totalPages:totalPage,
+        size:"normal",
+        alignment:"left",
+        pageUrl : function(type,page,current){
+            return  "/provider?currentPage="+current;
+        }
+    };
+    $('#pageDiv').bootstrapPaginator(opt);
+}
+//refresh table and paginator
+function refreshTable(currentPage){
+    //refresh table
+    $.ajax({
+        type: "post",
+        url: "/provider/list",
+        cache:false,
+//            dataType:"json",
+        current:currentPage,
+        success: function(data, textStatus){
+            console.log(data);
+            var html = new EJS({url:"./template/temp_provider.ejs"}).render(data);
+            $('#tblcontent').html(html);
+            refreshPaginator(data.currentPage,data.totalPage);
+        },
+        complete: function(XMLHttpRequest, textStatus){
+            //HideLoading();
+        },
+        error: function(e){
+            //请求出错处理
+            alert(e.message);
+        }
+    });
 }
