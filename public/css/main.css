@@ -8,6 +8,6 @@ padding-top: 60px;
     border: 1px dashed darkblue;
 }
 
-.myTable tr .selected{
+.myTable .selected{
     background: green;
 }

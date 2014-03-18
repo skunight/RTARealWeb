@@ -34,20 +34,20 @@ exports.viewTicketInfo = function(req,res){
 
 };
 
-//exports.addProvider = function(req,res){
-//    var params = req.body;
-//    opt.path="/ent/provider/create";
-//    opt.method="POST";
-//    try{
-//        new httpClient(opt).postRes(params,function(err,response){
-////                    console.log("save provider finish..."+err+","+response);
-//            res.json({error:0,errMsg:""});
-//        });
-//    } catch(e){
-//        console.log(e.message);
-//        res.json({error:1,errMsg: e.message});
-//    }
-//};
+exports.addProvider = function(req,res){
+    var params = req.body;
+    opt.path="/ent/provider/create";
+    opt.method="POST";
+    try{
+        new httpClient(opt).postRes(params,function(err,response){
+//                    console.log("save provider finish..."+err+","+response);
+            res.json({error:0,errMsg:""});
+        });
+    } catch(e){
+        console.log(e.message);
+        res.json({error:1,errMsg: e.message});
+    }
+};
 //
 //exports.updateProvider = function(req,res){
 //    var params = req.body;

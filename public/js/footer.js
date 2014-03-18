@@ -3,6 +3,8 @@
  */
 
 $('.myTable').on('click','tr',function(){
-    var html = $(this).html();
-    console.log(html);
+
+
+    $(this).parent().children('tr.selected').removeClass('selected');
+    $(this).addClass('selected');
 });
