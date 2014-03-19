@@ -15,14 +15,7 @@ exports.login = function(request,response){
             client.postRes({
                 'mobile':request.body.mobile,
                 'passwd':request.body.passwd
-            },function(err,res){
-                if(res){
-                    request.session.user=res.data;
-                    cb(null,res);
-                } else {
-                    cb(err,null);
-                }
-            });
+            },cb);
         },
         function(member,cb){
             var client = new HttpClient({
@@ -31,22 +24,31 @@ exports.login = function(request,response){
                 path:'/module/shortList',
                 method:'GET'
             });
-            client.getRes(cb);
+            client.getRes(function(err,res){
+                if(member.data!=null&&res.data!=null){
+                    request.session.user = member.data;
+                    cb(null,res);
+                } else {
+                    cb('用户名或密码错误！',null)
+                }
+            });
         }
     ],function(err,res){
         if(err){
             response.render('index',{});
         } else {
-            var result = {};
-            var cat;
-            for(var i in res.data){
-                if(cat!==res.data[i].cat){
-                    cat = res.data[i].cat;
-                    result[res.data[i].cat]=[];
+            if(request.session.user!=null){
+                var result = {};
+                var cat;
+                for(var i in res.data){
+                    if(cat!==res.data[i].cat){
+                        cat = res.data[i].cat;
+                        result[res.data[i].cat]=[];
+                    }
+                    result[res.data[i].cat].push(res.data[i]);
                 }
-                result[res.data[i].cat].push(res.data[i]);
+                request.session.user.modules = result;
             }
-            request.session.user.modules = result;
             response.render('welcome',{});
         }
     });
