@@ -32,7 +32,7 @@ HttpClient.prototype.getRes = function(cb) {
 	req.end();
 }
 
-HttpClient.prototype.postRes = function(post_data, cb) {
+HttpClient.prototype.postReq = function(post_data, cb) {
 	var qs = require("querystring");
 	var content = qs.stringify(post_data);
 	this.options.headers = {
