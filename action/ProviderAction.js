@@ -16,7 +16,7 @@ exports.viewProviderManger = function(req,res){
     var ret = {};
     try{
         var http = new httpClient(opt);
-        http.getRes(function(err,result){
+        http.getReq(function(err,result){
             ret = result;
             ret.proName = "供应商";
             ret.modName = "供应商管理";
@@ -43,7 +43,7 @@ exports.addProvider = function(req,res){
         method:"POST"
     };
     try{
-        new httpClient(opt).postRes(params,function(err,response){
+        new httpClient(opt).postReq(params,function(err,response){
 //                    console.log("save provider finish..."+err+","+response);
             res.json({error:0,errMsg:""});
         });
@@ -63,7 +63,7 @@ exports.getProviderDetail = function(req,res){
     };
     try{
         var http = new httpClient(opt);
-        http.getRes(function(err,result){
+        http.getReq(function(err,result){
             res.json(result);
         });
     } catch(e){
@@ -73,7 +73,6 @@ exports.getProviderDetail = function(req,res){
 };
 
 exports.updateProvider = function(req,res){
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+req.params.id);
     var params = req.body;
     var opt = {
         hostname:'172.16.0.15',
@@ -83,7 +82,7 @@ exports.updateProvider = function(req,res){
     };
     try{
         var http = new httpClient(opt);
-        http.postRes(params,function(err,result){
+        http.postReq(params,function(err,result){
             res.json(result);
         });
     } catch(e){
@@ -105,7 +104,7 @@ exports.getProviders = function(req,res){
     };
     var ret = {};
     try{
-        new httpClient(opt).getRes(function(err,result){
+        new httpClient(opt).getReq(function(err,result){
             ret = result;
             ret.currentPage = page+1;
             res.json(ret);

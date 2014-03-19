@@ -65,6 +65,7 @@ $('#showEdit').click(function(e){
                 if(data.error===0){
                     $('#name').val(data.data.name);
                     $('#contactName').val(data.data.contactName);
+                    $('#contactEmail').val(data.data.contactEmail);
                     $('#contactPhone').val(data.data.contactPhone);
                     $('#proCode').val(data.data.proCode);
                     $('#balanceType').val(data.data.balanceType);

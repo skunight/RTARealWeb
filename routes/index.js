@@ -13,12 +13,19 @@ module.exports = function(app){
         response.render("index",{});
     });
     app.post('/login',MemberAction.login);
-
+    //provider
     app.get('/provider',ProviderAction.viewProviderManger);
     app.post('/provider/add',ProviderAction.addProvider);
     app.post('/provider/detail',ProviderAction.getProviderDetail);
     app.post('/provider/update/:id',ProviderAction.updateProvider);
     app.post('/provider/list',ProviderAction.getProviders);
+    //providerMember
+    app.get('/providerMember',ProviderMemberAction.viewProviderMemberManager);
+    app.post('/providerMember/add',ProviderMemberAction.addPMember);
+    app.post('/providerMember/detail',ProviderMemberAction.getProviderMember);
+    app.post('/providerMember/update/:id',ProviderMemberAction.updatePMember);
+    app.post('/providerMember/list',ProviderMemberAction.getProviderMembersList);
+
     app.get('/ticketManagementAction',ticketManagementAction.viewTicketInfo);
 
 
