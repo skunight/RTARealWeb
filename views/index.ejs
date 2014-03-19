@@ -1,39 +1,44 @@
 <!DOCTYPE html>
-<html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="wucho">
 
-        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+    <title>ProjectName-登录页</title>
 
-        <link rel="stylesheet" href="../public/css/normalize.css">
-        <link rel="stylesheet" href="../public/css/main.css">
-        <script src="../public/js/vendor/modernizr-2.7.1.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 8]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/signin.css" rel="stylesheet">
 
-        <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+</head>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="../public/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
-        <script src="../public/js/plugins.js"></script>
-        <script src="../public/js/main.js"></script>
+<body>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>
-    </body>
+<div class="container">
+
+    <form id="loginForm" class="form-signin" action="/login" method="post" role="form">
+        <h2 class="form-signin-heading">RTA核心系统登录</h2>
+        <input type="text" id="mobile" name="mobile" class="form-control" placeholder="请输入账号(手机号)" required  autofocus>
+        <input type="password" id="passwd" name="passwd" class="form-control" placeholder="请输入密码" required>
+        <!--<label class="checkbox">-->
+        <!--<input type="checkbox" value="remember-me"> 下次自动登录-->
+        <!--</label>-->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+
+</div> <!-- /container -->
+
+
+</body>
 </html>
+<script src="/js/md5.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $(function(){
+        $("#loginForm").submit(function(event){
+            $('#passwd').val(faultylabs.MD5($('#passwd').val()).toLowerCase());
+        });
+    });
+</script>
