@@ -8,6 +8,7 @@ module.exports = function(app){
 //    var ProductCtrl = require('./../control/ProductCtrl');
     var ProviderAction = require('./../action/ProviderAction');
     var ticketManagementAction = require('./../action/ticketManagementAction');
+    var Welcome = require('./../action/WelcomeAction');
     app.get('/',function(request,response){
         response.render("index",{});
     });
@@ -17,4 +18,5 @@ module.exports = function(app){
     app.post('/provider/update/:id',ProviderAction.updateProvider);
     app.post('/provider/list',ProviderAction.getProviders);
     app.get('/ticketManagement',ticketManagementAction.viewTicketInfo);
+    app.get('/welcome',Welcome.view);
 };
