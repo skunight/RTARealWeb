@@ -9,7 +9,7 @@ var HttpClient = function(options) {
 	this.options = options;
 };
 
-HttpClient.prototype.getRes = function(cb) {
+HttpClient.prototype.getReq = function(cb) {
 	var req = http.request(this.options, function(res) {
 		equal(200, res.statusCode);
 		res.setEncoding('utf8');
