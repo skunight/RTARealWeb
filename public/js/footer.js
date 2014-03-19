@@ -2,7 +2,7 @@
  * Created by cloudbian on 14-3-14.
  */
 
-$('.myTable').on('click','tr',function(){
+$('.myTable tbody').on('click','tr',function(){
     if($(this).hasClass('selected')){
         $(this).removeClass('selected');
         $('#selectedId').val("");

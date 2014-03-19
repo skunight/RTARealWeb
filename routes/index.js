@@ -16,5 +16,5 @@ module.exports = function(app){
     app.post('/provider/detail',ProviderAction.getProviderDetail);
     app.post('/provider/update/:id',ProviderAction.updateProvider);
     app.post('/provider/list',ProviderAction.getProviders);
-    app.get('/ticketManagementAction',ticketManagementAction.viewTicketInfo);
+    app.get('/ticketManagement',ticketManagementAction.viewTicketInfo);
 };
