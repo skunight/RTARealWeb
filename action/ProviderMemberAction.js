@@ -35,8 +35,7 @@ exports.viewProviderMemberManager = function(req,res){
                 };
                 new httpClient(opt).getReq(function(err,result){
                     if(result.error===0){
-//                        r.providerNames = result.data;
-                        console.log(r);
+                        r.providerNames = result.data;
                         cb(err,result);
                         res.render("providerMemberManagement",r);
                     }else{
@@ -46,6 +45,9 @@ exports.viewProviderMemberManager = function(req,res){
                 });
             }
         ],function(error,errMsg){
+            if(null!=error){
+                console.log(error+","+errMsg);
+            }
         });
 };
 

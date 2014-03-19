@@ -7,6 +7,7 @@ module.exports = function(app){
 //    var MemberCtrl = require('./../control/MemberCtrl');
 //    var ProductCtrl = require('./../control/ProductCtrl');
     var ProviderAction = require('./../action/ProviderAction');
+    var ProviderMemberAction = require('./../action/ProviderMemberAction');
     var ticketManagementAction = require('./../action/ticketManagementAction');
     var MemberAction = require('./../action/MemberAction');
     app.get('/',function(request,response){
