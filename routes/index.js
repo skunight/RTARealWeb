@@ -27,7 +27,7 @@ module.exports = function(app){
     app.post('/providerMember/update/:id',ProviderMemberAction.updatePMember);
     app.post('/providerMember/list',ProviderMemberAction.getProviderMembersList);
 
-    app.get('/ticketManagementAction',ticketManagementAction.viewTicketInfo);
+    app.get('/ticketManagement',ticketManagementAction.list);
 
 
     app.post('/file-upload', function(req, res, next) {
