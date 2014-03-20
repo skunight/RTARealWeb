@@ -21,6 +21,7 @@ exports.viewProviderManger = function(req,res){
             ret.proName = "供应商";
             ret.modName = "供应商管理";
             ret.currentPage =1;
+
             res.render("providerManagement",ret);
         });
 
@@ -45,7 +46,7 @@ exports.addProvider = function(req,res){
     try{
         new httpClient(opt).postReq(params,function(err,response){
 //                    console.log("save provider finish..."+err+","+response);
-            res.json({error:0,errMsg:""});
+            res.json({error:response.error,errMsg:response.errorMsg});
         });
     } catch(e){
         console.log(e.message);

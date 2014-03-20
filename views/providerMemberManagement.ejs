@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="description" />
     <meta content="wucho" name="author" />
-    <title>ProjectName-moduleName</title>
+    <title><%=proName%>-<%=modName%></title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/bootstrap-switch.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
@@ -102,39 +102,43 @@
          <div class="row">
              <!--这一部分为查询栏-->
              <div class="col-md-12">
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" role="form" id="srhForm">
                     <div class="form-group">
                         <label class="control-label col-md-1" for="searchMobile">手机号：</label>
                         <div class="col-md-2">
-                            <input type="text" id="searchMobile" class="form-control">
+                            <input type="text" id="searchMobile" name="searchMobile" class="form-control">
                         </div>
                         <label class="control-label col-md-1" for="searchName">姓名：</label>
                         <div class="col-md-2">
-                            <input type="text" id="searchName" class="form-control">
+                            <input type="text" id="searchName" name="searchName" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-1" for="searchEmail">邮箱：</label>
                         <div class="col-md-2">
-                            <input type="text" id="searchEmail" class="form-control">
+                            <input type="text" id="searchEmail" name="searchEmail" class="form-control">
                         </div>
                         <label class="control-label col-md-1" for="searchProvider">供应商：</label>
                         <div class="col-md-2">
-                            <select id="searchProvider" class="form-control">
-                                <option value="providerID">providerName</option>
+                            <select id="searchProvider" name="searchProvider" class="form-control">
+                                <option value="">全部供应商</option>
+                                <%providerNames.forEach(function(p){%>
+                                    <option value="<%=p._id%>"><%=p.name%></option>
+                                <%});%>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-1" for="searchisEnable">是否有效：</label>
                         <div class="col-md-2">
-                            <select id="searchisEnable" class="form-control">
+                            <select id="searchisEnable" name="searchisEnable" class="form-control">
+                                <option value="">全部</option>
                                 <option value="true">有效</option>
                                 <option value="false">无效</option>
                             </select>
                         </div>
                          <div class="col-md-1 col-md-offset-1">
-                             <button id="query" class="btn btn-danger form-control">查询</button>
+                             <button type="submit" id="query" class="btn btn-danger form-control" data-loading-text="查询中...请稍候">查询</button>
                          </div>
                     </div>
                 </form>
@@ -143,24 +147,15 @@
          <div class="row">
              <!--这一部分是按钮栏-->
              <div class="col-md-12">
-                <button type="button" class="btn bg-primary" data-toggle="modal">新增供应商账号</button>
-                <button type="button" class="btn bg-primary" data-toggle="modal">编辑供应商账号</button>
+                <button type="button" class="btn bg-primary" data-toggle="modal" data-target="#createProviderMemberModal" id="showAdd">新增供应商账号</button>
+                <button type="button" class="btn bg-primary" data-toggle="modal" id="showEdit">编辑供应商账号</button>
              </div>
          </div>
          <div class="row">
              <!--这一部分是分页栏 以及 表格栏-->
              <div class="col-md-12">
-                <ul class="pagination">
-                 <li><a href="#">&laquo;</a></li>
-                 <li><a href="#"> 1</a></li>
-                 <li><a href="#">2</a></li>
-                 <li><a href="#">3</a></li>
-                 <li><a href="#">4</a></li>
-                 <li><a href="#">5</a></li>
-                 <li><a href="#">55</a></li>
-                 <li><a href="#">&raquo;</a></li>
-             </ul>
-                <table id="provider" class="table table-bordered table-hover" ="0" width="100%">
+                 <ul id="pageDiv"></ul>
+                <table id="tblProvider" class="myTable table table-bordered" width="100%">
                  <thead>
                  <tr>
                      <th>手机(登录名)</th>
@@ -182,7 +177,13 @@
                             <td><%=obj.tel%></td>
                             <td><%=obj.gender%></td>
                             <td><%=obj.signupDate%></td>
-                            <td><%=obj.provider%></td>
+                            <td>
+                                <%if(obj.provider&&null!==obj.provider){%>
+                                    <%=obj.provider.name%>
+                                <%}else{%>
+                                    <%=""%>
+                                <%}%>
+                            </td>
                             <td><%=obj.isEnable%></td>
                         </tr>
                     <%});%>
@@ -193,66 +194,71 @@
     </div>
     </div>
 </div>
-
+<!-- hidden fields-->
+<input type="hidden" id="selectedId"/>
+<input type="hidden" id="tabActive"/>
 </body>
 
 
 
 
-<div class="modal fade" id="createProviderMemberModal">
+<div class="modal fade" id="createProviderMemberModal" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">新增供应商账号</h4>
+                <h4 class="modal-title" id="modalTilte"></h4>
             </div>
-            <form role="form" class="form-horizontal">
+            <form role="form" class="form-horizontal" id="pMbrForm">
             <div class="modal-body">
                    <div class="form-group">
                         <label for="name" class="col-md-2 control-label">账号</label>
-                        <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入手机号" id="name" required></div>
+                        <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入手机号" id="mobile" name="mobile" required></div>
                    </div>
                    <div class="form-group">
                        <label for="contactName" class="col-md-2 control-label">姓名</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入姓名" id="contactName"></div>
+                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入姓名" id="name" name="name"></div>
                    </div>
                    <div class="form-group">
                        <label for="contactPhone" class="col-md-2 control-label">邮箱</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入邮箱" id="contactPhone"></div>
+                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入邮箱" id="email" name="email"></div>
                    </div>
                    <div class="form-group">
                        <label for="proCode" class="col-md-2 control-label">联系电话</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入联系电话" id="proCode"></div>
+                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入联系电话" id="tel" name="tel"></div>
                    </div>
                    <div class="form-group">
                        <label for="balanceType" class="col-md-2 control-label">性别</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入性别" id="balanceType"></div>
+                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入性别" id="gender" name="gender"></div>
                    </div>
                    <div class="form-group">
                        <label for="returnType" class="col-md-2 control-label">身份证</label>
-                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入身份证号码" id="returnType"></div>
+                       <div class="col-md-10"><input type="text" class="form-control" placeholder="请输入身份证号码" id="idCard" name="idCard"></div>
                    </div>
                    <div class="form-group">
-                       <label for="providerInfo" class="col-md-2 control-label">所属供应商</label>
+                       <label for="provider" class="col-md-2 control-label">所属供应商</label>
                        <div class="col-md-10">
-                            <select class="form-control" id="providerInfo">
-                                <option value="providerID">providerName</option>
+                            <select class="form-control" id="provider"  name="provider" required>
+                                <option value="">请选择所属供应商</option>
+                                <%providerNames.forEach(function(p){%>
+                                <option value="<%=p._id%>"><%=p.name%></option>
+                                <%});%>
                             </select>
                        </div>
                    </div>
                    <div class="form-group">
-                    <label for="passwd" class="col-md-2 control-label">初始密码</label>
-                    <div class="col-md-10"><input type="password" class="form-control" placeholder="请输入账号密码" id="passwd"></div>
+                    <label for="passwd" class="col-md-2 control-label">账号密码</label>
+                    <div class="col-md-10"><input type="password" class="form-control" placeholder="请输入账号密码" id="passwd" name="passwd" required></div>
                    </div>
                    <div class="form-group">
                       <label for="operatorName" class="col-md-2 control-label">操作员</label>
-                      <div class="col-md-10"><input type="password" value="" class="form-control" id="operatorName" readonly></div>
+                      <div class="col-md-10"><input type="text" value="" class="form-control" id="operatorName" name="operatorName" readonly></div>
                    </div>
                    <div class="form-group">
                        <label for="isEnable" class="col-md-2 control-labdffel">是否启用</label>
                        <div class="col-md-10">
                             <div class="switch switch-small">
-                                <input id="isEnable" type="checkbox" checked />
+                                <input id="isEnable" name="isEnable" type="checkbox" checked />
                             </div>
                        </div>
                    </div>
@@ -260,7 +266,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="submit" class="btn btn-primary" id="createProvider">保存</button>
+                <button type="submit" class="btn btn-primary" data-loading-text="保存中...请稍候" id="savePMember">保存</button>
             </div>
             </form>
         </div><!-- /.modal-content -->
@@ -274,11 +280,16 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/bootstrap-switch.js"></script>
 <script src="./js/footer.js"></script>
+<script src="./js/common/providerMember.js"></script>
+<script src="./js/bootstrap-paginator.min.js"></script>
+<script src="./js/ejs.js"></script>
+<script src="/js/md5.js"></script>
 
 
 <script>
     $(document).ready(function() {
         $('#isEnable').bootstrapSwitch();
+        refreshPaginator(<%=currentPage%>,<%=totalPage%>);
     } );
 </script>
 

@@ -6,7 +6,13 @@
     <td><%=obj.tel%></td>
     <td><%=obj.gender%></td>
     <td><%=obj.signupDate%></td>
-    <td><%=obj.provider%></td>
+    <td>
+        <%if(obj.provider&&null!==obj.provider){%>
+        <%=obj.provider.name%>
+        <%}else{%>
+        <%=""%>
+        <%}%>
+    </td>
     <td><%=obj.isEnable%></td>
 </tr>
 <%});%>

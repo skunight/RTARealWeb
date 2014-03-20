@@ -2,9 +2,9 @@
  * Created by cloudbian on 14-3-14.
  */
 //save or update provider
-    $('#createProvider').click(function(e){
-        var url
-        $(this).button("loading");
+    $('#providerForm').submit(function(event){
+        var url;
+        $('#createProvider').button("loading");
         if("save"===$('#tabActive').val()){
             url = "/provider/add";
         }else{
@@ -33,7 +33,7 @@
                 alert("网络异常，请重试！");
             }
         });
-        return false;
+        event.preventDefault();
 });
 
 //show create dailog
@@ -106,6 +106,7 @@ function refreshPaginator(currentPage,totalPage){
     };
     $('#pageDiv').bootstrapPaginator(opt);
 }
+
 //refresh table and paginator
 function refreshTable(currentPage){
     //refresh table
