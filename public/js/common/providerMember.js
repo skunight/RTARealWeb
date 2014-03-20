@@ -70,7 +70,7 @@ $('#pMbrForm').submit(function(event){
 
 //show create dailog
 $('#showAdd').click(function(e){
-    $('#passwd').attr("readonly",false);
+    $('#pwdDiv').show();
     $('#tabActive').val("save");
     $('#modalTilte').val("新增供应商账号");
     $('#pMbrForm')[0].reset();
@@ -78,7 +78,7 @@ $('#showAdd').click(function(e){
 
 //show edit dailog
 $('#showEdit').click(function(e){
-    $('#passwd').attr("readonly",true);
+    $('#pwdDiv').hide();
     $('#tabActive').val("update");
     $('#modalTilte').val("编辑供应商账号");
     $(this).button("loading");
