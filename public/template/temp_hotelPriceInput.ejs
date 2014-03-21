@@ -1,0 +1,46 @@
+<%data.forEach(function(obj){%>
+<tr id="<%=obj.product._id%>">
+    <td><%=obj.product.name%></td>
+    <td><%=obj.startDate%></td>
+    <td><%=obj.endDate%></td>
+    <td>
+        <%if(obj.cost===obj.costWeekend){%>
+        底价:<%=obj.cost%>
+        <%}else{%>
+        底价:<%=obj.cost%>/<%=obj.costWeekend%>
+        <%}%>
+        </br>
+        <%if(obj.price===obj.priceWeekend){%>
+        卖价:<%=obj.price%>
+        <%}else{%>
+        卖价:<%=obj.price%>/<%=obj.priceWeekend%>
+        <%}%>
+        </br>
+        <%if(obj.marketPrice===obj.marketPriceWeekend){%>
+        市场价:<%=obj.marketPrice%>
+        <%}else{%>
+        市场价:<%=obj.marketPrice%>/<%=obj.marketPriceWeekend%>
+        <%}%>
+        </br>
+        <%if(obj.packagePrice===obj.packagePriceWeekend){%>
+        打包价:<%=obj.packagePrice%>
+        <%}else{%>
+        打包价:<%=obj.packagePrice%>/<%=obj.packagePriceWeekend%>
+        <%}%>
+        </br>
+        <%if(obj.inventoryType===1){%>
+        库存: (<%=obj.inventory%>)
+        <%}else{%>
+        <%if(obj.inventory===obj.inventoryWeekend){%>
+        库存: <%=obj.inventory%>
+        <%}else{%>
+        库存: <%=obj.inventory%>/<%=obj.inventoryWeekend%>
+        <%}%>
+        <%}%>
+    </td>
+    <td><%=obj.weekend%></td>
+    <td>录入员</td>
+    <td><%=obj.status%></td>
+    <td><%=obj.createTime%></td>
+</tr>
+<%});%>

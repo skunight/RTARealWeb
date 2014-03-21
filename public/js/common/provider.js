@@ -41,6 +41,8 @@ $('#showCreate').click(function(e){
     $('#tabActive').val("save");
     $('#modalTilte').val("新建供应商");
     $('#providerForm')[0].reset();
+    $('#isEnable').val(true);
+//    $('#isEnable').bootstrapSwitch('state',true);
 });
 
 //show edit dailog

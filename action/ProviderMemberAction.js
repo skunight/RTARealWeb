@@ -16,6 +16,9 @@ exports.viewProviderMemberManager = function(req,res){
                 new httpClient(opt).getReq(function(err,result){
                     if(result.error===0){
                         result.currentPage = 1;
+                        if(result.totalPage===0){
+                            result.totalPage++;
+                        }
                         cb(err,result);
                     }else{
                         throw "error,pls contact admin!";
@@ -144,6 +147,9 @@ exports.getProviderMembersList = function(req,res){
         new httpClient(opt).getReq(function(err,result){
             ret = result;
             ret.currentPage = page+1;
+            if(result.totalPage===0){
+                ret.totalPage++;
+            }
             res.json(ret);
         });
     } catch(e){

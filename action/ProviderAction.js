@@ -21,7 +21,9 @@ exports.viewProviderManger = function(req,res){
             ret.proName = "供应商";
             ret.modName = "供应商管理";
             ret.currentPage =1;
-
+            if(result.totalPage===0){
+                ret.totalPage++;
+            }
             res.render("providerManagement",ret);
         });
 
@@ -108,6 +110,9 @@ exports.getProviders = function(req,res){
         new httpClient(opt).getReq(function(err,result){
             ret = result;
             ret.currentPage = page+1;
+            if(result.totalPage===0){
+                ret.totalPage++;
+            }
             res.json(ret);
         });
     } catch(e){
