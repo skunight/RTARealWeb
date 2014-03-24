@@ -51,10 +51,10 @@ db.ents.save(a)
 
 
 
-var a= {code:'providerManagement',name:'供应商管理',cat:'供应商',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:1}
+var a= {code:'provider',name:'供应商管理',cat:'供应商',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:1}
 db.pro.modules.save(a);
 
-var a={code:'providerMemberManagement',name:'供应商账号管理',cat:'供应商',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:2}
+var a={code:'providerMember',name:'供应商账号管理',cat:'供应商',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:2}
 db.pro.modules.save(a);
 
 var a={code:'ticketManagement',name:'门票产品录入',cat:'产品',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:10}
