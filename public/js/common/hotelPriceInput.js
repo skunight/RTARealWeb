@@ -2,7 +2,7 @@
  * Created by cloudbian on 14-3-19.
  */
 //search list
-$('#srhForm').submit(function(event){
+$('#query').click(function(event){
     $('#query').button("loading");
     $.ajax({
         type: "post",
@@ -30,6 +30,51 @@ $('#srhForm').submit(function(event){
         }
     });
     event.preventDefault();
+});
+
+//auto print value for addHotelPriceModal
+$('#cost').keyup(function(){
+    if(""!==$('#cost').val().trim){
+        $('#costWeekend').val($('#cost').val());
+    }
+});
+
+$('#price').keyup(function(){
+    if(""!==$('#price').val().trim){
+        $('#priceWeekend').val($('#price').val());
+        $('#packagePrice').val($('#price').val());
+        $('#packagePriceWeekend').val($('#price').val());
+        $('#marketPrice').val($('#price').val());
+        $('#marketPriceWeekend').val($('#price').val());
+
+    }
+});
+
+$('#packagePrice').keyup(function(){
+    if(""!==$('#packagePrice').val().trim){
+        $('#packagePriceWeekend').val($('#packagePrice').val());
+    }
+});
+
+$('#marketPrice').keyup(function(){
+    if(""!==$('#marketPrice').val().trim){
+        $('#marketPriceWeekend').val($('#marketPrice').val());
+    }
+});
+
+$('#inventory').keyup(function(){
+    if(""!==$('#inventory').val().trim){
+        $('#inventoryWeekend').val($('#inventory').val());
+    }
+});
+
+//isShow inventoryWeekend
+$('#inventoryType').change(function(){
+    if("0"===$('#inventoryType').val()){
+        $('#inventoryWeekend').show();
+    }else{
+        $('#inventoryWeekend').hide();
+    }
 });
 
 //save or update provider
@@ -71,6 +116,9 @@ $('#pMbrForm').submit(function(event){
 //show create dailog
 $('#showAdd').click(function(e){
     $('#addForm')[0].reset();
+    if("0"===$('#inventoryType').val()){
+        $('#inventoryWeekend').show();
+    }
 });
 
 //refresh paginator
@@ -111,4 +159,9 @@ function refreshTable(currentPage){
             alert("网络异常，请重试！");
         }
     });
+}
+
+//format date to yyyy-MM-dd
+function formatDate(time){
+    return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate();
 }

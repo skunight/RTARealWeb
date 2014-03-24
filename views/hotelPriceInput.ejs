@@ -8,6 +8,7 @@
     <title><%=proName%>-<%=modName%></title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/bootstrap-switch.css" rel="stylesheet">
+    <link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
 </head>
 <body>
@@ -106,7 +107,12 @@
                     <div class="form-group">
                         <label class="control-label col-md-1" for="searchCity">城市：</label>
                         <div class="col-md-2">
-                            <input type="text" id="searchCity" class="form-control">
+                            <select class="form-control" id="searchCity">
+                                <option id="">全部城市</option>
+                                <%citys.forEach(function(obj){%>
+                                <option id="<%=obj._id%>"><%=obj.name%></option>
+                                <%});%>
+                            </select>
                         </div>
                         <label class="control-label col-md-1" for="searchProduct">酒店产品：</label>
                         <div class="col-md-2">
@@ -115,12 +121,16 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-1" for="searchStartDate">有效期：</label>
-                        <div class="col-md-2">
-                            <input type="text" id="searchStartDate" class="form-control">
+                        <div class="input-group date col-md-2" data-date="" data-date-format="yyyy-mm-dd" data-link-field="sDate" data-link-format="yyyy-mm-dd" id="searchStartDate">
+                            <input class="form-control" size="8" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                         </div>
                         <div class="col-md-1">~~</div>
-                        <div class="col-md-2">
-                            <input type="text" id="searchEndDate" class="form-control">
+                        <div class="input-group date col-md-2" data-date="" data-date-format="yyyy-mm-dd" data-link-field="eDate" data-link-format="yyyy-mm-dd" id="searchEndDate">
+                            <input class="form-control" size="8" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                         </div>
                     </div>
 
@@ -157,7 +167,7 @@
                             </select>
                         </div>
                          <div class="col-md-1 col-md-offset-1">
-                             <button id="query" class="btn btn-danger form-control">查询</button>
+                             <button id="query" class="btn btn-danger form-control" data-loading-text="载入中...请稍候">查询</button>
                          </div>
                     </div>
                 </form>
@@ -242,7 +252,8 @@
     </div>
     </div>
 </div>
-
+<!-- hidden fields -->
+<input type="hidden" id="sDate" value="" />
 </body>
 
 
@@ -259,7 +270,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="city" class="col-md-2 control-label">城市</label>
-                            <div class="col-md-4"><select class="form-control" id="city">
+                            <div class="col-md-4">
+                                <select class="form-control" id="city" required>
                                         <option id="">请选择城市</option>
                                     <%citys.forEach(function(obj){%>
                                         <option id="<%=obj._id%>"><%=obj.name%></option>
@@ -267,15 +279,15 @@
                                 </select>
                             </div>
                             <label for="name" class="col-md-2 control-label">产品名称</label>
-                            <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入产品名称" id="name"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" placeholder="请输入产品名称" id="name" required></div>
                         </div>
 
 
                         <div class="form-group">
                             <label for="startDate" class="col-md-2 control-label">有效期</label>
-                            <div class="col-md-4"><input type="text" class="form-control" placeholder="有效期开始" id="startDate"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" placeholder="有效期开始" id="startDate" required></div>
                             <div class="col-md-1">~~</div>
-                            <div class="col-md-4"><input type="text" class="form-control" placeholder="有效期结束" id="endDate"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" placeholder="有效期结束" id="endDate" required></div>
                         </div>
 
                         <div class="form-group">
@@ -286,33 +298,33 @@
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="cost">底价</label>
-                            <div class="col-md-4"><input type="text" class="form-control" id="cost"></div>
-                            <div class="col-md-4"><input type="text" class="form-control" id="costWeekend"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="cost" required></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="costWeekend" required></div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="price">卖价</label>
-                            <div class="col-md-4"><input type="text" class="form-control" id="price"></div>
-                            <div class="col-md-4"><input type="text" class="form-control" id="priceWeekend"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="price" required></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="priceWeekend" required></div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="packagePrice">打包价</label>
-                            <div class="col-md-4"><input type="text" class="form-control" id="packagePrice"></div>
-                            <div class="col-md-4"><input type="text" class="form-control" id="packagePriceWeekend"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="packagePrice" required></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="packagePriceWeekend" required></div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="marketPrice">市场价</label>
-                            <div class="col-md-4"><input type="text" class="form-control" id="marketPrice"></div>
-                            <div class="col-md-4"><input type="text" class="form-control" id="marketPriceWeekend"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="marketPrice" required></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="marketPriceWeekend" required></div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="inventory" >库存</label>
-                            <div class="col-md-4"><input type="text" class="form-control" id="inventory"></div>
-                            <div class="col-md-3"><input type="text" class="form-control" id="inventoryWeekend"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" id="inventory" required></div>
+                            <div class="col-md-3"><input type="text" class="form-control" id="inventoryWeekend" required></div>
                             <div class="col-md-3">
-                                <select class="form-control" id="inventoryType">
+                                <select class="form-control" id="inventoryType" required>
                                     <option value="0">单日</option>
                                     <option value="1">总量</option>
                                 </select>
@@ -321,28 +333,28 @@
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" >周末定义</label>
-                            <label class="col-md-2">
-                                周一<input type="checkbox">
+                            <label class="col-md-2 checkbox-inline">
+                                周一<input type="checkbox" name="ckWeek">
                             </label>
-                            <label class="col-md-2">
-                                周二<input type="checkbox">
+                            <label class="col-md-2 checkbox-inline">
+                                周二<input type="checkbox" name="ckWeek">
                             </label>
-                            <label class="col-md-2">
-                                周三<input type="checkbox">
+                            <label class="col-md-2 checkbox-inline">
+                                周三<input type="checkbox" name="ckWeek">
                             </label>
-                            <label class="col-md-2">
-                                周四<input type="checkbox">
+                            <label class="col-md-2 checkbox-inline">
+                                周四<input type="checkbox" name="ckWeek">
                             </label>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-md-offset-2">
-                                周五<input type="checkbox">
+                            <label class="col-md-2 col-md-offset-2 checkbox-inline">
+                                周五<input type="checkbox" name="ckWeek">
                             </label>
-                            <label class="col-md-2">
-                                周六<input type="checkbox" checked>
+                            <label class="col-md-2 checkbox-inline">
+                                周六<input type="checkbox" name="ckWeek" checked>
                             </label>
-                            <label class="col-md-2">
-                                周日<input type="checkbox" checked>
+                            <label class="col-md-2 checkbox-inline">
+                                周日<input type="checkbox" name="ckWeek" checked>
                             </label>
                         </div>
 
@@ -386,6 +398,8 @@
 <script src="./js/footer.js"></script>
 <script src="./js/common/hotelPriceInput.js"></script>
 <script src="./js/bootstrap-paginator.min.js"></script>
+<script src="./js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+<script src="./js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script src="./js/ejs.js"></script>
 
 
@@ -393,6 +407,35 @@
     $(document).ready(function() {
         $('#isEnable').bootstrapSwitch();
     } );
+    var nowTime = new Date();
+    //search start Date
+    $('#searchStartDate').datetimepicker({
+        language:'zh-CN',
+        weekStart: 0,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    $('#searchStartDate').datetimepicker("setStartDate",formatDate(nowTime));
+    //search end Date
+    $('#searchEndDate').datetimepicker({
+        language:'zh-CN',
+        weekStart: 0,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    //set end Date start and end
+    nowTime.setDate(nowTime.getDate()+1);
+    $('#searchEndDate').datetimepicker("setStartDate",formatDate(nowTime));
+    nowTime.setFullYear(nowTime.getFullYear()+1);
+    $('#searchEndDate').datetimepicker("setEndDate",formatDate(nowTime));
     refreshPaginator(<%=currentPage%>,<%=totalPage%>);
 </script>
 
