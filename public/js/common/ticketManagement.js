@@ -33,7 +33,10 @@ $('#showEdit').click(function(){
                     $('#content').val(data.data.content);
                     $('#intro').val(data.data.intro);
 //                    $('#image').val(data.data.image);
-//                    $('#city').val(data.data.city);
+                    //$('#city').val(data.data.city);
+                    if(undefined!==data.data.city){
+                        $("#city option[value='"+data.data.city._id+"']").attr("selected",true);
+                    }
                     $('#addr').val(data.data.addr);
                     $('#lat').val(data.data.gps.lat);
                     $('#lon').val(data.data.gps.lon);
@@ -104,40 +107,36 @@ var insertCityOptions = function(selectTag){
 
 }
 
-//$('#modalForm').submit(function(e){
-////    $('#doCreate').click(function(e){
-//    e.preventDefault();
-//    if($('#modalType').html()=='新增'){
-//        url = "/ticketManagement/add";
-//    }else{
-//        url =  "/ticketManagement/update/"+$('#selectedId').val();
-//    }
-//    postData = $('#modalForm').serialize();
-//    postData += "&gps=222,2222";
-//    postData += "&image=dfafds:dasfdsa,dsfasdf:dfadsf";
-//    postData += "&isEnable="+$('#isEnable').bootstrapSwitch('state').toString();
-//    console.log(postData);
-//    $.ajax({
-//        type: "post",
-//        url: url,
-//        cache:false,
-//        data:postData,
-//    }).done(function(data, textStatus){
-//            if(data.error!=0){
-//                alert("保存错误："+data.errMsg);
-//            }else{
-//                $('#createModal').modal("toggle");
-//            }
-//        }).fail(function(){
-//               alert("网络异常，请重试！");
-//        }).always(function(){
-//            $('#doCreate').button("reset");
-//        });
-//    return false;
-//});
+$('#modalForm').submit(function(e){
+//    $('#doCreate').click(function(e){
+    e.preventDefault();
+    if($('#modalType').html()=='新增'){
+        url = "/ticketManagement/add";
+    }else{
+        url =  "/ticketManagement/update/"+$('#selectedId').val();
+    }
+    postData = $('#modalForm').serialize();
+    postData += "&gps=222,2222";
+    postData += "&image=dfafds:dasfdsa,dsfasdf:dfadsf";
+    postData += "&isEnable="+$('#isEnable').bootstrapSwitch('state').toString();
+    console.log(postData);
+    $.ajax({
+        type: "post",
+        url: url,
+        cache:false,
+        data:postData,
+    }).done(function(data, textStatus){
+            if(data.error!=0){
+                alert("保存错误："+data.errMsg);
+            }else{
+                $('#createModal').modal("toggle");
+            }
+        }).fail(function(){
+               alert("网络异常，请重试！");
+        }).always(function(){
+            $('#doCreate').button("reset");
+        });
+    return false;
+});
 
 
-
-$('#doCreate').click(function(){
-
-})

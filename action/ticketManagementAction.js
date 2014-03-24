@@ -21,18 +21,24 @@ exports.list = function(req,res){
     opt.path="/product/"+productType+"/list?page="+((req.query.current  > 0 ? req.query.current  :  1)-1);
     opt.method="GET";
     console.log(opt.path);
-    var ret = {};
+    var viewData = {};
     try{
         var http = new httpClient(opt);
         http.getReq(function(err,result){
-            ret.proName   = propName;
-            ret.modName   = modName;
-            console.log(result.data);
-            ret.data      = result.data;
-            ret.pageInfo  = Paging.getPageInfo(req.query,result.totalPage);
-            res.render(template,ret);
-        });
+            viewData.proName   = propName;
+            viewData.modName   = modName;
+//            console.log(result.data);
+            viewData.data      = result.data;
+            viewData.pageInfo  = Paging.getPageInfo(req.query,result.totalPage);
 
+            opt.path = '/city/shortList';
+            opt.method='GET';
+            var httpCity = new httpClient(opt);
+            httpCity.getReq(function(err,result){
+                viewData.cityInfo = result.data;
+                res.render(template,viewData);
+            });
+        });
     } catch(e){
         ret.error = 1;
         ret.errMsg = e.message+"，请联系管理员！";

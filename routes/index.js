@@ -33,4 +33,9 @@ module.exports = function(app){
     //file upload
     app.post('/file-upload', FileUploadAction.fileUpload);
 
+    app.get('/ticketManagement',ticketManagementAction.list);
+    app.post('/ticketManagement/add',ticketManagementAction.add);
+    app.post('/ticketManagement/update/:id',ticketManagementAction.update);
+    app.get('/ticketManagement/detail',ticketManagementAction.viewDetail);
+
 };

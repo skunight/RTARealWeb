@@ -263,7 +263,9 @@
                         <label for="city" class="col-md-2 control-label">所属城市</label>
                         <div class="col-md-4">
                             <select class="form-control"  id="city" name="city">
-                                <option value="5326a195b8d99d2f7b504229">上海</option>
+                                <%cityInfo.forEach(function(city){%>
+                                <option value="<%=city._id%>"><%=city.name%></option>
+                                <%});%>
                             </select>
                         </div>
                         <label for="level" class="col-md-2 control-label">产品级别</label>
