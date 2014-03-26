@@ -3,6 +3,7 @@
  */
 
 exports.inf = {
+//    host:'localhost',
     host:'172.16.0.15',
-    port:3000
+    port:3333
 };

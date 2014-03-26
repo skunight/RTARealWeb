@@ -9,7 +9,7 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/bootstrap-switch.css" rel="stylesheet">
     <!--<link href="./css/jquery.fileupload.css" rel="stylesheet">-->
-    <link href="./css/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+    <link href="./css/ui-lightness/jqueryui.min.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
     <style>
         #createModal .modal-dialog{
@@ -160,9 +160,9 @@
                                 <td><%=obj.name%></td>
                                 <td><%=obj.city.name%></td>
                                 <td><%=obj.level%></td>
-                                <td><%=obj.effectDate%></td>
-                                <td><%=obj.expiryDate%></td>
-                                <td><%=obj.createTime%></td>
+                                <td><%=new Date(obj.effectDate).Format("yyyy-MM-dd")%></td>
+                                <td><%=new Date(obj.expiryDate).Format("yyyy-MM-dd")%></td>
+                                <td><%=new Date(obj.createTime).Format("yyyy-MM-dd")%></td>
                                 <td><%=obj.subType%></td>
                                 <td><%=obj.isEnable%></td>
                          </tr>
@@ -193,7 +193,7 @@
                         <div class="form-group">
                                 <label for="image" class="col-md-2 control-label">图片名称</label>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" id="imgintro" required>
+                                    <input type="text" class="form-control" id="imgintro">
                                 </div>
                                 <label for="image" class="col-md-2 control-label">图片</label>
                                 <!--<span class="col-md-2 btn btn-success">-->
@@ -225,7 +225,7 @@
 
 
 
-                    <form role="form" class="form-horizontal" id="modalForm">
+         <form role="form" class="form-horizontal" id="modalForm">
                     <div class="form-group">
                         <label for="name" class="col-md-2 control-label">产品名称</label>
                         <div class="col-md-10">
@@ -322,11 +322,11 @@
                     <div class="form-group">
                         <label for="effectDate" class="col-md-2 control-label">有效期</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="有效期开始" id="effectDate" name="effectDate" required>
+                            <input type="text" class="date form-control" placeholder="有效期开始" id="effectDate" name="effectDate" readonly required>
                         </div>
                         <div class="col-md-1">~~</div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="有效期结束" id="expiryDate" name="expiryDate" required>
+                            <input type="text" class="date form-control" placeholder="有效期结束" id="expiryDate" name="expiryDate" readonly required>
                         </div>
                     </div>
                     <!--<div class="form-group">-->
@@ -369,7 +369,7 @@
                     </div>
                 </div>
 
-            </form>
+         </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary" id="doCreate">保存</button>
@@ -385,17 +385,23 @@
 
 
 <script src="./js/jquery.min.js"></script>
-<script src="./js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="./js/jqueryui.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/bootstrap-switch.js"></script>
+<script src="./js/moment.js"></script>
 <script src="./js/footer.js"></script>
 <script src="./js/common/ticketManagement.js"></script>
+
 
 
 <script>
     $(document).ready(function() {
         $('#isEnable').bootstrapSwitch();
         $('#imgPreview').sortable();
+        $('.date').datepicker({
+            "dateFormat": 'yy-mm-dd'
+        } );
+
     } );
 </script>
 

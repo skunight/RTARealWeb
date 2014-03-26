@@ -11,6 +11,7 @@ module.exports = function(app){
     var ProviderMemberAction = require('./../action/ProviderMemberAction');
     var ticketManagementAction = require('./../action/ticketManagementAction');
     var MemberAction = require('./../action/MemberAction');
+    var hotelPriceQueryAction = require('./../action/hotelPriceQueryAction');
     var HotelPriceInputAction = require('./../action/HotelPriceInputAction');
     app.get('/',function(request,response){
         response.render("index",{});
@@ -32,10 +33,11 @@ module.exports = function(app){
     app.get('/hotelPriceInput',HotelPriceInputAction.viewHotelPriceInput);
     //file upload
     app.post('/file-upload', FileUploadAction.fileUpload);
-
+    //ticketManagement
     app.get('/ticketManagement',ticketManagementAction.list);
     app.post('/ticketManagement/add',ticketManagementAction.add);
     app.post('/ticketManagement/update/:id',ticketManagementAction.update);
     app.get('/ticketManagement/detail',ticketManagementAction.viewDetail);
-
+    //hotelPriceQuery
+    app.get('/hotelPriceQuery',hotelPriceQueryAction.list);
 };
