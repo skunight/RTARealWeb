@@ -4,6 +4,7 @@
 var httpClient = require('./../tools/HttpClient.js');
 var config = require('./../tools/Config.js');
 var async = require('async');
+var underscore = require('underscore');
 exports.viewHotelPriceInput = function(req,res){
     var ret;
         async.waterfall([
@@ -59,7 +60,6 @@ exports.viewHotelPriceInput = function(req,res){
                         ret.citys = result.data;
                         ret.proName = "酒店";
                         ret.modName = "价格录入";
-                        console.log(ret);
                         cb(err,result);
                         res.render("hotelPriceInput",ret);
                     }else{
@@ -95,17 +95,14 @@ exports.getProductNames = function(req,res){
         path:"/product/"+productType+"/shortList"+params,
         method:"GET"
     };
-    console.log("========================="+opt.path);
     try{
         new httpClient(opt).getReq(function(err,result){
-            console.log(result);
             if(result.error===0){
-                console.log(result.data);
                 var ret = [];
                 result.data.forEach(function(obj){
                     var row = {};
                     row.label = obj.name;
-                    row.value = obj.name;
+                    row.value = obj._id;
                     ret.push(row);
                 });
                 res.json(ret);
@@ -119,88 +116,89 @@ exports.getProductNames = function(req,res){
         res.json([]);
     }
 };
-//
-//exports.addPMember = function(req,res){
-//    var params = req.body;
-//    var opt = {
-//        hostname:'172.16.0.15',
-//        port:3000,
-//        path:"/ent/provider/member/create",
-//        method:"POST"
-//    };
-//    try{
-//        new httpClient(opt).postReq(params,function(err,response){
-////                    console.log("save provider Member finish..."+err+","+response);
-//            res.json({error:response.error,errMsg:response.errorMsg});
-//        });
-//    } catch(e){
-//        console.log(e.message);
-//        res.json({error:1,errMsg: e.message});
-//    }
-//};
-//
 
-//exports.getProviderMember = function(req,res){
-//    var opt = {
-//        hostname:'172.16.0.15',
-//        port:3000,
-//        path:"/ent/provider/member/detail/"+req.body.id,
-//        method:"GET"
-//    };
-//    try{
-//        var http = new httpClient(opt);
-//        http.getReq(function(err,result){
-//            res.json(result);
-//        });
-//    } catch(e){
-//        console.log(e.message);
-//        res.json({error:1,errMsg: e.message});
-//    }
-//};
-//
-//exports.getProviderMembersList = function(req,res){
-//    var params;
-//    var page = 0;
-//    if(req.body.current&&req.body.current>0){
-//        page = req.body.current-1;
-//    }
-//    params = "page="+page;
-//    //check
-//    if(req.body.searchMobile&&null!==req.body.searchMobile&&""!==req.body.searchMobile){
-//        params += "&mobile="+req.body.searchMobile;
-//    }
-//    if(req.body.searchName&&null!==req.body.searchName&&""!==req.body.searchName){
-//        params += "&name="+req.body.searchName;
-//    }
-//    if(req.body.searchEmail&&null!==req.body.searchEmail&&""!==req.body.searchEmail){
-//        params += "&email="+req.body.searchEmail;
-//    }
-//    if(req.body.searchProvider&&null!==req.body.searchProvider&&""!==req.body.searchProvider){
-//        params += "&provider="+req.body.searchProvider;
-//    }
-//    if(req.body.searchisEnable&&null!==req.body.searchisEnable&&""!==req.body.searchisEnable){
-//        params += "&isEnable="+req.body.searchisEnable;
-//    }
-//    console.log(params);
-//    //req
-//    var opt = {
-//        hostname:'172.16.0.15',
-//        port:3000,
-//        path:"/ent/provider/member/list?"+params,
-//        method:"GET"
-//    };
-//    console.log(params);
-//    var ret = {};
-//    try{
-//        new httpClient(opt).getReq(function(err,result){
-//            ret = result;
-//            ret.currentPage = page+1;
-//            res.json(ret);
-//        });
-//    } catch(e){
-//        ret.error = 1;
-//        ret.errMsg = e.message+"，请联系管理员！";
-//        res.json(ret);
-//    }
-//
-//};
+exports.addInputLog = function(req,res){
+    var params = req.body;
+    params.startDate = new Date(params.startDate).getTime();
+    params.endDate = new Date(params.endDate).getTime();
+    delete params.addCity;
+    if(!underscore.isArray(params.weekend)){
+        params.weekend = [params.weekend];
+    }
+    var opt = {
+        hostname:config.inf.host,
+        port:config.inf.host,
+        path:"/product/hotel/price/create",
+        method:"POST"
+    };
+    try{
+        console.log("params::::::::::::"+JSON.stringify(req.body));
+        new httpClient(opt).postReq(params,function(err,response){
+                    console.log("save finish..."+err,response);
+//            res.json({error:response.error,errMsg:response.errorMsg});
+            res.json({error:0});
+        });
+
+    } catch(e){
+        console.log(e.message);
+        res.json({error:1,errMsg: e.message});
+    }
+};
+
+
+exports.getHotelPriceLogList = function(req,res){
+    var params;
+    var page = 0;
+    if(req.body.current&&req.body.current>0){
+        page = req.body.current-1;
+    }
+    params = "page="+page;
+    //check
+    if(req.body.product&&null!==req.body.product&&""!==req.body.product){
+        params += "&product="+req.body.product;
+    }
+    if(req.body.startDate&&null!==req.body.startDate&&""!==req.body.startDate){
+        params += "&startDate="+req.body.startDate;
+    }
+    if(req.body.endDate&&null!==req.body.endDate&&""!==req.body.endDate){
+        params += "&endDate="+req.body.endDate;
+    }
+    if(req.body.operator&&null!==req.body.operator&&""!==req.body.operator){
+        params += "&operator="+req.body.operator;
+    }
+    if(req.body.provider&&null!==req.body.provider&&""!==req.body.provider){
+        params += "&provider="+req.body.provider;
+    }
+    if(req.body.status&&null!==req.body.status&&""!==req.body.status){
+        params += "&status="+req.body.status;
+    }
+    //req
+    var opt = {
+        hostname:config.inf.host,
+        port:config.inf.port,
+        path:"/product/hotel/priceLog/list?"+params,
+        method:"GET"
+    };
+
+    var ret = {};
+    try{
+        new httpClient(opt).getReq(function(err,result){
+            if(result.error===0){
+                ret = result;
+                ret.currentPage = 1;
+                if(result.totalPage===0){
+                    ret.totalPage++;
+                }
+                res.json(ret);
+            }else{
+                throw "error,pls contact admin!";
+            }
+
+        });
+    } catch(e){
+        ret.error = 1;
+        ret.errMsg = e.message+"，请联系管理员！";
+        res.json(ret);
+    }
+
+};

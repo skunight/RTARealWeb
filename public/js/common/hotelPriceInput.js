@@ -4,34 +4,31 @@
 //search list
 $('#query').click(function(event){
     $('#query').button("loading");
-    console.log($('#srhForm').serialize());
-    console.log($('#sDate').val());
-    console.log($('#eDate').val());
-//    $.ajax({
-//        type: "post",
-//        url: "/providerMember/list",
-//        cache:false,
-////            dataType:"json",
-//        data:$('#srhForm').serialize(),
-//        success: function(data, textStatus){
-//            if(data.error!==0){
-//                console.log(data);
-//                alert("查询出错！");
-//            }else{
-//                var html = new EJS({url:"./template/temp_providerMember.ejs"}).render(data);
-//                $('#tblcontent').html(html);
-//                refreshPaginator(data.data.currentPage,data.data.totalPage);
-//            }
-//        },
-//        complete: function(XMLHttpRequest, textStatus){
-//            //HideLoading();
+    $.ajax({
+        type: "post",
+        url: "/hotelPriceInput/list",
+        cache:false,
+//            dataType:"json",
+        data:{product:$('#productId').val(),startDate:new Date($('#sDate').val()).getTime(),endDate:new Date($('#eDate').val()).getTime(),operator:$('#searchOperator').val(),provider:$('#searchProvider').val(),status:$('#searchStatus').val()},
+        success: function(data, textStatus){
+            if(data.error!==0){
+                console.log(data);
+                alert("查询出错！");
+            }else{
+                var html = new EJS({url:"./template/temp_hotelPriceInput.ejs"}).render(data);
+                $('#tblcontent').html(html);
+                refreshPaginator(data.data.currentPage,data.data.totalPage);
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+            //HideLoading();
             $('#query').button("reset");
-//        },
-//        error: function(){
-//            //请求出错处理
-//            alert("网络异常，请重试！");
-//        }
-//    });
+        },
+        error: function(){
+            //请求出错处理
+            alert("网络异常，请重试！");
+        }
+    });
 });
 
 //autocomplete for product name
@@ -55,9 +52,14 @@ $('#searchProduct').autocomplete({
             }
         });
     },
+    select:function( event, ui ){
+        event.preventDefault();
+        $('#searchProduct').text(ui.item.label);
+        $('#productId').val(ui.item.value);
+    },
     max:10,
     minLength:2,
-    width:$(this).width()
+//    width:$(this).width(),
 });
 
 //auto print value for addHotelPriceModal
@@ -105,33 +107,71 @@ $('#inventoryType').change(function(){
     }
 });
 
-//save or update provider
-$('#pMbrForm').submit(function(event){
-    var url;
-    $('#savePMember').button("loading");
-    if("save"===$('#tabActive').val()){
-        url = "/providerMember/add";
-        $('#passwd').val(faultylabs.MD5($('#passwd').val()).toLowerCase());
-    }else{
-        url =  "/providerMember/update/"+$('#selectedId').val();
+//auto list productNames
+$('#addCity').change(function(){
+    $('#products').html("");
+    $.ajax({
+        type: "get",
+        url: "/getProductNames/hotel/",
+        cache:false,
+//            dataType:"json",
+        data:{city:$('#addCity').val()},
+        success: function(data, textStatus){
+            var html = "";
+           data.forEach(function(obj){
+               html +="<option value="+obj.value+">"+obj.label+"</option>"
+           });
+            $('#product').append(html);
+        },
+        complete: function(XMLHttpRequest, textStatus){
+            //HideLoading();
+        },
+        error: function(){
+            //请求出错处理
+            alert("网络异常，请重试！");
+        }
+    });
+});
+
+//save log
+$('#addForm').submit(function(event){
+    $('#createVoture').button("loading");
+    var weeks = 0;
+    $('input[name="weekend"]:checked').each(function(){
+        weeks++;
+    });
+    if(weeks<=0){
+        alert("请选择周末定义！！！");
+        $('#createVoture').button("reset");
+        return false;
+    }
+    if($('#startDate').val()===""){
+        alert("请选择开始日期");
+        $('#createVoture').button("reset");
+        return false;
+    }
+    if($('#endDate').val()===""){
+        alert("请选择结束日期");
+        $('#createVoture').button("reset");
+        return false;
     }
     $.ajax({
         type: "post",
-        url: url,
+        url: "/hotelPriceInput/add",
         cache:false,
 //            dataType:"json",
-        data:$('#pMbrForm').serialize(),
+        data:$('#addForm').serialize(),
         success: function(data, textStatus){
             if(data.error!==0){
-                alert("保存供应商错误："+data.errMsg);
+                alert("保存记录错误："+data.errMsg);
             }else{
                 refreshTable(1);
             }
         },
         complete: function(XMLHttpRequest, textStatus){
             //HideLoading();
-            $('#savePMember').button("reset");
-            $('#createProviderMemberModal').modal("toggle");
+            $('#createVoture').button("reset");
+            $('#addHotelPriceModal').modal("toggle");
         },
         error: function(){
             //请求出错处理
@@ -170,7 +210,7 @@ function refreshTable(currentPage){
     //refresh table
     $.ajax({
         type: "post",
-        url: "/providerMember/list",
+        url: "/hotelPriceInput/list",
         cache:false,
 //            dataType:"json",
         data:{current:currentPage},
