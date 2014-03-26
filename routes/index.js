@@ -31,6 +31,7 @@ module.exports = function(app){
     app.post('/providerMember/list',ProviderMemberAction.getProviderMembersList);
     //hotel price input
     app.get('/hotelPriceInput',HotelPriceInputAction.viewHotelPriceInput);
+    app.get('/getProductNames',HotelPriceInputAction.getProductNames);
     //file upload
     app.post('/file-upload', FileUploadAction.fileUpload);
     //ticketManagement

@@ -73,6 +73,44 @@ exports.viewHotelPriceInput = function(req,res){
             }
         });
 };
+
+//autocompelete product name
+exports.getProductNames = function(req,res){
+    var params="?page=0&pageSize=10";
+    if(""!==req.body.name){
+        params +="&name="+req.body.name;
+    }
+    if(""!==req.body.city){
+        params +="&city="+req.body.city;
+    }
+    var opt = {
+        hostname:'172.16.0.15',
+        port:3000,
+        path:"/product/hotel/shortList"+params,
+        method:"GET"
+    };
+    try{
+        new httpClient(opt).getReq(function(err,result){
+            if(result.error===0){
+                console.log(result.data);
+                var ret = [];
+                result.data.forEach(function(obj){
+                    var row = {};
+                    row.label = obj.name;
+                    row.value = obj._id;
+                    ret.push(row);
+                });
+                res.json(ret);
+            }else{
+                throw "error,pls contact admin!";
+            }
+
+        });
+    } catch(e){
+        console.log(e.message);
+        res.json([]);
+    }
+};
 //
 //exports.addPMember = function(req,res){
 //    var params = req.body;

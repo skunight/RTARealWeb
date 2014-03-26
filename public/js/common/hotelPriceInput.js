@@ -4,32 +4,42 @@
 //search list
 $('#query').click(function(event){
     $('#query').button("loading");
-    $.ajax({
-        type: "post",
-        url: "/providerMember/list",
-        cache:false,
-//            dataType:"json",
-        data:$('#srhForm').serialize(),
-        success: function(data, textStatus){
-            if(data.error!==0){
-                console.log(data);
-                alert("查询出错！");
-            }else{
-                var html = new EJS({url:"./template/temp_providerMember.ejs"}).render(data);
-                $('#tblcontent').html(html);
-                refreshPaginator(data.data.currentPage,data.data.totalPage);
-            }
-        },
-        complete: function(XMLHttpRequest, textStatus){
-            //HideLoading();
+    console.log($('#srhForm').serialize());
+    console.log($('#sDate').val());
+    console.log($('#eDate').val());
+//    $.ajax({
+//        type: "post",
+//        url: "/providerMember/list",
+//        cache:false,
+////            dataType:"json",
+//        data:$('#srhForm').serialize(),
+//        success: function(data, textStatus){
+//            if(data.error!==0){
+//                console.log(data);
+//                alert("查询出错！");
+//            }else{
+//                var html = new EJS({url:"./template/temp_providerMember.ejs"}).render(data);
+//                $('#tblcontent').html(html);
+//                refreshPaginator(data.data.currentPage,data.data.totalPage);
+//            }
+//        },
+//        complete: function(XMLHttpRequest, textStatus){
+//            //HideLoading();
             $('#query').button("reset");
-        },
-        error: function(){
-            //请求出错处理
-            alert("网络异常，请重试！");
-        }
-    });
-    event.preventDefault();
+//        },
+//        error: function(){
+//            //请求出错处理
+//            alert("网络异常，请重试！");
+//        }
+//    });
+});
+
+//autocomplete for product name
+$('#searchProduct').autocomplete({
+    source:"/getProductNames",
+    max:10,
+    minLength:2,
+    width:$(this).width()
 });
 
 //auto print value for addHotelPriceModal
