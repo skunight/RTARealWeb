@@ -9,7 +9,7 @@ var Paging     = require('./../tools/Paging');
 
 var propName     = "供应商"
 var modName      = "供应商管理"
-var productType  = 'ticket'
+var productType  = 'voture'
 var template     = productType+'Management'
 
 //view
@@ -21,7 +21,7 @@ exports.list = function(req,res){
     };
     opt.path="/product/"+productType+"/list?page="+((req.query.current  > 0 ? req.query.current  :  1)-1);
     console.log(opt.path);
-    console.log('TicketManagement Step1',new Date());
+    console.log(productType+'Management Step1',new Date());
     opt.method="GET";
     var viewData = {};
     try{
@@ -30,7 +30,7 @@ exports.list = function(req,res){
             viewData.proName   = propName;
             viewData.modName   = modName;
             viewData.data      = result.data;
-            console.log('TicketManagement Step2',new Date());
+            console.log(productType+'Management Step2',new Date());
             viewData.pageInfo  = Paging.getPageInfo(req.query,result.totalPage);
 
             var opt1 = {
@@ -39,12 +39,12 @@ exports.list = function(req,res){
             };
             opt1.path = '/city/shortList';
             opt1.method='GET';
-            console.log('TicketManagement Step3',new Date());
+            console.log(productType+'Management Step3',new Date());
             var httpCity = new httpClient(opt1);
             httpCity.getReq(function(err,result){
                 viewData.cityInfo = result.data;
                 res.render(template,viewData);
-                console.log('TicketManagement Step4',new Date());
+                console.log(productType+'Management Step4',new Date());
             });
         });
     } catch(e){

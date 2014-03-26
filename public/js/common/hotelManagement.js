@@ -1,5 +1,7 @@
 var images=[];
-var productType = 'ticket';
+
+var productType = 'hotel';
+
 var addImage = function(imgObj){
     var intro = imgObj.intro;
     var url = imgObj.url;
@@ -181,15 +183,7 @@ $('#doCreate').click(function(e){
 
 
 $('#searchName').autocomplete({
-    source:function(req,res){
-        console.log(req);
-        $.ajax({
-            method:'get',
-            url:'/getProductNames/?city='+$('#searchCity').val()
-        }).done(function(data){
-                res(data);
-            });
-    }
+    source:'/getProductNames'
 });
 
 
