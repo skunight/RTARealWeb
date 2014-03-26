@@ -2,6 +2,7 @@
  * Created by cloudbian on 14-3-19.
  */
 var httpClient = require('./../tools/HttpClient.js');
+var config = require('./../tools/Config.js');
 var async = require('async');
 exports.viewHotelPriceInput = function(req,res){
     var ret;
@@ -9,8 +10,8 @@ exports.viewHotelPriceInput = function(req,res){
             //get list
             function(cb){
                 var opt = {
-                    hostname:'172.16.0.15',
-                    port:3000,
+                    hostname:config.inf.host,
+                    port:config.inf.port,
                     path:"/product/hotel/priceLog/list?page=0&status=1",
                     method:"GET"
                 };
@@ -31,8 +32,8 @@ exports.viewHotelPriceInput = function(req,res){
             //get short providers name list
             function(r,cb){
                 var opt = {
-                    hostname:'172.16.0.15',
-                    port:3000,
+                    hostname:config.inf.host,
+                    port:config.inf.port,
                     path:"/provider/shortList",
                     method:"GET"
                 };
@@ -48,8 +49,8 @@ exports.viewHotelPriceInput = function(req,res){
             //get city list
             function(r,cb){
                 var opt = {
-                    hostname:'172.16.0.15',
-                    port:3000,
+                    hostname:config.inf.host,
+                    port:config.inf.port,
                     path:"/city/shortList",
                     method:"GET"
                 };
@@ -77,20 +78,21 @@ exports.viewHotelPriceInput = function(req,res){
 //autocompelete product name
 exports.getProductNames = function(req,res){
     var params="?page=0&pageSize=10";
-    if(""!==req.body.name){
+    if(req.body.name&&""!==req.body.name){
         params +="&name="+req.body.name;
     }
-    if(""!==req.body.city){
+    if(req.body.city&&""!==req.body.city){
         params +="&city="+req.body.city;
     }
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/product/hotel/shortList"+params,
         method:"GET"
     };
     try{
         new httpClient(opt).getReq(function(err,result){
+            console.log(result);
             if(result.error===0){
                 console.log(result.data);
                 var ret = [];
