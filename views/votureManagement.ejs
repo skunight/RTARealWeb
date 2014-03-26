@@ -90,7 +90,7 @@
                                     <%});%>
                                 </select>
                             </div>
-                            <label class="control-label col-md-1" for="searchName">景点名称：</label>
+                            <label class="control-label col-md-1" for="searchName">优惠券名称：</label>
                             <div class="col-md-2">
                                 <input type="text" id="searchName" class="form-control">
                             </div>
@@ -126,35 +126,35 @@
             <div class="row">
                 <!--这一部分是按钮栏-->
                 <div class="col-md-12">
-                    <button type="button" class="btn bg-primary" data-toggle="modal" data-backdrop="static"  data-target="#createModal" id="showCreate">新增景点门票信息</button>
-                    <button type="button" class="btn bg-primary" data-toggle="modal"  id="showEdit">编辑景点门票信息</button>
+                    <button type="button" class="btn bg-primary" data-toggle="modal" data-backdrop="static"  data-target="#createModal" id="showCreate">新增优惠券信息</button>
+                    <button type="button" class="btn bg-primary" data-toggle="modal"  id="showEdit">编辑优惠券信息</button>
                 </div>
             </div>
             <div class="row">
                 <!--这一部分是分页栏 以及 表格栏-->
                 <div class="col-md-12">
                     <ul class="pagination">
-                        <li><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&current=1">首页</a></li>
-                        <li class="<%=pageInfo[20].class%>"><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&isPre=1&current=<%=pageInfo[20].page%>">上一页</a></li>
-                        <li class="<%=pageInfo[0].class%>"><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[0].page%>"><%=pageInfo[0].page%></a></li>
-                        <li class="<%=pageInfo[1].class%>"><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[1].page%>"><%=pageInfo[1].page%></a></li>
-                        <li class="<%=pageInfo[2].class%>"><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[2].page%>"><%=pageInfo[2].page%></a></li>
-                        <li class="<%=pageInfo[3].class%>"><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[3].page%>"><%=pageInfo[3].page%></a></li>
-                        <li class="<%=pageInfo[4].class%>"><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[4].page%>"><%=pageInfo[4].page%></a></li>
-                        <li class="<%=pageInfo[21].class%>"><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&isNext=1&current=<%=pageInfo[21].page%>">下一页</a></li>
-                        <li><a href="/ticketManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[22].totalPage%>">末页</a></li>
+                        <li><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&current=1">首页</a></li>
+                        <li class="<%=pageInfo[20].class%>"><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&isPre=1&current=<%=pageInfo[20].page%>">上一页</a></li>
+                        <li class="<%=pageInfo[0].class%>"><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[0].page%>"><%=pageInfo[0].page%></a></li>
+                        <li class="<%=pageInfo[1].class%>"><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[1].page%>"><%=pageInfo[1].page%></a></li>
+                        <li class="<%=pageInfo[2].class%>"><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[2].page%>"><%=pageInfo[2].page%></a></li>
+                        <li class="<%=pageInfo[3].class%>"><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[3].page%>"><%=pageInfo[3].page%></a></li>
+                        <li class="<%=pageInfo[4].class%>"><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[4].page%>"><%=pageInfo[4].page%></a></li>
+                        <li class="<%=pageInfo[21].class%>"><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&isNext=1&current=<%=pageInfo[21].page%>">下一页</a></li>
+                        <li><a href="/votureManagement?startPage=<%=pageInfo[0].page%>&current=<%=pageInfo[22].totalPage%>">末页</a></li>
                     </ul>
 
                     <table id="provider" class="myTable table table-bordered"  width="100%">
                     <thead>
                         <tr>
-                            <th>景点名称</th>
+                            <th>优惠券名称</th>
                             <th>城市</th>
-                            <th>级别</th>
+                            <th>推荐级别</th>
                             <th>有效期开始</th>
                             <th>有效期结束</th>
                             <th>创建时间</th>
-                            <th>产品子类</th>
+                            <!--<th>产品子类</th>-->
                             <th>是否有效</th>
                         </tr>
                     </thead>
@@ -167,7 +167,7 @@
                                 <td><%=new Date(obj.effectDate).Format("yyyy-MM-dd")%></td>
                                 <td><%=new Date(obj.expiryDate).Format("yyyy-MM-dd")%></td>
                                 <td><%=new Date(obj.createTime).Format("yyyy-MM-dd")%></td>
-                                <td><%=obj.subType%></td>
+                                <!--<td><%=obj.subType%></td>-->
                                 <td><%=obj.isEnable%></td>
                          </tr>
                     <% })%>
@@ -189,7 +189,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><span id="modalType"></span>景点门票产品</h4>
+                <h4 class="modal-title"><span id="modalType"></span>优惠券产品</h4>
             </div>
 
                 <div class="modal-body">
@@ -236,19 +236,20 @@
                             <input type="text" class="form-control" placeholder="请输入产品名称" id="name" name="name" required  autofocus>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="subType" class="col-md-2 control-label">产品子类</label>
-                        <div class="col-md-10">
-                            <select class="form-control" id="subType" name="subType">
-                                <option value="1">
-                                    电子票
-                                </option>
-                                <option value="2">
-                                    实体票
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="subType" class="col-md-2 control-label">产品子类</label>-->
+                        <!--<div class="col-md-10">-->
+                            <!--<select class="form-control" id="subType" name="subType">-->
+                                <!--<option value="1">-->
+                                    <!--电子票-->
+                                <!--</option>-->
+                                <!--<option value="2">-->
+                                    <!--实体票-->
+                                <!--</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <input type="hidden" name="subType" id="subType" value="0">
                     <div class="form-group">
                         <label for="content" class="col-md-2 control-label">包含内容</label>
                         <div class="col-md-10">
@@ -393,7 +394,7 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/bootstrap-switch.js"></script>
 <script src="./js/footer.js"></script>
-<script src="./js/common/ticketManagement.js"></script>
+<script src="./js/common/votureManagement.js"></script>
 
 
 
