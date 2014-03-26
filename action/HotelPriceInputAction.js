@@ -77,19 +77,25 @@ exports.viewHotelPriceInput = function(req,res){
 
 //autocompelete product name
 exports.getProductNames = function(req,res){
-    var params="?page=0&pageSize=10";
-    if(req.body.name&&""!==req.body.name){
-        params +="&name="+req.body.name;
+    var params="?limit=10";
+    if(req.query.name&&""!==req.query.name.trim()){
+        params +="&name="+req.query.name.trim();
     }
-    if(req.body.city&&""!==req.body.city){
-        params +="&city="+req.body.city;
+    if(req.query.city&&""!==req.query.city){
+        params +="&city="+req.query.city;
     }
+    var productType = "";
+    if(req.params.productType&&""!==req.params.productType){
+        productType = req.params.productType;
+    }
+
     var opt = {
         hostname:config.inf.host,
         port:config.inf.port,
-        path:"/product/hotel/shortList"+params,
+        path:"/product/"+productType+"/shortList"+params,
         method:"GET"
     };
+    console.log("========================="+opt.path);
     try{
         new httpClient(opt).getReq(function(err,result){
             console.log(result);
@@ -99,7 +105,7 @@ exports.getProductNames = function(req,res){
                 result.data.forEach(function(obj){
                     var row = {};
                     row.label = obj.name;
-                    row.value = obj._id;
+                    row.value = obj.name;
                     ret.push(row);
                 });
                 res.json(ret);

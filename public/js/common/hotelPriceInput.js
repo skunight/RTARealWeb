@@ -36,7 +36,25 @@ $('#query').click(function(event){
 
 //autocomplete for product name
 $('#searchProduct').autocomplete({
-    source:"/getProductNames",
+    source:function(req,res){
+        $.ajax({
+            type: "get",
+            url: "/getProductNames/hotel/",
+            cache:false,
+//            dataType:"json",
+            data:{city:$('#searchCity').val(),name:req.term},
+            success: function(data, textStatus){
+               res(data);
+            },
+            complete: function(XMLHttpRequest, textStatus){
+                //HideLoading();
+            },
+            error: function(){
+                //请求出错处理
+                alert("网络异常，请重试！");
+            }
+        });
+    },
     max:10,
     minLength:2,
     width:$(this).width()
@@ -44,13 +62,13 @@ $('#searchProduct').autocomplete({
 
 //auto print value for addHotelPriceModal
 $('#cost').keyup(function(){
-    if(""!==$('#cost').val().trim){
+    if(""!==$('#cost').val().trim()){
         $('#costWeekend').val($('#cost').val());
     }
 });
 
 $('#price').keyup(function(){
-    if(""!==$('#price').val().trim){
+    if(""!==$('#price').val().trim()){
         $('#priceWeekend').val($('#price').val());
         $('#packagePrice').val($('#price').val());
         $('#packagePriceWeekend').val($('#price').val());
@@ -61,19 +79,19 @@ $('#price').keyup(function(){
 });
 
 $('#packagePrice').keyup(function(){
-    if(""!==$('#packagePrice').val().trim){
+    if(""!==$('#packagePrice').val().trim()){
         $('#packagePriceWeekend').val($('#packagePrice').val());
     }
 });
 
 $('#marketPrice').keyup(function(){
-    if(""!==$('#marketPrice').val().trim){
+    if(""!==$('#marketPrice').val().trim()){
         $('#marketPriceWeekend').val($('#marketPrice').val());
     }
 });
 
 $('#inventory').keyup(function(){
-    if(""!==$('#inventory').val().trim){
+    if(""!==$('#inventory').val().trim()){
         $('#inventoryWeekend').val($('#inventory').val());
     }
 });
