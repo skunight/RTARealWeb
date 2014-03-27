@@ -14,8 +14,8 @@ module.exports = function(app){
     //wuchong Part
     var FileUploadAction = require('../action/FileUploadAction');
     var ticketManagementAction = require('./../action/ticketManagementAction');
-    var hotelManagementAction = require('./../action/hotelManagementAction');
-    var votureManagementAction = require('./../action/votureManagementAction');
+    var hotelManagementAction = require('./../action/HotelManagementAction');
+    var votureManagementAction = require('./../action/VotureManagementAction');
     var ticketPackageManagementAction = require('./../action/ticketPackageManagementAction');
     var packagePackageManagementAction = require('./../action/packageManagementAction');
 
