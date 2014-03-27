@@ -5,6 +5,7 @@
 
 var express = require('express');
 var index = require('./routes/index');
+var wap = require('./routes/wap');
 var http = require('http');
 var path = require('path');
 var log4js = require('log4js');
@@ -74,6 +75,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //}
 
 index(app);
+wap(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

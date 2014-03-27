@@ -2,8 +2,7 @@
 
 //密码是md5加密 nicai
 var a ={
-    _id:ObjectId("5320ff9b6532aa00951ff5e0")
-    ,mobile:'18616365242'
+    mobile:'18616365242'
     ,name:'管理员'
     ,passwd:'529faef522e1b7f8ce1387406caf9394'
     ,email:'admin@justpayyou.com'
@@ -25,8 +24,41 @@ db.members.save(a)
 
 
 var a={
-    _id:ObjectId("5320ffb06532aa00951ff5e1")
-    ,name:'路骋网'
+    name:'路骋网'
+    ,contactName:'管理员'
+    ,contactEmail:'admin@justpayyou.com'
+    ,contactPhone:'18616365242'
+    ,proCode:'RTA'
+    ,remark:''
+    ,isEnable:true
+    ,type:2
+    ,balanceType:''
+    ,returnType:''
+    ,createTime:1394671086295
+    ,updateTime:1394671086295
+    ,operator:ObjectId("5320ff9b6532aa00951ff5e0")
+}
+db.ents.save(a)
+
+var a={
+    name:'wap'
+    ,contactName:'管理员'
+    ,contactEmail:'admin@justpayyou.com'
+    ,contactPhone:'18616365242'
+    ,proCode:'RTA'
+    ,remark:''
+    ,isEnable:true
+    ,type:2
+    ,balanceType:''
+    ,returnType:''
+    ,createTime:1394671086295
+    ,updateTime:1394671086295
+    ,operator:ObjectId("5320ff9b6532aa00951ff5e0")
+}
+db.ents.save(a)
+
+var a={
+    name:'web'
     ,contactName:'管理员'
     ,contactEmail:'admin@justpayyou.com'
     ,contactPhone:'18616365242'
