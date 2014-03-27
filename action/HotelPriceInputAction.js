@@ -58,10 +58,16 @@ exports.viewHotelPriceInput = function(req,res){
                 new httpClient(opt).getReq(function(err,result){
                     if(result.error===0){
                         ret.citys = result.data;
-                        ret.proName = "酒店";
-                        ret.modName = "价格录入";
+                        if("input"===req.params.category){
+                            ret.proName = "酒店";
+                            ret.modName = "价格录入";
+                            res.render("hotelPriceInput",ret);
+                        }else{
+                            ret.proName = "酒店";
+                            ret.modName = "价格审核";
+                            res.render("hotelPriceAudit",ret);
+                        }
                         cb(err,result);
-                        res.render("hotelPriceInput",ret);
                     }else{
                         throw "error,pls contact admin!";
                     }

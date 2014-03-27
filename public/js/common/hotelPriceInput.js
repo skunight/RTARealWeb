@@ -15,7 +15,7 @@ $('#query').click(function(event){
                 console.log(data);
                 alert("查询出错！");
             }else{
-                var html = new EJS({url:"./template/temp_hotelPriceInput.ejs"}).render(data);
+                var html = new EJS({url:"../template/temp_hotelPriceInput.ejs"}).render(data);
                 $('#tblcontent').html(html);
                 refreshPaginator(data.data.currentPage,data.data.totalPage);
             }
@@ -58,7 +58,7 @@ $('#searchProduct').autocomplete({
         $('#productId').val(ui.item.value);
     },
     max:10,
-    minLength:2,
+    minLength:2
 //    width:$(this).width(),
 });
 
@@ -215,7 +215,7 @@ function refreshTable(currentPage){
 //            dataType:"json",
         data:{current:currentPage,product:$('#productId').val(),startDate:$('#sDate').val(),endDate:$('#eDate').val(),operator:$('#searchOperator').val(),provider:$('#searchProvider').val(),status:$('#searchStatus').val()},
         success: function(data, textStatus){
-            var html = new EJS({url:"./template/temp_hotelPriceInput.ejs"}).render(data);
+            var html = new EJS({url:"../template/temp_hotelPriceInput.ejs"}).render(data);
             $('#tblcontent').html(html);
             refreshPaginator(data.currentPage,data.totalPage);
         },
