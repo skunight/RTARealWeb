@@ -85,10 +85,9 @@ exports.getProductNames = function(req,res){
         params +="&city="+req.query.city;
     }
     var productType = "";
-    if(!underscore.isEmpty(req.query.productType)){
+    if(!underscore.isEmpty(req.params.productType)){
         productType = req.params.productType;
     }
-
     var opt = {
         hostname:config.inf.host,
         port:config.inf.port,
