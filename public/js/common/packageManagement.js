@@ -194,6 +194,8 @@ $('#searchName').autocomplete({
 });
 
 
+
+
 //$('#imgintro').autocomplete({
 //    source:['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa']
 //    ,appendTo:'#fileuploadform'
@@ -203,3 +205,22 @@ $('#searchName').autocomplete({
 
 
 
+$('#subProductName').autocomplete({
+    source:function(req,res){
+        $.ajax({
+            method:'GET',
+            url:'/getProductNames/'+$('#subProductType').val(),
+            data:{city:$('#subProductCity').val(),
+                name:req.term}
+        }).done(function(data){
+                res(data);
+            });
+    }
+    ,minLength:0
+    ,appendTo:'#subProductPreSelect'
+    ,select:function(event,ui){
+
+    }
+}).focus(function() {
+        $(this).autocomplete("search", "");
+    });
