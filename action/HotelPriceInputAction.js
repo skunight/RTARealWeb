@@ -78,14 +78,14 @@ exports.viewHotelPriceInput = function(req,res){
 //autocompelete product name
 exports.getProductNames = function(req,res){
     var params="?limit=10";
-    if(req.query.name&&""!==req.query.name.trim()){
+    if(!underscore.isEmpty(req.query.name)){
         params +="&name="+req.query.name.trim();
     }
-    if(req.query.city&&""!==req.query.city){
+    if(!underscore.isEmpty(req.query.city)){
         params +="&city="+req.query.city;
     }
     var productType = "";
-    if(req.params.productType&&""!==req.params.productType){
+    if(!underscore.isEmpty(req.query.productType)){
         productType = req.params.productType;
     }
 
@@ -122,21 +122,21 @@ exports.addInputLog = function(req,res){
     params.startDate = new Date(params.startDate).getTime();
     params.endDate = new Date(params.endDate).getTime();
     delete params.addCity;
+    delete params.operator; //todo operator is not get
     if(!underscore.isArray(params.weekend)){
         params.weekend = [params.weekend];
     }
+    params.status = 1;
     var opt = {
         hostname:config.inf.host,
-        port:config.inf.host,
+        port:config.inf.port,
         path:"/product/hotel/price/create",
         method:"POST"
     };
     try{
-        console.log("params::::::::::::"+JSON.stringify(req.body));
         new httpClient(opt).postReq(params,function(err,response){
-                    console.log("save finish..."+err,response);
-//            res.json({error:response.error,errMsg:response.errorMsg});
-            res.json({error:0});
+//                    console.log("save finish..."+err,response);
+            res.json({error:response.error,errMsg:response.errorMsg});
         });
 
     } catch(e){
@@ -154,24 +154,25 @@ exports.getHotelPriceLogList = function(req,res){
     }
     params = "page="+page;
     //check
-    if(req.body.product&&null!==req.body.product&&""!==req.body.product){
+    if(!underscore.isEmpty(req.body.product)){
         params += "&product="+req.body.product;
     }
-    if(req.body.startDate&&null!==req.body.startDate&&""!==req.body.startDate){
-        params += "&startDate="+req.body.startDate;
+    if(!underscore.isEmpty(req.body.startDate)){
+        params += "&startDate="+new Date(req.body.startDate).getTime();
     }
-    if(req.body.endDate&&null!==req.body.endDate&&""!==req.body.endDate){
-        params += "&endDate="+req.body.endDate;
+    if(!underscore.isEmpty(req.body.endDate)){
+        params += "&endDate="+new Date(req.body.endDate).getTime();
     }
-    if(req.body.operator&&null!==req.body.operator&&""!==req.body.operator){
+    if(!underscore.isEmpty(req.body.operator)){
         params += "&operator="+req.body.operator;
     }
-    if(req.body.provider&&null!==req.body.provider&&""!==req.body.provider){
+    if(!underscore.isEmpty(req.body.provider)){
         params += "&provider="+req.body.provider;
     }
-    if(req.body.status&&null!==req.body.status&&""!==req.body.status){
+    if(!underscore.isEmpty(req.body.status)){
         params += "&status="+req.body.status;
     }
+    console.log("==="+params);
     //req
     var opt = {
         hostname:config.inf.host,
@@ -183,6 +184,7 @@ exports.getHotelPriceLogList = function(req,res){
     var ret = {};
     try{
         new httpClient(opt).getReq(function(err,result){
+            console.log(result);
             if(result.error===0){
                 ret = result;
                 ret.currentPage = 1;

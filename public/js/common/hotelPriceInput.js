@@ -9,7 +9,7 @@ $('#query').click(function(event){
         url: "/hotelPriceInput/list",
         cache:false,
 //            dataType:"json",
-        data:{product:$('#productId').val(),startDate:new Date($('#sDate').val()).getTime(),endDate:new Date($('#eDate').val()).getTime(),operator:$('#searchOperator').val(),provider:$('#searchProvider').val(),status:$('#searchStatus').val()},
+        data:{product:$('#productId').val(),startDate:$('#sDate').val(),endDate:$('#eDate').val(),operator:$('#searchOperator').val(),provider:$('#searchProvider').val(),status:$('#searchStatus').val()},
         success: function(data, textStatus){
             if(data.error!==0){
                 console.log(data);
@@ -213,9 +213,9 @@ function refreshTable(currentPage){
         url: "/hotelPriceInput/list",
         cache:false,
 //            dataType:"json",
-        data:{current:currentPage},
+        data:{current:currentPage,product:$('#productId').val(),startDate:$('#sDate').val(),endDate:$('#eDate').val(),operator:$('#searchOperator').val(),provider:$('#searchProvider').val(),status:$('#searchStatus').val()},
         success: function(data, textStatus){
-            var html = new EJS({url:"./template/temp_providerMember.ejs"}).render(data);
+            var html = new EJS({url:"./template/temp_hotelPriceInput.ejs"}).render(data);
             $('#tblcontent').html(html);
             refreshPaginator(data.currentPage,data.totalPage);
         },
