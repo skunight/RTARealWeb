@@ -147,19 +147,31 @@
 
          <div class="row">
              <!--这一部分是分页栏 以及 表格栏-->
-            <%=data.priceData%>
             <div class="col-md-10">
                <%
                    for(var m in data.priceData){ %>
-                     <div class="row"><%=data.priceData[m].yearMonth%></div>
+                        <div class="row"><%=data.priceData[m].yearMonth%></div>
+                        <div class="row">
+                            <div class="col-md-1">周一</div>
+                            <div class="col-md-1">周二</div>
+                            <div class="col-md-1">周三</div>
+                            <div class="col-md-1">周四</div>
+                            <div class="col-md-1">周五</div>
+                            <div class="col-md-1">周六</div>
+                            <div class="col-md-1">周日</div>
+                        </div>
                     <% for(var i in data.priceData[m].days){
-                        if( i == 0 || ( i + data.priceData[m].shift ) % 6 == 1 ) { %>
+                        if( i == 0 || ( parseInt(i) + parseInt(data.priceData[m].shift) ) % 6 == 1 ) { %>
                                  <div class="row">
                                      <%  } %>
-                        <div class="col-md-1">
-                            <%=data.priceData[m].days[i].price%>
-                        </div>
-                   <%   if( (( i + data.priceData[m].shift ) % 6 == 0 ) || i== data.priceData[m].days.length ) { %>
+                        <%if( i == 0) { %>
+                                     <div class="col-md-1 col-md-offset-<%=data.priceData[m].shift%>">
+                        <% } else { %>
+                                     <div class="col-md-1">
+                                     <%}%>
+                                <%=data.priceData[m].days[i].price%>
+                            </div>
+                   <%   if( (( parseInt(i) + parseInt(data.priceData[m].shift) ) % 6 == 0 && i != 0 ) || i == data.priceData[m].days.length ) { %>
                                 </div>
                      <%  }
                      }

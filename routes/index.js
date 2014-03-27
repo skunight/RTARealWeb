@@ -3,9 +3,7 @@
  * GET home page.
  */
 module.exports = function(app){
-//    var ProviderCtrl = require('./../control/ProviderCtrl');
-//    var MemberCtrl = require('./../control/MemberCtrl');
-//    var ProductCtrl = require('./../control/ProductCtrl');
+
     //bianbian Part
     var ProviderAction = require('./../action/ProviderAction');
     var ProviderMemberAction = require('./../action/ProviderMemberAction');
@@ -19,6 +17,7 @@ module.exports = function(app){
     var hotelManagementAction = require('./../action/hotelManagementAction');
     var votureManagementAction = require('./../action/votureManagementAction');
     var ticketPackageManagementAction = require('./../action/ticketPackageManagementAction');
+    var packagePackageManagementAction = require('./../action/packageManagementAction');
 
 
 
@@ -65,7 +64,12 @@ module.exports = function(app){
     app.post('/ticketPackageManagement/add',ticketPackageManagementAction.add);
     app.post('/ticketPackageManagement/update/:id',ticketPackageManagementAction.update);
     app.get('/ticketPackageManagement/detail',ticketPackageManagementAction.viewDetail);
+    //packageManagement
+    app.get('/packageManagement',packagePackageManagementAction.list);
+    app.post('/packageManagement/add',packagePackageManagementAction.add);
+    app.post('/packageManagement/update/:id',packagePackageManagementAction.update);
+    app.get('/packageManagement/detail',packagePackageManagementAction.viewDetail);
 
     //hotelPriceQuery
-    app.get('/hotelPriceQuery',hotelPriceQueryAction.list);
+//    app.get('/hotelPriceQuery/:id',hotelPriceQueryAction.list);
 };
