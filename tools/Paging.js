@@ -1,14 +1,14 @@
 exports.getPageInfo = function(query,totalPage){
+
     var requestPage = query.current  > 0 ? parseInt(query.current)  : 1;
     var isPre       = query.isPre     > 0 ? parseInt(query.isPre)     : 0;
     var isNext      = query.isNext    > 0 ? parseInt(query.isNext)    : 0;
     var startPage   = query.startPage > 0 ? parseInt(query.startPage) : 1;
     var totalPage=parseInt(totalPage);
-
+    console.log('Paging Step1',new Date(),startPage);
     var pageInfo=[];
     //如果传过来的是”下一页“，则开始页就从现在的开始页的下一页开始
     startPage =startPage+isNext-isPre;
-    console.log('here-----------'+startPage);
     for(var i=0;i<=4;i++){
         pageInfo[i]={};
         pageInfo[i].page  = startPage+i;

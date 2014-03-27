@@ -9,7 +9,7 @@ var Paging     = require('./../tools/Paging');
 
 var propName     = "供应商"
 var modName      = "供应商管理"
-var productType  = 'ticket'
+var productType  = 'package'
 var template     = productType+'Management'
 
 //view
