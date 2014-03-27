@@ -10,6 +10,7 @@ module.exports = function(app){
     var MemberAction = require('./../action/MemberAction');
     var hotelPriceQueryAction = require('./../action/hotelPriceQueryAction');
     var HotelPriceInputAction = require('./../action/HotelPriceInputAction');
+    var HotelPriceAuditAction = require('./../action/HotelPriceAuditAction');
 
     //wuchong Part
     var FileUploadAction = require('../action/FileUploadAction');
@@ -38,10 +39,12 @@ module.exports = function(app){
     app.post('/providerMember/update/:id',ProviderMemberAction.updatePMember);
     app.post('/providerMember/list',ProviderMemberAction.getProviderMembersList);
     //hotel price input
-    app.get('/hotelPriceInput',HotelPriceInputAction.viewHotelPriceInput);
+    app.get('/price/:category',HotelPriceInputAction.viewHotelPriceInput);
     app.get('/getProductNames/:productType',HotelPriceInputAction.getProductNames);
     app.post('/hotelPriceInput/list',HotelPriceInputAction.getHotelPriceLogList);
     app.post('/hotelPriceInput/add',HotelPriceInputAction.addInputLog);
+    //hotel price audit
+    app.post('/priceAudit/:type',HotelPriceAuditAction.updateStatus);
     //file upload
     app.post('/file-upload', FileUploadAction.fileUpload);
     //ticketManagement

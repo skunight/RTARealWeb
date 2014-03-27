@@ -6,11 +6,11 @@
     <meta content="" name="description" />
     <meta content="wucho" name="author" />
     <title><%=proName%>-<%=modName%></title>
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/bootstrap-switch.css" rel="stylesheet">
-    <link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="./css/ui-lightness/jqueryui.min.css" rel="stylesheet">
-    <link href="./css/main.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-switch.css" rel="stylesheet">
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../css/ui-lightness/jqueryui.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
 </head>
 <body>
 
@@ -209,8 +209,8 @@
                  <%data.forEach(function(obj){%>
                      <tr id="<%=obj.product._id%>">
                         <td><%=obj.product.name%></td>
-                         <td><%=obj.startDate%></td>
-                         <td><%=obj.endDate%></td>
+                         <td><%=new Date(obj.startDate).Format("yyyy-MM-dd")%></td>
+                         <td><%=new Date(obj.endDate).Format("yyyy-MM-dd")%></td>
                          <td>
                              <%if(obj.cost===obj.costWeekend){%>
                                 底价:<%=obj.cost%>
@@ -247,9 +247,19 @@
                              <%}%>
                          </td>
                          <td><%=obj.weekend%></td>
-                         <td>录入员</td>
-                         <td><%=obj.status%></td>
-                         <td><%=obj.createTime%></td>
+                         <td><%=obj.operator?obj.operator:""%></td>
+                             <%if(0===obj.status){ %>
+                                <td>已拒绝</td>
+                             <%}else if(1===obj.status){%>
+                                <td>新录入</td>
+                             <%}else if(2===obj.status){%>
+                                <td>已通过</td>
+                             <%}else if(3===obj.status){%>
+                                <td>已禁用</td>
+                             <%}else{%>
+                             <td></td>
+                             <%}%>
+                         <td><%=new Date(obj.createTime).Format("yyyy-MM-dd")%></td>
                      </tr>
                  <%});%>
                  </tbody>
@@ -414,16 +424,16 @@
 
 
 
-<script src="./js/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
-<script src="./js/bootstrap-switch.js"></script>
-<script src="./js/bootstrap-paginator.min.js"></script>
-<script src="./js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
-<script src="./js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script src="./js/jqueryui.min.js"></script>
-<script src="./js/common/hotelPriceInput.js"></script>
-<script src="./js/footer.js"></script>
-<script src="./js/ejs.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/bootstrap-switch.js"></script>
+<script src="../js/bootstrap-paginator.min.js"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+<script src="../js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="../js/jqueryui.min.js"></script>
+<script src="../js/common/hotelPriceInput.js"></script>
+<script src="../js/footer.js"></script>
+<script src="../js/ejs.js"></script>
 
 
 <script>
