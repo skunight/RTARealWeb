@@ -4,6 +4,7 @@
 
 var HomePageAction = require('./../action/wap/HomePageAction');
 var ProductPageAction = require('./../action/web/ProductPageAction');
+var NoticeAction = require('./../action/web/NoticeAction');
 var MemberPageAction = require('./../action/wap/MemberPageAction');
 module.exports = function(app){
     app.all('/web/*',function(request,response,next){
@@ -24,6 +25,7 @@ module.exports = function(app){
 //    app.get('/web/',HomePageAction.getHomePage);
     app.get('/web/products/:id',ProductPageAction.getProducts);
     app.get('/web/productDetail/:id',ProductPageAction.getDetail);
+    app.get('/web/govNotice',NoticeAction.noticeList);
 
     //ajax
 //    app.get('/web/ajax/cityList',HomePageAction.cityList);
