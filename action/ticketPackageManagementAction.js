@@ -101,7 +101,7 @@ exports.viewDetail = function(req,res){
         hostname:Config.inf.host,
         port:Config.inf.port
     };
-    opt.path = "/product/"+productType+"/detail/"+req.query.id;
+    opt.path = "/product/"+productType+"/detail/"+req.params.id;
     opt.method = 'GET'
     console.log(opt.path);
     var ret = {};

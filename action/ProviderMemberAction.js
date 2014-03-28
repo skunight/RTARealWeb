@@ -3,13 +3,14 @@
  */
 var httpClient = require('./../tools/HttpClient.js');
 var async = require('async');
+var config = require('./../tools/Config.js');
 exports.viewProviderMemberManager = function(req,res){
         async.waterfall([
             //get list
             function(cb){
                 var opt = {
-                    hostname:'172.16.0.15',
-                    port:3000,
+                    hostname:config.inf.host,
+                    port:config.inf.port,
                     path:"/ent/provider/member/list?page=0",
                     method:"GET"
                 };
@@ -29,8 +30,8 @@ exports.viewProviderMemberManager = function(req,res){
             //get short providers name list
             function(r,cb){
                 var opt = {
-                    hostname:'172.16.0.15',
-                    port:3000,
+                    hostname:config.inf.host,
+                    port:config.inf.port,
                     path:"/provider/shortList",
                     method:"GET"
                 };
@@ -57,8 +58,8 @@ exports.viewProviderMemberManager = function(req,res){
 exports.addPMember = function(req,res){
     var params = req.body;
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/member/create",
         method:"POST"
     };
@@ -76,8 +77,8 @@ exports.addPMember = function(req,res){
 exports.updatePMember = function(req,res){
     var params = req.body;
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/member/update/"+req.params.id,
         method:"POST"
     };
@@ -94,8 +95,8 @@ exports.updatePMember = function(req,res){
 
 exports.getProviderMember = function(req,res){
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/member/detail/"+req.body.id,
         method:"GET"
     };
@@ -133,11 +134,10 @@ exports.getProviderMembersList = function(req,res){
     if(req.body.searchisEnable&&null!==req.body.searchisEnable&&""!==req.body.searchisEnable){
         params += "&isEnable="+req.body.searchisEnable;
     }
-    console.log(params);
     //req
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/member/list?"+params,
         method:"GET"
     };

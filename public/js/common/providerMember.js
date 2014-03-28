@@ -74,6 +74,7 @@ $('#showAdd').click(function(e){
     $('#tabActive').val("save");
     $('#modalTilte').val("新增供应商账号");
     $('#pMbrForm')[0].reset();
+    $('#operatorName').val($('#uName').val());
 });
 
 //show edit dailog
@@ -107,7 +108,7 @@ $('#showEdit').click(function(e){
                     }
                     $('#passwd').val(data.data.passwd);
                     $('#isEnable').val(data.data.isEnable);
-                    $('#operatorName').val("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    $('#operatorName').val($('#uName').val());
                 }else{
                     alert("获取详情出错："+data.errMsg);
                 }
