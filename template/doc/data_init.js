@@ -85,21 +85,37 @@ db.ents.save(a)
 
 var a= {code:'provider',name:'供应商管理',cat:'供应商',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:1}
 db.pro.modules.save(a);
-
 var a={code:'providerMember',name:'供应商账号管理',cat:'供应商',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:2}
 db.pro.modules.save(a);
 
-var a={code:'ticketManagement',name:'门票产品录入',cat:'产品',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:10}
+var a={code:'ticketManagement',name:'门票产品上架',cat:'产品上架',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:10}
 db.pro.modules.save(a);
-var a={code:'packageManagement',name:'打包产品录入',cat:'产品',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:11}
+var a={code:'ticketPackageManagement',name:'套票产品上架',cat:'产品上架',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:11}
+db.pro.modules.save(a);
+var a={code:'packageManagement',name:'打包产品上架',cat:'产品上架',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:12}
+db.pro.modules.save(a);
+var a={code:'hotelManagement',name:'酒店产品上架',cat:'产品上架',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:13}
+db.pro.modules.save(a);
+var a={code:'votureManagement',name:'优惠券产品上架',cat:'产品上架',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:14}
+db.pro.modules.save(a);
+
+var a={code:'ticketPrice/input',name:'门票价格录入',cat:'价格录入',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:21}
+db.pro.modules.save(a);
+var a={code:'ticketPackagePrice/input',name:'套票价格录入',cat:'价格录入',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:22}
+db.pro.modules.save(a);
+var a={code:'hotelPrice/input',name:'酒店价格录入',cat:'价格录入',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:23}
+db.pro.modules.save(a);
+var a={code:'voturePrice/input',name:'优惠券价格录入',cat:'价格录入',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:24}
 db.pro.modules.save(a);
 
 
-var a={code:'hotelPriceInput',name:'酒店价格录入',cat:'价格',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:20}
+var a={code:'ticketPrice/audit',name:'门票价格审核',cat:'价格审核',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:31}
 db.pro.modules.save(a);
-var a={code:'voturePriceInput',name:'优惠券价格录入',cat:'价格',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:21}
+var a={code:'ticketPackagePrice/audit',name:'套票价格审核',cat:'价格审核',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:32}
 db.pro.modules.save(a);
-var a={code:'ticketPriceInput',name:'门票价格录入',cat:'价格',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:22}
+var a={code:'hotelPrice/audit',name:'酒店价格审核',cat:'价格审核',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:33}
+db.pro.modules.save(a);
+var a={code:'voturePrice/audit',name:'优惠券价格审核',cat:'价格审核',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:34}
 db.pro.modules.save(a);
 
 

@@ -38,9 +38,8 @@ $('#showEdit').click(function(){
     }else{
         $.ajax({
             type: "get",
-            url: "/"+productType+"Management/detail",
-            cache:false,
-            data:{id:_id}
+            url: "/"+productType+"Management/detail/"+_id,
+            cache:false
         }).done(function(data, textStatus){
                 if(data.error===0){
 

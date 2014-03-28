@@ -70,27 +70,27 @@ module.exports = function(app){
     app.get('/ticketManagement',ticketManagementAction.list);
     app.post('/ticketManagement/add',ticketManagementAction.add);
     app.post('/ticketManagement/update/:id',ticketManagementAction.update);
-    app.get('/ticketManagement/detail',ticketManagementAction.viewDetail);
+    app.get('/ticketManagement/detail/:id',ticketManagementAction.viewDetail);
     //hotelManagement
     app.get('/hotelManagement',hotelManagementAction.list);
     app.post('/hotelManagement/add',hotelManagementAction.add);
     app.post('/hotelManagement/update/:id',hotelManagementAction.update);
-    app.get('/hotelManagement/detail',hotelManagementAction.viewDetail);
+    app.get('/hotelManagement/detail/:id',hotelManagementAction.viewDetail);
     //votureManagement
     app.get('/votureManagement',votureManagementAction.list);
     app.post('/votureManagement/add',votureManagementAction.add);
     app.post('/votureManagement/update/:id',votureManagementAction.update);
-    app.get('/votureManagement/detail',votureManagementAction.viewDetail);
+    app.get('/votureManagement/detail/:id',votureManagementAction.viewDetail);
     //ticketPackageManagement
     app.get('/ticketPackageManagement',ticketPackageManagementAction.list);
     app.post('/ticketPackageManagement/add',ticketPackageManagementAction.add);
     app.post('/ticketPackageManagement/update/:id',ticketPackageManagementAction.update);
-    app.get('/ticketPackageManagement/detail',ticketPackageManagementAction.viewDetail);
+    app.get('/ticketPackageManagement/detail/:id',ticketPackageManagementAction.viewDetail);
     //packageManagement
     app.get('/packageManagement',packagePackageManagementAction.list);
     app.post('/packageManagement/add',packagePackageManagementAction.add);
     app.post('/packageManagement/update/:id',packagePackageManagementAction.update);
-    app.get('/packageManagement/detail',packagePackageManagementAction.viewDetail);
+    app.get('/packageManagement/detail/:id',packagePackageManagementAction.viewDetail);
 
     //hotelPriceQuery
 //    app.get('/hotelPriceQuery/:id',hotelPriceQueryAction.list);
