@@ -47,7 +47,17 @@ ul {
 .bs-wcy_footerwidth .link a{ color:#fff; padding-right:15px;}
 .bs-wcy_footerwidth .link a:hover{ color:#d6fcf0; text-decoration:none;}
 
+.bs-wcy_govnoticetitle{ height:60px; line-height:60px; background:#1abc89; padding:0px 25px; font-size:22px; font-weight:lighter; color:#FFFFFF}
+.bs-wcy_govnoticeTab{ color:#818181; font-size:15px; border:none; background-color:#f3f8f8; margin-bottom:0;}
+.bs-wcy_govnoticeTab>thead>tr>th, .bs-wcy_govnoticeTab>tbody>tr>th, .bs-wcy_govnoticeTab>tfoot>tr>th, .bs-wcy_govnoticeTab>thead>tr>td, .bs-wcy_govnoticeTab>tbody>tr>td, .bs-wcy_govnoticeTab>tfoot>tr>td {padding:5px 30px;vertical-align:middle; border:none; border-top:#fff solid 1px;}
+.bs-wcy_govnoticeTab>thead>tr>th {vertical-align:bottom; border:none; background:#dce3e3;}
+.bs-wcy_govnoticeTab>tbody>tr:nth-child(odd)>td, .bs-wcy_govnoticeTab>tbody>tr:nth-child(odd)>th {  background:#fff;}
+.bs-wcy_govnoticePage{ padding:3px 30px; background:#dce3e3; text-align:right;}
+.bs-wcy_govnoticePage .quotes { padding:3px; margin:3px; }
+.bs-wcy_govnoticePage .quotes a { border:#ddd 1px solid; padding:2px 5px; color:#aaa; text-decoration:none; margin-right:5px; background:#fff;}
+.bs-wcy_govnoticePage .quotes a:hover { border:#17a97b 1px solid; padding:2px 5px; margin-right:5px;}
+.bs-wcy_govnoticePage .quotes a:active { border:#a0a0a0 1px solid; padding:2px 5px; margin-right:5px;}
+.bs-wcy_govnoticePage .quotes span.current { border:#17a97b 1px solid; padding:2px 5px; color:#aaa;  margin-right:5px;  background:#d1eee5}
+.bs-wcy_govnoticePage .quotes span.disabled { border:#f3f3f3 1px solid; padding:2px 5px; margin-right:5px;}
 
-.navbar-inverse .navbar-nav>li>a {color:#fff;}
-.navbar-inverse .navbar-nav>li>a:hover{ color:#CCCCCC}
-.navbar-nav>li>a {padding-top:10px; padding-bottom:10px; line-height:60px; color:#FFF; font-size:16px;}
+
