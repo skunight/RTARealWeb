@@ -12,7 +12,6 @@ module.exports = function(app){
     var HotelPriceInputAction = require('./../action/HotelPriceInputAction');
     var TicketPriceInputAction = require('./../action/TicketPriceInputAction');
     var VoturePriceInputAction = require('./../action/VoturePriceInputAction');
-    var PackagePriceInputAction = require('./../action/PackagePriceInputAction');
     var TicketPackagePriceInputAction = require('./../action/TicketPackagePriceInputAction');
     var PriceAuditAction = require('./../action/PriceAuditAction');
     //wuchong Part
@@ -54,10 +53,6 @@ module.exports = function(app){
     app.get('/voturePrice/:category',VoturePriceInputAction.viewVoturePriceInput);
     app.post('/voturePriceInput/list',VoturePriceInputAction.getVoturePriceLogList);
     app.post('/voturePriceInput/add',VoturePriceInputAction.addInputLog);
-    //package price input
-    app.get('/packagePrice/:category',PackagePriceInputAction.viewPackagePriceInput);
-    app.post('/packagePriceInput/list',PackagePriceInputAction.getPackagePriceLogList);
-    app.post('/packagePriceInput/add',PackagePriceInputAction.addInputLog);
     //ticketPackage price input
     app.get('/ticketPackagePrice/:category',TicketPackagePriceInputAction.viewTicketPackagePriceInput);
     app.post('/ticketPackagePriceInput/list',TicketPackagePriceInputAction.getTicketPackagePriceLogList);
