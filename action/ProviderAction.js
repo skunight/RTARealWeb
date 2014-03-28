@@ -2,13 +2,13 @@
  * Created by cloudbian on 14-3-14.
  */
 var httpClient = require('./../tools/HttpClient.js');
-
+var config = require('./../tools/Config.js');
 //view
 exports.viewProviderManger = function(req,res){
     //init
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/list?page=0",
         method:"GET"
     };
@@ -40,8 +40,8 @@ exports.viewProviderManger = function(req,res){
 exports.addProvider = function(req,res){
     var params = req.body;
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/create",
         method:"POST"
     };
@@ -59,8 +59,8 @@ exports.addProvider = function(req,res){
 //detail
 exports.getProviderDetail = function(req,res){
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/detail/"+req.body.id,
         method:"GET"
     };
@@ -78,8 +78,8 @@ exports.getProviderDetail = function(req,res){
 exports.updateProvider = function(req,res){
     var params = req.body;
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/update/"+req.params.id,
         method:"POST"
     };
@@ -100,8 +100,8 @@ exports.getProviders = function(req,res){
         page = req.body.current-1;
     }
     var opt = {
-        hostname:'172.16.0.15',
-        port:3000,
+        hostname:config.inf.host,
+        port:config.inf.port,
         path:"/ent/provider/list?page="+page,
         method:"GET"
     };

@@ -6,7 +6,7 @@ $('#query').click(function(event){
     $('#query').button("loading");
     $.ajax({
         type: "post",
-        url: "/hotelPriceInput/list",
+        url: "/ticketPriceInput/list",
         cache:false,
 //            dataType:"json",
         data:{product:$('#productId').val(),startDate:$('#sDate').val(),endDate:$('#eDate').val(),operator:$('#searchOperator').val(),provider:$('#searchProvider').val(),status:$('#searchStatus').val()},
@@ -14,7 +14,7 @@ $('#query').click(function(event){
             if(data.error!==0){
                 alert("查询出错！");
             }else{
-                var html = new EJS({url:"../template/temp_hotelPriceAudit.ejs"}).render(data);
+                var html = new EJS({url:"../template/temp_ticketPriceAudit.ejs"}).render(data);
                 $('#tblcontent').html(html);
                 refreshPaginator(data.data.currentPage,data.data.totalPage);
             }
@@ -35,7 +35,7 @@ $('#searchProduct').autocomplete({
     source:function(req,res){
         $.ajax({
             type: "get",
-            url: "/getProductNames/hotel/",
+            url: "/getProductNames/ticket/",
             cache:false,
 //            dataType:"json",
             data:{city:$('#searchCity').val(),name:req.term},
@@ -82,12 +82,12 @@ function refreshTable(currentPage){
     //refresh table
     $.ajax({
         type: "post",
-        url: "/hotelPriceInput/list",
+        url: "/ticketPriceInput/list",
         cache:false,
 //            dataType:"json",
         data:{current:currentPage,product:$('#productId').val(),startDate:$('#sDate').val(),endDate:$('#eDate').val(),operator:$('#searchOperator').val(),provider:$('#searchProvider').val(),status:$('#searchStatus').val()},
         success: function(data, textStatus){
-            var html = new EJS({url:"../template/temp_hotelPriceAudit.ejs"}).render(data);
+            var html = new EJS({url:"../template/temp_ticketPriceAudit.ejs"}).render(data);
             $('#tblcontent').html(html);
             refreshPaginator(data.currentPage,data.totalPage);
         },
@@ -124,7 +124,7 @@ function disableAudit(id){
 function audit(id,status){
     $.ajax({
         type: "post",
-        url: "/priceAudit/hotel",
+        url: "/priceAudit/ticket",
         cache:false,
 //            dataType:"json",
         data:{_id:id,status:status,operator:$('#operator').val()},

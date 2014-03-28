@@ -10,8 +10,11 @@ module.exports = function(app){
     var MemberAction = require('./../action/MemberAction');
     var hotelPriceQueryAction = require('./../action/hotelPriceQueryAction');
     var HotelPriceInputAction = require('./../action/HotelPriceInputAction');
-    var HotelPriceAuditAction = require('./../action/HotelPriceAuditAction');
-
+    var TicketPriceInputAction = require('./../action/TicketPriceInputAction');
+    var VoturePriceInputAction = require('./../action/VoturePriceInputAction');
+    var PackagePriceInputAction = require('./../action/PackagePriceInputAction');
+    var TicketPackagePriceInputAction = require('./../action/TicketPackagePriceInputAction');
+    var PriceAuditAction = require('./../action/PriceAuditAction');
     //wuchong Part
     var FileUploadAction = require('../action/FileUploadAction');
     var ticketManagementAction = require('./../action/ticketManagementAction');
@@ -39,12 +42,28 @@ module.exports = function(app){
     app.post('/providerMember/update/:id',ProviderMemberAction.updatePMember);
     app.post('/providerMember/list',ProviderMemberAction.getProviderMembersList);
     //hotel price input
-    app.get('/price/:category',HotelPriceInputAction.viewHotelPriceInput);
+    app.get('/hotelPrice/:category',HotelPriceInputAction.viewHotelPriceInput);
     app.get('/getProductNames/:productType',HotelPriceInputAction.getProductNames);
     app.post('/hotelPriceInput/list',HotelPriceInputAction.getHotelPriceLogList);
     app.post('/hotelPriceInput/add',HotelPriceInputAction.addInputLog);
-    //hotel price audit
-    app.post('/priceAudit/:type',HotelPriceAuditAction.updateStatus);
+    //ticket price input
+    app.get('/ticketPrice/:category',TicketPriceInputAction.viewTicketPriceInput);
+    app.post('/ticketPriceInput/list',TicketPriceInputAction.getTicketPriceLogList);
+    app.post('/ticketPriceInput/add',TicketPriceInputAction.addInputLog);
+    //voture price input
+    app.get('/voturePrice/:category',VoturePriceInputAction.viewVoturePriceInput);
+    app.post('/voturePriceInput/list',VoturePriceInputAction.getVoturePriceLogList);
+    app.post('/voturePriceInput/add',VoturePriceInputAction.addInputLog);
+    //package price input
+    app.get('/packagePrice/:category',PackagePriceInputAction.viewPackagePriceInput);
+    app.post('/packagePriceInput/list',PackagePriceInputAction.getPackagePriceLogList);
+    app.post('/packagePriceInput/add',PackagePriceInputAction.addInputLog);
+    //ticketPackage price input
+    app.get('/ticketPackagePrice/:category',TicketPackagePriceInputAction.viewTicketPackagePriceInput);
+    app.post('/ticketPackagePriceInput/list',TicketPackagePriceInputAction.getTicketPackagePriceLogList);
+    app.post('/ticketPackagePriceInput/add',TicketPackagePriceInputAction.addInputLog);
+    //price audit
+    app.post('/priceAudit/:type',PriceAuditAction.updateStatus);
     //file upload
     app.post('/file-upload', FileUploadAction.fileUpload);
     //ticketManagement

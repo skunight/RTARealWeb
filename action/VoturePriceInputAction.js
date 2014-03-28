@@ -5,7 +5,7 @@ var httpClient = require('./../tools/HttpClient.js');
 var config = require('./../tools/Config.js');
 var async = require('async');
 var underscore = require('underscore');
-exports.viewHotelPriceInput = function(req,res){
+exports.viewVoturePriceInput = function(req,res){
     var ret;
         async.waterfall([
             //get list
@@ -13,7 +13,7 @@ exports.viewHotelPriceInput = function(req,res){
                 var opt = {
                     hostname:config.inf.host,
                     port:config.inf.port,
-                    path:"/product/hotel/priceLog/list?page=0&status=1",
+                    path:"/product/voture/priceLog/list?page=0&status=1",
                     method:"GET"
                 };
                 new httpClient(opt).getReq(function(err,result){
@@ -76,13 +76,13 @@ exports.viewHotelPriceInput = function(req,res){
                     if(result.error===0){
                         ret.citys = result.data;
                         if("input"===req.params.category){
-                            ret.proName = "酒店";
+                            ret.proName = "优惠券";
                             ret.modName = "价格录入";
-                            res.render("hotelPriceInput",ret);
+                            res.render("voturePriceInput",ret);
                         }else{
-                            ret.proName = "酒店";
+                            ret.proName = "优惠券";
                             ret.modName = "价格审核";
-                            res.render("hotelPriceAudit",ret);
+                            res.render("voturePriceAudit",ret);
                         }
                         cb(err,result);
                     }else{
@@ -98,47 +98,6 @@ exports.viewHotelPriceInput = function(req,res){
         });
 };
 
-//autocompelete product name
-exports.getProductNames = function(req,res){
-    var params="?limit=10";
-    if(!underscore.isEmpty(req.query.name)){
-        params +="&name="+req.query.name.trim();
-    }
-    if(!underscore.isEmpty(req.query.city)){
-        params +="&city="+req.query.city;
-    }
-    var productType = "";
-    if(!underscore.isEmpty(req.params.productType)){
-        productType = req.params.productType;
-    }
-    var opt = {
-        hostname:config.inf.host,
-        port:config.inf.port,
-        path:"/product/"+productType+"/shortList"+params,
-        method:"GET"
-    };
-    try{
-        new httpClient(opt).getReq(function(err,result){
-            if(result.error===0){
-                var ret = [];
-                result.data.forEach(function(obj){
-                    var row = {};
-                    row.label = obj.name;
-                    row.value = obj._id;
-                    ret.push(row);
-                });
-                res.json(ret);
-            }else{
-                throw "error,pls contact admin!";
-            }
-
-        });
-    } catch(e){
-        console.log(e.message);
-        res.json([]);
-    }
-};
-
 exports.addInputLog = function(req,res){
     var params = req.body;
     params.startDate = new Date(params.startDate).getTime();
@@ -151,7 +110,7 @@ exports.addInputLog = function(req,res){
     var opt = {
         hostname:config.inf.host,
         port:config.inf.port,
-        path:"/product/hotel/price/create",
+        path:"/product/voture/price/create",
         method:"POST"
     };
     try{
@@ -167,7 +126,7 @@ exports.addInputLog = function(req,res){
 };
 
 
-exports.getHotelPriceLogList = function(req,res){
+exports.getVoturePriceLogList = function(req,res){
     var params;
     var page = 0;
     if(req.body.current&&req.body.current>0){
@@ -197,7 +156,7 @@ exports.getHotelPriceLogList = function(req,res){
     var opt = {
         hostname:config.inf.host,
         port:config.inf.port,
-        path:"/product/hotel/priceLog/list?"+params,
+        path:"/product/voture/priceLog/list?"+params,
         method:"GET"
     };
 

@@ -262,7 +262,9 @@
                             </div>
                        </div>
                    </div>
-
+                <!-- hidden fields-->
+                <input type="hidden" id="uName" value=<%=user.mobile%> />
+                <input type="hidden" id="operator" name="operator" value=<%=user._id%> />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -290,6 +292,7 @@
     $(document).ready(function() {
         $('#isEnable').bootstrapSwitch();
         refreshPaginator(<%=currentPage%>,<%=totalPage%>);
+        $('#selectedId').val("");
     } );
 </script>
 

@@ -41,7 +41,7 @@ $('#showCreate').click(function(e){
     $('#tabActive').val("save");
     $('#modalTilte').val("新建供应商");
     $('#providerForm')[0].reset();
-    $('#isEnable').val(true);
+    $('#operatorName').val($('#uName').val());
 //    $('#isEnable').bootstrapSwitch('state',true);
 });
 
@@ -52,7 +52,6 @@ $('#showEdit').click(function(e){
     $(this).button("loading");
     $('#createProviderModal').modal("hide");
     var _id = $('#selectedId').val();
-    console.log(_id,_id.length);
     if(""===_id||undefined===_id||_id.length<=0){
         alert("请选择需要编辑的供应商！");
         $('#showEdit').button("reset");
@@ -74,7 +73,7 @@ $('#showEdit').click(function(e){
                     $('#returnType').val(data.data.returnType);
                     $('#remark').val(data.data.remark);
                     $('#isEnable').val(data.data.isEnable);
-                    $('#operatorName').val("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    $('#operatorName').val($('#uName').val());
                 }else{
                     alert("获取详情出错："+data.errMsg);
                 }
