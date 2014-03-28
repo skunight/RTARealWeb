@@ -16,7 +16,7 @@ var a ={
     ,idCard:''
     ,postAddr:''
     ,signupDate:1394671086295
-    ,providerID:ObjectId("5320ffb06532aa00951ff5e1")
+    ,provider:ObjectId("5320ffb06532aa00951ff5e1")
     ,isEnable:true
     ,operator:ObjectId("5320ff9b6532aa00951ff5e0")
 }

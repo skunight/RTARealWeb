@@ -37,46 +37,12 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <%newses.forEach(function(news){%>
                   <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
+                      <td height="55"><a href="#<%=news._id%>"><%=news.title%></a></td>
+                      <td><%=new Date(news.createTime).Format('yyyy年MM月dd日hh:mm:ss')%></td>
                   </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
-                  <tr>
-                    <td height="55"><a href="#">杭州地区发展规划</a></td>
-                    <td>2014年3月21日23:47:45</td>
-                  </tr>
+                  <%});%>
                 </tbody>
               </table>
               <div class="bs-wcy_govnoticePage">
