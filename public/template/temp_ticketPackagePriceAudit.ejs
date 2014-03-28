@@ -39,7 +39,7 @@
         <%}%>
     </td>
     <td><%=obj.weekend%></td>
-    <td><%=obj.operator?obj.operator:""%></td>
+    <td><%=obj.operator?obj.operator.name:""%></td>
     <%if(0===obj.status){ %>
     <td>已拒绝</td>
     <%}else if(1===obj.status){%>
