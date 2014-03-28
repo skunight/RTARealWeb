@@ -12,15 +12,17 @@ module.exports = function(app){
     })
 
     app.get('/wap/register',MemberPageAction.register);
-    app.post('/wap/login',MemberPageAction.login);
+    app.all('/wap/login',MemberPageAction.login);
     app.post('/wap/doRegister',MemberPageAction.doRegister);
+
     app.all('/wap/*',function(request,response,next){
         if(request.session.user==null){
-            response.render('wap/login')
+            response.render('wap/login');
         } else {
             next();
         }
-    })
+    });
+
     app.get('/wap/',HomePageAction.getHomePage);
     app.get('/wap/products/:id',ProductPageAction.getProducts);
     app.get('/wap/productDetail/:id',ProductPageAction.getDetail);

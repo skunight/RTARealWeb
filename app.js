@@ -61,6 +61,7 @@ app.use(log4js.connectLogger(logger, {
 
 app.use(function(request,response,next){
     if(request.session.user){
+        app.locals.user = request.session.user;
         app.locals.userModules = request.session.user.modules;
     }
     next();

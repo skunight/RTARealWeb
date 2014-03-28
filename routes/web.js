@@ -25,7 +25,6 @@ module.exports = function(app){
     app.get('/web/products/:id',ProductPageAction.getProducts);
     app.get('/web/productDetail/:id',ProductPageAction.getDetail);
 
-
     //ajax
 //    app.get('/web/ajax/cityList',HomePageAction.cityList);
 //
