@@ -16,11 +16,11 @@ module.exports = function(app){
     var PriceAuditAction = require('./../action/PriceAuditAction');
     //wuchong Part
     var FileUploadAction = require('../action/FileUploadAction');
-    var ticketManagementAction = require('./../action/ticketManagementAction');
+    var ticketManagementAction = require('./../action/TicketManagementAction');
     var hotelManagementAction = require('./../action/HotelManagementAction');
     var votureManagementAction = require('./../action/VotureManagementAction');
-    var ticketPackageManagementAction = require('./../action/ticketPackageManagementAction');
-    var packagePackageManagementAction = require('./../action/packageManagementAction');
+    var ticketPackageManagementAction = require('./../action/TicketPackageManagementAction');
+    var packagePackageManagementAction = require('./../action/PackageManagementAction');
 
 
 
@@ -62,30 +62,35 @@ module.exports = function(app){
     //file upload
     app.post('/file-upload', FileUploadAction.fileUpload);
     //ticketManagement
-    app.get('/ticketManagement',ticketManagementAction.list);
+    app.get('/ticketManagement',ticketManagementAction.init);
     app.post('/ticketManagement/add',ticketManagementAction.add);
     app.post('/ticketManagement/update/:id',ticketManagementAction.update);
     app.get('/ticketManagement/detail/:id',ticketManagementAction.viewDetail);
+    app.get('/ticketManagement/list',ticketManagementAction.list);
     //hotelManagement
-    app.get('/hotelManagement',hotelManagementAction.list);
+    app.get('/hotelManagement',hotelManagementAction.init);
     app.post('/hotelManagement/add',hotelManagementAction.add);
     app.post('/hotelManagement/update/:id',hotelManagementAction.update);
     app.get('/hotelManagement/detail/:id',hotelManagementAction.viewDetail);
+    app.get('/hotelManagement/list',hotelManagementAction.list);
     //votureManagement
-    app.get('/votureManagement',votureManagementAction.list);
+    app.get('/votureManagement',votureManagementAction.init);
     app.post('/votureManagement/add',votureManagementAction.add);
     app.post('/votureManagement/update/:id',votureManagementAction.update);
     app.get('/votureManagement/detail/:id',votureManagementAction.viewDetail);
+    app.get('/votureManagement/list',votureManagementAction.list);
     //ticketPackageManagement
-    app.get('/ticketPackageManagement',ticketPackageManagementAction.list);
+    app.get('/ticketPackageManagement',ticketPackageManagementAction.init);
     app.post('/ticketPackageManagement/add',ticketPackageManagementAction.add);
     app.post('/ticketPackageManagement/update/:id',ticketPackageManagementAction.update);
     app.get('/ticketPackageManagement/detail/:id',ticketPackageManagementAction.viewDetail);
+    app.get('/ticketPackageManagement/list',ticketPackageManagementAction.list);
     //packageManagement
-    app.get('/packageManagement',packagePackageManagementAction.list);
+    app.get('/packageManagement',packagePackageManagementAction.init);
     app.post('/packageManagement/add',packagePackageManagementAction.add);
     app.post('/packageManagement/update/:id',packagePackageManagementAction.update);
     app.get('/packageManagement/detail/:id',packagePackageManagementAction.viewDetail);
+    app.get('/packageManagement/list',packagePackageManagementAction.list);
 
     //hotelPriceQuery
 //    app.get('/hotelPriceQuery/:id',hotelPriceQueryAction.list);

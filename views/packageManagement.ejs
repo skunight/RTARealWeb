@@ -51,36 +51,18 @@
 <body>
 
 <!--！！！！！！！！！！！！！！这个头都是一样的，可以全部进行替换！！！！！！！！！！！！！！-->
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">RTA</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">修改密码</a></li>
-                <li><a href="#">退出</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+<%include header%>
 <!--！！！！！！！！！！！！！！这个头都是一样的，可以全部进行替换！！！！！！！！！！！！！！-->
 <div class="page-container">
     <div class="row">
 
-        <include modules>
+        <%include modules%>
 
         <div class="col-md-10">
             <div class="row">
                 <!--这一部分为查询栏-->
                 <div class="col-md-12">
-                    <form class="form-horizontal" role="form" method="GET">
+                    <form class="form-horizontal" role="form" method="GET" id="queryForm">
                         <div class="form-group">
                             <label class="control-label col-md-1" for="searchCity">城市：</label>
                             <div class="col-md-2">
@@ -131,50 +113,9 @@
                     <button type="button" class="btn bg-primary" data-toggle="modal"  id="showEdit">编辑打包产品</button>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="queryResult">
                 <!--这一部分是分页栏 以及 表格栏-->
-                <div class="col-md-12">
-                    <ul class="pagination">
-                        <li><a href="<%=pageInfo.urls.firstPage%>">首页</a></li>
-                        <li class="<%=pageInfo.pages[20].class%>"><a href="<%=pageInfo.urls.prePage%>">上一页</a></li>
-                        <li class="<%=pageInfo.pages[0].class%>"><a href="<%=pageInfo.urls.pageStr1%>"><%=pageInfo.pages[0].page%></a></li>
-                        <li class="<%=pageInfo.pages[1].class%>"><a href="<%=pageInfo.urls.pageStr2%>"><%=pageInfo.pages[1].page%></a></li>
-                        <li class="<%=pageInfo.pages[2].class%>"><a href="<%=pageInfo.urls.pageStr3%>"><%=pageInfo.pages[2].page%></a></li>
-                        <li class="<%=pageInfo.pages[3].class%>"><a href="<%=pageInfo.urls.pageStr4%>"><%=pageInfo.pages[3].page%></a></li>
-                        <li class="<%=pageInfo.pages[4].class%>"><a href="<%=pageInfo.urls.pageStr5%>"><%=pageInfo.pages[4].page%></a></li>
-                        <li class="<%=pageInfo.pages[21].class%>"><a href="<%=pageInfo.urls.nextPage%>">下一页</a></li>
-                        <li><a href="<%=pageInfo.urls.lastPage%>">末页</a></li>
-                    </ul>
 
-                    <table id="provider" class="myTable table table-bordered"  width="100%">
-                    <thead>
-                        <tr>
-                            <th>打包产品名称</th>
-                            <th>城市</th>
-                            <th>级别</th>
-                            <th>有效期开始</th>
-                            <th>有效期结束</th>
-                            <th>创建时间</th>
-                            <!--<th>产品子类</th>-->
-                            <th>是否有效</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <%data.forEach(function(obj){%>
-                        <tr id="<%=obj._id%>">
-                                <td><%=obj.name%></td>
-                                <td><%=obj.city.name%></td>
-                                <td><%=obj.level%></td>
-                                <td><%=new Date(obj.effectDate).Format("yyyy-MM-dd")%></td>
-                                <td><%=new Date(obj.expiryDate).Format("yyyy-MM-dd")%></td>
-                                <td><%=new Date(obj.createTime).Format("yyyy-MM-dd")%></td>
-                                <!--<td><%=obj.subType%></td>-->
-                                <td><%=obj.isEnable%></td>
-                         </tr>
-                    <% })%>
-                    </tbody>
-                 </table>
-                </div>
             </div>
         </div>
     </div>
@@ -190,7 +131,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><span id="modalType"></span>景点门票产品</h4>
+                <h4 class="modal-title"><span id="modalType"></span>打包产品</h4>
             </div>
 
                 <div class="modal-body">
@@ -375,18 +316,18 @@
                         <!--</div>-->
                     <!--</div>-->
                         <input type="hidden" value="" name="transportation" id="transportation">
-                    <!--<div class="form-group">-->
-                        <!--<label for="effectDate" class="col-md-2 control-label">有效期</label>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<input type="text" class="date form-control" placeholder="有效期开始" id="effectDate" name="effectDate" readonly required>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-1">~~</div>-->
-                        <!--<div class="col-md-4">-->
-                            <!--<input type="text" class="date form-control" placeholder="有效期结束" id="expiryDate" name="expiryDate" readonly required>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                         <input type="hidden" value="1395898519812" name="effectDate" id="effectDate">
-                         <input type="hidden" value="1395898519812" name="expiryDate" id="expiryDate">
+                    <div class="form-group">
+                        <label for="effectDate" class="col-md-2 control-label">有效期</label>
+                        <div class="col-md-4">
+                            <input type="text" class="date form-control" placeholder="有效期开始" id="effectDate" name="effectDate" readonly required>
+                        </div>
+                        <div class="col-md-1">~~</div>
+                        <div class="col-md-4">
+                            <input type="text" class="date form-control" placeholder="有效期结束" id="expiryDate" name="expiryDate" readonly required>
+                        </div>
+                    </div>
+                         <!--<input type="hidden" value="1395898519812" name="effectDate" id="effectDate">-->
+                         <!--<input type="hidden" value="1395898519812" name="expiryDate" id="expiryDate">-->
                     <!--<div class="form-group">-->
                         <!--<label for="providerInfo" class="col-md-2 control-label">所属供应商</label>-->
                         <!--<div class="col-md-10">-->
@@ -451,6 +392,7 @@
 <script src="./js/bootstrap-switch.js"></script>
 <script src="./js/footer.js"></script>
 <script src="./js/underscore.min.js"></script>
+<script src="./js/ejs.js"></script>
 <script src="./js/common/packageManagement.js"></script>
 
 

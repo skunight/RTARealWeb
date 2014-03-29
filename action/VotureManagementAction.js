@@ -4,6 +4,8 @@
 var httpClient = require('./../tools/HttpClient');
 var Config     = require('./../tools/Config');
 var Paging     = require('./../tools/Paging');
+var _ = require('underscore');
+var  querystring  = require('querystring');
 
 
 
@@ -12,40 +14,58 @@ var modName      = "供应商管理"
 var productType  = 'voture'
 var template     = productType+'Management'
 
-//view
+//render search and modal
+exports.init = function(req,res){
+    var opt = {
+        hostname:Config.inf.host,
+        port:Config.inf.port
+    };
+    var viewData = {};
+    try{
+        opt.path = '/city/shortList';
+        opt.method='GET';
+        var httpCity = new httpClient(opt);
+        httpCity.getReq(function(err,result){
+            viewData.cityInfo = result.data;
+            res.render(template,viewData);
+        });
+    } catch(e){
+        var ret={};
+        ret.error = 1;
+        ret.errMsg = e.message+"，请联系管理员！";
+        console.log("**********************************************");
+        console.log(ret);
+    }
+};
+
+//view list
 exports.list = function(req,res){
     //init 如果传过来的有page参数,则用page参数，如果传过来没有page参数,则默认为0
     var opt = {
         hostname:Config.inf.host,
         port:Config.inf.port
     };
-    opt.path="/product/"+productType+"/list?page="+((req.query.current  > 0 ? req.query.current  :  1)-1);
+    var requestPage = _.isEmpty(req.query.current)?0:req.query.current-1;
+    var otherParams = {
+        city:req.query.searchCity
+        ,effectDate:_.isEmpty(req.query.searchEffect)?undefined:new Date(req.query.searchEffect).getTime()
+        ,expiryDate:_.isEmpty(req.query.searchExpiry)?undefined:new Date(req.query.searchExpiry).getTime()
+        ,isEnable:req.query.searchIsEnable
+        ,name:req.query.searchName
+        ,pageSize:1
+    };
+    otherParams = querystring.stringify(otherParams);
+
+    opt.path="/product/"+productType+"/list?page="+requestPage+'&'+otherParams;
     console.log(opt.path);
-    console.log(productType+'Management Step1',new Date());
     opt.method="GET";
     var viewData = {};
     try{
         var http = new httpClient(opt);
         http.getReq(function(err,result){
-            viewData.proName   = propName;
-            viewData.modName   = modName;
-            viewData.data      = result.data;
-            console.log(productType+'Management Step2',new Date());
-            viewData.pageInfo  = Paging.getPageInfo(req.query,result.totalPage);
-
-            var opt1 = {
-                hostname:Config.inf.host,
-                port:Config.inf.port
-            };
-            opt1.path = '/city/shortList';
-            opt1.method='GET';
-            console.log(productType+'Management Step3',new Date());
-            var httpCity = new httpClient(opt1);
-            httpCity.getReq(function(err,result){
-                viewData.cityInfo = result.data;
-                res.render(template,viewData);
-                console.log(productType+'Management Step4',new Date());
-            });
+            viewData = result;
+            viewData.pageInfo  = Paging.getPageInfo(req.query,result.totalPage,productType+'Management/list',otherParams);
+            res.json(viewData);
         });
     } catch(e){
         ret.error = 1;
@@ -53,8 +73,6 @@ exports.list = function(req,res){
         console.log("**********************************************");
         console.log(ret);
     }
-
-
 };
 
 exports.add = function(req,res){

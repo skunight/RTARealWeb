@@ -20,34 +20,19 @@ exports.init = function(req,res){
         hostname:Config.inf.host,
         port:Config.inf.port
     };
-    var requestPage = _.isEmpty(req.query.current)?0:req.query.current-1;
-    opt.path="/product/"+productType+"/list?page="+requestPage;
-    opt.method="GET";
     var viewData = {};
     try{
-        var http = new httpClient(opt);
-        http.getReq(function(err,result){
-            viewData.proName   = propName;
-            viewData.modName   = modName;
-            viewData.data      = result.data;
-            console.log('TicketManagement Step2',new Date());
-            viewData.pageInfo  = Paging.getPageInfo(req.query,result.totalPage,'packageManagement',otherParams);
-
-            var opt1 = {
-                hostname:Config.inf.host,
-                port:Config.inf.port
-            };
-            opt1.path = '/city/shortList';
-            opt1.method='GET';
-            console.log('TicketManagement Step3',new Date());
-            var httpCity = new httpClient(opt1);
-            httpCity.getReq(function(err,result){
-                viewData.cityInfo = result.data;
-                res.render(template,viewData);
-                console.log('TicketManagement Step4',new Date());
-            });
+        opt.path = '/city/shortList';
+        opt.method='GET';
+        console.log('TicketManagement Step3',new Date());
+        var httpCity = new httpClient(opt);
+        httpCity.getReq(function(err,result){
+            viewData.cityInfo = result.data;
+            res.render(template,viewData);
+            console.log('TicketManagement Step4',new Date());
         });
     } catch(e){
+        var ret={};
         ret.error = 1;
         ret.errMsg = e.message+"，请联系管理员！";
         console.log("**********************************************");
@@ -65,41 +50,24 @@ exports.list = function(req,res){
     var requestPage = _.isEmpty(req.query.current)?0:req.query.current-1;
     var otherParams = {
          city:req.query.searchCity
-        ,effectDate:req.query.searchEffectDate
-        ,expiryDate:req.query.searchExpiryDate
+        ,effectDate:_.isEmpty(req.query.searchEffect)?undefined:new Date(req.query.searchEffect).getTime()
+        ,expiryDate:_.isEmpty(req.query.searchExpiry)?undefined:new Date(req.query.searchExpiry).getTime()
         ,isEnable:req.query.searchIsEnable
         ,name:req.query.searchName
         ,pageSize:1
     };
     otherParams = querystring.stringify(otherParams);
 
-    opt.path="/product/"+productType+"/list?page="+requestPage+otherParams;
+    opt.path="/product/"+productType+"/list?page="+requestPage+'&'+otherParams;
     console.log(opt.path);
-    console.log('TicketManagement Step1',new Date());
     opt.method="GET";
     var viewData = {};
     try{
         var http = new httpClient(opt);
         http.getReq(function(err,result){
-            viewData.proName   = propName;
-            viewData.modName   = modName;
-            viewData.data      = result.data;
-            console.log('TicketManagement Step2',new Date());
-            viewData.pageInfo  = Paging.getPageInfo(req.query,result.totalPage,'packageManagement',otherParams);
-
-            var opt1 = {
-                hostname:Config.inf.host,
-                port:Config.inf.port
-            };
-            opt1.path = '/city/shortList';
-            opt1.method='GET';
-            console.log('TicketManagement Step3',new Date());
-            var httpCity = new httpClient(opt1);
-            httpCity.getReq(function(err,result){
-                viewData.cityInfo = result.data;
-                res.render(template,viewData);
-                console.log('TicketManagement Step4',new Date());
-            });
+            viewData = result;
+            viewData.pageInfo  = Paging.getPageInfo(req.query,result.totalPage,'packageManagement/list',otherParams);
+            res.json(viewData);
         });
     } catch(e){
         ret.error = 1;
@@ -107,8 +75,6 @@ exports.list = function(req,res){
         console.log("**********************************************");
         console.log(ret);
     }
-
-
 };
 
 exports.add = function(req,res){

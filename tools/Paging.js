@@ -17,7 +17,7 @@ exports.getPageInfo = function(query,totalPage,module,otherParams){
     var totalPage=parseInt(totalPage);
 //    var otherParams = "pageSize=1";
 
-    console.log('Paging Step1',new Date(),startPage);
+//    console.log('Paging Step1',new Date(),startPage);
     var pageInfo={};
     pageInfo.pages=[];
     pageInfo.urls  ={};
@@ -108,6 +108,6 @@ if(pageInfo.urls.pageStr5!=budong){
     pageInfo.urls.firstPage = pageInfo.urls.firstPage.replace(/__PAGEINFO0__/g,pageInfo.pages[0].page);
     pageInfo.urls.lastPage  = pageInfo.urls.lastPage.replace(/__PAGEINFO0__/g,pageInfo.pages[0].page).replace(/__PAGEINFO22_TOTALPAGE__/,pageInfo.pages[22].totalPage);
 
-   console.log(pageInfo);
+//   console.log(pageInfo);
     return pageInfo;
 }
