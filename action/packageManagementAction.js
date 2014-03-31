@@ -24,18 +24,20 @@ exports.init = function(req,res){
     try{
         opt.path = '/city/shortList';
         opt.method='GET';
-        console.log('TicketManagement Step3',new Date());
+//        console.log('TicketManagement Step3',new Date());
         var httpCity = new httpClient(opt);
         httpCity.getReq(function(err,result){
             viewData.cityInfo = result.data;
+            viewData.userModules = req.session.user.modules;
+            viewData.user={};
+            viewData.user.mobile=req.session.user.mobile;
+            viewData.user._id=req.session.user._id;
             res.render(template,viewData);
-            console.log('TicketManagement Step4',new Date());
         });
     } catch(e){
         var ret={};
         ret.error = 1;
         ret.errMsg = e.message+"，请联系管理员！";
-        console.log("**********************************************");
         console.log(ret);
     }
 };
@@ -54,10 +56,9 @@ exports.list = function(req,res){
         ,expiryDate:_.isEmpty(req.query.searchExpiry)?undefined:new Date(req.query.searchExpiry).getTime()
         ,isEnable:req.query.searchIsEnable
         ,name:req.query.searchName
-        ,pageSize:1
+        ,pageSize:Config.inf.pageSize
     };
     otherParams = querystring.stringify(otherParams);
-
     opt.path="/product/"+productType+"/list?page="+requestPage+'&'+otherParams;
     console.log(opt.path);
     opt.method="GET";

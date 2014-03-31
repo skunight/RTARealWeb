@@ -27,6 +27,10 @@ exports.init = function(req,res){
         var httpCity = new httpClient(opt);
         httpCity.getReq(function(err,result){
             viewData.cityInfo = result.data;
+            viewData.userModules = req.session.user.modules;
+            viewData.user={};
+            viewData.user.mobile=req.session.user.mobile;
+            viewData.user._id=req.session.user._id;
             res.render(template,viewData);
         });
     } catch(e){
@@ -52,7 +56,7 @@ exports.list = function(req,res){
         ,expiryDate:_.isEmpty(req.query.searchExpiry)?undefined:new Date(req.query.searchExpiry).getTime()
         ,isEnable:req.query.searchIsEnable
         ,name:req.query.searchName
-        ,pageSize:1
+        ,pageSize:Config.inf.pageSize
     };
     otherParams = querystring.stringify(otherParams);
 

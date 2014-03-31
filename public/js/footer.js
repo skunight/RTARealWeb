@@ -30,3 +30,12 @@ Date.prototype.Format = function (fmt) { //author: wucho
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 };
+
+//nav 的逻辑
+$(document).ready(function(){
+    var currentPath = window.location.pathname;
+//    $('a[href="__PATH__"]'.replace(/__PATH__/,currentPath)).addClass('active');
+    $('a[href="__PATH__"]'.replace(/__PATH__/,currentPath)).parent().parent().addClass('in');
+//    $('a[href="__PATH__"]'.replace(/__PATH__/,currentPath)).parent().parent().prev().addClass('active');
+});
+//$('body')

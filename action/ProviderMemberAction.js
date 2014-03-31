@@ -37,6 +37,10 @@ exports.viewProviderMemberManager = function(req,res){
                 };
                 new httpClient(opt).getReq(function(err,result){
                     if(result.error===0){
+                        r.user={};
+                        r.user.mobile=req.session.user.mobile;
+                        r.user._id=req.session.user._id;
+                        r.userModules = req.session.user.modules;
                         r.providerNames = result.data;
                         r.proName = "供应商";
                         r.modName = "供应商账号管理";

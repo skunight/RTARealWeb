@@ -16,7 +16,9 @@ exports.login = function(request,response){
             client.postReq({
                 'mobile':request.body.mobile,
                 'passwd':request.body.passwd
-            },cb);
+            },function(error,result){
+                cb(error,result);
+            });
         },
         function(member,cb){
             var client = new HttpClient({
@@ -38,7 +40,7 @@ exports.login = function(request,response){
         if(err){
             response.render('index',{});
         } else {
-            if(request.session.user!=null){
+//            if(request.session.user!=null){
                 var result = {};
                 var cat;
                 for(var i in res.data){
@@ -49,8 +51,10 @@ exports.login = function(request,response){
                     result[res.data[i].cat].push(res.data[i]);
                 }
                 request.session.user.modules = result;
-            }
-            response.render('welcome',{});
+                console.log(request.session.user);
+//            }
+//            console.log(result);
+            response.render('welcome',{userModules:request.session.user.modules});
         }
     });
 };

@@ -52,7 +52,7 @@ exports.viewHotelPriceInput = function(req,res){
                 var opt = {
                     hostname:config.inf.host,
                     port:config.inf.port,
-                    path:"/ent/provider/member/shortList?provider="+req.session.user.provider,
+                    path:"/ent/provider/member/shortList?provider="+req.session.user.provider._id,
                     method:"GET"
                 };
                 new httpClient(opt).getReq(function(err,result){
@@ -75,6 +75,10 @@ exports.viewHotelPriceInput = function(req,res){
                 new httpClient(opt).getReq(function(err,result){
                     if(result.error===0){
                         ret.citys = result.data;
+                        ret.userModules = req.session.user.modules;
+                        ret.user={};
+                        ret.user.mobile=req.session.user.mobile;
+                        ret.user._id=req.session.user._id;
                         if("input"===req.params.category){
                             ret.proName = "酒店";
                             ret.modName = "价格录入";

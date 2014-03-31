@@ -136,8 +136,8 @@ $(document).ready(function(){
                 if(picName==""){
                     //如果用户没有填写图片名称，则默认使用上传的图片名称
                     picName=data.srcFileName;
-                    addImage({intro:picName,url:data.upyunFileName});
                 }
+                addImage({intro:picName,url:data.upyunFileName});
             });
     });
     //点击modal框中的删除图片按钮

@@ -52,12 +52,17 @@ exports.viewTicketPriceInput = function(req,res){
                 var opt = {
                     hostname:config.inf.host,
                     port:config.inf.port,
-                    path:"/ent/provider/member/shortList?provider="+req.session.user.provider,
+                    path:"/ent/provider/member/shortList?provider="+req.session.user.provider._id,
                     method:"GET"
                 };
                 new httpClient(opt).getReq(function(err,result){
+                    console.log('-----------------------');
                     if(result.error===0){
                         ret.operators = result.data;
+                        ret.userModules = req.session.user.modules;
+                        ret.user={};
+                        ret.user.mobile=req.session.user.mobile;
+                        ret.user._id=req.session.user._id;
                         cb(err,result);
                     }else{
                         throw "error,pls contact admin!";

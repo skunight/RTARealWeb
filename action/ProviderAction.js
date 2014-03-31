@@ -20,13 +20,17 @@ exports.viewProviderManger = function(req,res){
             ret = result;
             ret.proName = "供应商";
             ret.modName = "供应商管理";
+            ret.userModules = req.session.user.modules;
+            ret.user={};
+            ret.user.mobile=req.session.user.mobile;
+            ret.user._id=req.session.user._id;
             ret.currentPage =1;
+//            console.log(req.session.user.modules);
             if(result.totalPage===0){
                 ret.totalPage++;
             }
             res.render("providerManagement",ret);
         });
-
     } catch(e){
         ret.error = 1;
         ret.errMsg = e.message+"，请联系管理员！";

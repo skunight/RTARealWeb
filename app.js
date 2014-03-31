@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -44,10 +43,7 @@ app.use(express.bodyParser({
     uploadDir : './uploads'
 }));
 app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.cookieSession({
-    secret : 'rta'
-}));
+app.use(express.cookieParser())
 app.use(express.session({
     secret : 'rta',
     store : store,
@@ -59,13 +55,14 @@ app.use(log4js.connectLogger(logger, {
     level : log4js.levels.INFO
 }));
 
-app.use(function(request,response,next){
-    if(request.session.user){
-        app.locals.user = request.session.user;
-        app.locals.userModules = request.session.user.modules;
-    }
-    next();
-});
+//app.use(function(request,response,next){
+//    if(request.session.user){
+//        app.locals.user = request.session.user;
+//        app.locals.userModules = request.session.user.modules;
+//        console.log(app.locals.userModules);
+//    }
+//    next();
+//});
 
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
