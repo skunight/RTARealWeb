@@ -6,6 +6,7 @@ var Config     = require('./../tools/Config');
 var Paging     = require('./../tools/Paging');
 var _ = require('underscore');
 var  querystring  = require('querystring');
+var timeZone = ' 00:00:00 +08:00';
 
 
 
@@ -52,8 +53,8 @@ exports.list = function(req,res){
     var requestPage = _.isEmpty(req.query.current)?0:req.query.current-1;
     var otherParams = {
         city:req.query.searchCity
-        ,effectDate:_.isEmpty(req.query.searchEffect)?undefined:new Date(req.query.searchEffect).getTime()
-        ,expiryDate:_.isEmpty(req.query.searchExpiry)?undefined:new Date(req.query.searchExpiry).getTime()
+        ,effectDate:_.isEmpty(req.query.searchEffect)?undefined:new Date(req.query.searchEffect+timeZone).getTime()
+        ,expiryDate:_.isEmpty(req.query.searchExpiry)?undefined:new Date(req.query.searchExpiry+timeZone).getTime()
         ,isEnable:req.query.searchIsEnable
         ,name:req.query.searchName
         ,pageSize:Config.inf.pageSize

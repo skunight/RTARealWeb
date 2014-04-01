@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var timeZone = ' 00:00:00 +08:00';
     var images=[];
     var productType = 'ticket';
 
@@ -12,7 +13,6 @@ $(document).ready(function(){
             }
         ).done(function(data){
                 if(data.error!==0){
-                    console.log(data);
                     alert("查询出错！");
                 }else{
                     var html = new EJS({url:"./template/temp_"+productType+"Management.ejs"}).render(data);
@@ -160,8 +160,10 @@ $(document).ready(function(){
         postData.useRule     =$('#useRule').val();
         postData.cancelRule  =$('#cancelRule').val();
         postData.transportation =$('#transportation').val();
-        postData.effectDate      =new Date($('#effectDate').val()).getTime();
-        postData.expiryDate      =new Date($('#expiryDate').val()).getTime();
+         var effectDate          =  new Date($('#effectDate').val()+timeZone);
+        postData.effectDate     =  effectDate.getTime();
+         var expiryDate          =  new Date($('#expiryDate').val()+timeZone);
+        postData.expiryDate      = expiryDate.getTime();
         postData.isEnable           = $('#isEnable').bootstrapSwitch('state').toString();
         postData.contactName        =$('#contactName').val();
         postData.tel                =$('#tel').val();
@@ -174,7 +176,7 @@ $(document).ready(function(){
         }else{
             url =  "/"+productType+"Management/update/"+$('#selectedId').val();
         }
-        console.log(url);
+//        console.log(url);
         $.ajax({
             type: "post",
             url: url,
@@ -184,7 +186,7 @@ $(document).ready(function(){
                 if(data.error!=0){
                     alert("错误："+ data.errorMsg);
                 }else{
-                    location.reload();
+//                    location.reload();
                 }
             }).fail(function(){
                 alert("网络异常，请重试！");

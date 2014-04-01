@@ -48,7 +48,7 @@ app.use(express.session({
     secret : 'rta',
     store : store,
     cookie : {
-        maxAge : 900000
+        maxAge : 90000000000
     }
 }));
 app.use(log4js.connectLogger(logger, {

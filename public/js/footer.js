@@ -36,6 +36,6 @@ $(document).ready(function(){
     var currentPath = window.location.pathname;
 //    $('a[href="__PATH__"]'.replace(/__PATH__/,currentPath)).addClass('active');
     $('a[href="__PATH__"]'.replace(/__PATH__/,currentPath)).parent().parent().addClass('in');
-//    $('a[href="__PATH__"]'.replace(/__PATH__/,currentPath)).parent().parent().prev().addClass('active');
+    $('a[href="__PATH__"]'.replace(/__PATH__/,currentPath)).parent().parent().parent().addClass('active');
 });
 //$('body')

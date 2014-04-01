@@ -109,7 +109,7 @@ $('#inventoryType').change(function(){
 
 //auto list productNames
 $('#addCity').change(function(){
-    $('#products').html("");
+    $('#product').html("");
     $.ajax({
         type: "get",
         url: "/getProductNames/ticketPackage/",

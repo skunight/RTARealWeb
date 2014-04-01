@@ -32,35 +32,35 @@ $('#query').click(function(event){
 });
 
 //autocomplete for product name
-$('#searchProduct').autocomplete({
-    source:function(req,res){
-        $.ajax({
-            type: "get",
-            url: "/getProductNames/ticket/",
-            cache:false,
-//            dataType:"json",
-            data:{city:$('#searchCity').val(),name:req.term},
-            success: function(data, textStatus){
-               res(data);
-            },
-            complete: function(XMLHttpRequest, textStatus){
-                //HideLoading();
-            },
-            error: function(){
-                //请求出错处理
-                alert("网络异常，请重试！");
-            }
-        });
-    },
-    select:function( event, ui ){
-        event.preventDefault();
-        $('#searchProduct').text(ui.item.label);
-        $('#productId').val(ui.item.value);
-    },
-    max:10,
-    minLength:2
-//    width:$(this).width(),
-});
+//$('#searchProduct').autocomplete({
+//    source:function(req,res){
+//        $.ajax({
+//            type: "get",
+//            url: "/getProductNames/ticket/",
+//            cache:false,
+////            dataType:"json",
+//            data:{city:$('#searchCity').val(),name:req.term},
+//            success: function(data, textStatus){
+//               res(data);
+//            },
+//            complete: function(XMLHttpRequest, textStatus){
+//                //HideLoading();
+//            },
+//            error: function(){
+//                //请求出错处理
+//                alert("网络异常，请重试！");
+//            }
+//        });
+//    },
+//    select:function( event, ui ){
+//        event.preventDefault();
+//        $('#searchProduct').text(ui.item.label);
+//        $('#productId').val(ui.item.value);
+//    },
+//    max:10,
+//    minLength:2
+////    width:$(this).width(),
+//});
 
 //auto print value for addHotelPriceModal
 $('#cost').keyup(function(){
@@ -108,13 +108,34 @@ $('#inventoryType').change(function(){
 });
 
 //auto list productNames
+//$('#products').autocomplete({
+//    source:function(req,res){
+//        $.ajax({
+//            method:'GET',
+//            url:'/getProductNames/ticket',
+//            data:{city:$('#addCity').val(),
+//                name:req.term}
+//        }).done(function(data){
+//                res(data);
+//            });
+//    }
+//    ,minLength:0
+//    ,appendTo:'#subProductPreSelect'
+//    ,select:function(event,ui){
+//        event.preventDefault();
+//        $('#subProductName').val(ui.item.label);
+//        $('#subProductName').data( "subProductID", ui.item.value );
+//    }
+//}).focus(function(){
+//        $(this).autocomplete("search", "");
+//    });
+
 $('#addCity').change(function(){
-    $('#products').html("");
+    $('#product').html("");
     $.ajax({
         type: "get",
         url: "/getProductNames/ticket/",
         cache:false,
-//            dataType:"json",
         data:{city:$('#addCity').val()},
         success: function(data, textStatus){
             var html = "";
@@ -124,10 +145,8 @@ $('#addCity').change(function(){
             $('#product').append(html);
         },
         complete: function(XMLHttpRequest, textStatus){
-            //HideLoading();
         },
         error: function(){
-            //请求出错处理
             alert("网络异常，请重试！");
         }
     });
@@ -165,13 +184,13 @@ $('#addForm').submit(function(event){
             if(data.error!==0){
                 alert("保存记录错误："+data.errMsg);
             }else{
+                $('#addHotelPriceModal').modal("toggle");
                 refreshTable(1);
             }
         },
         complete: function(XMLHttpRequest, textStatus){
             //HideLoading();
             $('#createVoture').button("reset");
-            $('#addHotelPriceModal').modal("toggle");
         },
         error: function(){
             //请求出错处理

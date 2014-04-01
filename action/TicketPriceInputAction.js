@@ -5,6 +5,7 @@ var httpClient = require('./../tools/HttpClient.js');
 var config = require('./../tools/Config.js');
 var async = require('async');
 var underscore = require('underscore');
+var timeZone = ' 00:00:00 +08:00';
 exports.viewTicketPriceInput = function(req,res){
     var ret;
         async.waterfall([
@@ -105,8 +106,8 @@ exports.viewTicketPriceInput = function(req,res){
 
 exports.addInputLog = function(req,res){
     var params = req.body;
-    params.startDate = new Date(params.startDate).getTime();
-    params.endDate = new Date(params.endDate).getTime();
+    params.startDate = new Date(params.startDate+timeZone).getTime();
+    params.endDate = new Date(params.endDate+timeZone).getTime();
     delete params.addCity;
     if(!underscore.isArray(params.weekend)){
         params.weekend = [params.weekend];

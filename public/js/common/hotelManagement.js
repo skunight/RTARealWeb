@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var timeZone = ' 00:00:00 +08:00';
     var images=[];
     var productType = 'hotel';
     //刷新分页以及表格数据
@@ -159,8 +160,10 @@ $(document).ready(function(){
         postData.useRule     =$('#useRule').val();
         postData.cancelRule  =$('#cancelRule').val();
         postData.transportation =$('#transportation').val();
-        postData.effectDate      =new Date($('#effectDate').val()).getTime();
-        postData.expiryDate      =new Date($('#expiryDate').val()).getTime();
+        var effectDate          =  new Date($('#effectDate').val()+timeZone);
+        postData.effectDate     =  effectDate.getTime();
+        var expiryDate          =  new Date($('#expiryDate').val()+timeZone);
+        postData.expiryDate      = expiryDate.getTime();
         postData.isEnable           = $('#isEnable').bootstrapSwitch('state').toString();
         postData.contactName        =$('#contactName').val();
         postData.tel                =$('#tel').val();

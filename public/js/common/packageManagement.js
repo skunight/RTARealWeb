@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var timeZone = ' 00:00:00 +08:00';
     var images=[];
     var productType = 'package';
     //刷新分页以及表格数据
@@ -180,8 +181,10 @@ $(document).ready(function(){
     postData.useRule     =$('#useRule').val();
     postData.cancelRule  =$('#cancelRule').val();
     postData.transportation =$('#transportation').val();
-    postData.effectDate      =new Date($('#effectDate').val()).getTime();
-    postData.expiryDate      =new Date($('#expiryDate').val()).getTime();
+        var effectDate          =  new Date($('#effectDate').val()+timeZone);
+        postData.effectDate     =  effectDate.getTime();
+        var expiryDate          =  new Date($('#expiryDate').val()+timeZone);
+        postData.expiryDate      = expiryDate.getTime();
     postData.isEnable           = $('#isEnable').bootstrapSwitch('state').toString();
     postData.contactName        =$('#contactName').val();
     postData.tel                =$('#tel').val();
@@ -214,26 +217,26 @@ $(document).ready(function(){
 });
     //Modal中 选择产品的autocomplete逻辑
     $('#subProductName').autocomplete({
-    source:function(req,res){
-        $.ajax({
-            method:'GET',
-            url:'/getProductNames/'+$('#subProductType').val(),
-            data:{city:$('#subProductCity').val(),
-                name:req.term}
-        }).done(function(data){
-                res(data);
-            });
-    }
-    ,minLength:0
-    ,appendTo:'#subProductPreSelect'
-    ,select:function(event,ui){
-        event.preventDefault();
-        $('#subProductName').val(ui.item.label);
-        $('#subProductName').data( "subProductID", ui.item.value );
-    }
-}).focus(function() {
-        $(this).autocomplete("search", "");
-    });
+            source:function(req,res){
+                $.ajax({
+                    method:'GET',
+                    url:'/getProductNames/'+$('#subProductType').val(),
+                    data:{city:$('#subProductCity').val(),
+                        name:req.term}
+                }).done(function(data){
+                        res(data);
+                    });
+            }
+            ,minLength:0
+            ,appendTo:'#subProductPreSelect'
+            ,select:function(event,ui){
+                event.preventDefault();
+                $('#subProductName').val(ui.item.label);
+                $('#subProductName').data( "subProductID", ui.item.value );
+            }
+    }).focus(function(){
+            $(this).autocomplete("search", "");
+        });
     //在添加关联产品的选择条件改变的时候清空产品名称和产品数量
     $('#subProductCity , #subProductType , #subProductName').change(function(){
     resetSubProductInfo();
