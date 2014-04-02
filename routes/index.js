@@ -21,6 +21,8 @@ module.exports = function(app){
     var votureManagementAction = require('./../action/VotureManagementAction');
     var ticketPackageManagementAction = require('./../action/TicketPackageManagementAction');
     var packagePackageManagementAction = require('./../action/PackageManagementAction');
+    var newsManagementAction           = require('./../action/NewsManagementAction');
+    var newsManagementAuditAction      = require('./../action/NewsManagementAuditAction');
 
 
 
@@ -92,6 +94,20 @@ module.exports = function(app){
     app.get('/packageManagement/detail/:id',packagePackageManagementAction.viewDetail);
     app.get('/packageManagement/list',packagePackageManagementAction.list);
 
-    //hotelPriceQuery
-//    app.get('/hotelPriceQuery/:id',hotelPriceQueryAction.list);
+//    hotelPriceQuery
+    app.get('/hotelPriceQuery',hotelPriceQueryAction.init);
+    app.get('/hotelPriceQuery/list',hotelPriceQueryAction.list);
+
+//  newsManagement
+    app.get('/newsManagement',newsManagementAction.init);
+    app.post('/newsManagement/add',newsManagementAction.add);
+    app.post('/newsManagement/update/:id',newsManagementAction.update);
+    app.get('/newsManagement/detail/:id',newsManagementAction.viewDetail);
+    app.get('/newsManagement/list',newsManagementAction.list);
+
+//  newsManagementAudit
+    app.get('/newsManagementAudit',newsManagementAuditAction.init);
+    app.get('/newsManagementAudit/detail/:id',newsManagementAction.viewDetail);
+    app.get('/newsManagementAudit/list',newsManagementAuditAction.list);
+    app.post('/newsManagementAudit/audit/:id',newsManagementAuditAction.audit);
 };

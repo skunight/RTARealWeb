@@ -3,7 +3,11 @@
  */
 
 exports.DateDiff = function (interval,date1,date2){
+    var date1 = parseInt(date1);
+    var date2 = parseInt(date2);
     var long = date2 - date1; //相差毫秒
+     date2 = new Date(date2);
+     date1 = new Date(date1);
     switch(interval.toLowerCase()){
         case "y": return parseInt(date2.getFullYear() - date1.getFullYear());
         case "m": return parseInt((date2.getFullYear() - date1.getFullYear())*12 + (date2.getMonth()-date1.getMonth()));
