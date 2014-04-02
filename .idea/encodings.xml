@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/node_modules/xml2js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/css/wcy.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_Progress01.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_Progress02.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_QRCode.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_add.gif" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_alipay.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_headbg.gif" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_img01.jpg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_imggray.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_logo.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_right.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_sub.gif" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_titlelinebg.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/images/wcy_wrong.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/js/md5.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tools/upyun.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_aboutUs.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_goverNotice.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_hotelTicketPay.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_hotelTicketSubOrder.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_myorder.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_onlyTicketPay.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_onlyTicketSubOrder.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_orderdetailpaid.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_orderdetailunpaid.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_payfailed.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_paysucceed.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_userInfo.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/WCY_webcity.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/web/noticeDetail.ejs" charset="UTF-8" />
   </component>
 </project>
 
