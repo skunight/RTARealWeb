@@ -15,37 +15,6 @@
         #createModal .modal-dialog{
             width:1000px;
         }
-        #imgPreview{
-            list-style: none;
-            margin:0px;
-        }
-        #imgPreview li{
-            margin-bottom: 10px;
-            height:164px;
-            float: left;
-        }
-        #imgPreview a{
-            height:114px;
-            margin:5px;
-        }
-        #imgPreview img{
-            height:114px;
-            width: 100%;
-        }
-
-        #imgPreview .deleteBar{
-            height:26px;
-            font-size:14px;
-            cursor: pointer;
-            background-color: lightgrey;
-            text-align: center;
-        }
-        #imgPreview .titleBar{
-            height:26px;
-            font-size:14px;
-            background-color: lightgrey;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -358,7 +327,7 @@
                     <div class="form-group">
                         <label for="operatorName" class="col-md-2 control-label">操作员</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="operatorName" name="operatorName" readonly>
+                            <input type="text" class="form-control" id="operatorName" name="operatorName" value="<%=user.mobile%>" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -399,12 +368,6 @@
 
 <script>
     $(document).ready(function() {
-        $('#isEnable').bootstrapSwitch();
-        $('#imgPreview').sortable();
-        $('.date').datepicker({
-            "dateFormat": 'yy-mm-dd'
-        } );
-
     } );
 </script>
 

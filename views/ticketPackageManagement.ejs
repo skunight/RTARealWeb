@@ -222,20 +222,20 @@
             <input type="text" class="form-control" placeholder="请输入产品名称" id="name" name="name" required  autofocus>
         </div>
     </div>
-    <!--<div class="form-group">-->
-    <!--<label for="subType" class="col-md-2 control-label">产品子类</label>-->
-    <!--<div class="col-md-10">-->
-    <!--<select class="form-control" id="subType" name="subType">-->
-    <!--<option value="1">-->
-    <!--电子票-->
-    <!--</option>-->
-    <!--<option value="2">-->
-    <!--实体票-->
-    <!--</option>-->
-    <!--</select>-->
-    <!--</div>-->
-    <!--</div>-->
-    <input type="hidden" value="0" id="subType" name="subType">
+    <div class="form-group">
+        <label for="subType" class="col-md-2 control-label">产品子类</label>
+        <div class="col-md-10">
+            <select class="form-control" id="subType" name="subType">
+                <option value="1">
+                电子票
+                </option>
+                <option value="2">
+                实体票
+                </option>
+            </select>
+        </div>
+    </div>
+    <!--<input type="hidden" value="0" id="subType" name="subType">-->
     <div class="form-group">
         <label for="content" class="col-md-2 control-label">包含内容</label>
         <div class="col-md-10">
@@ -358,7 +358,7 @@
     <div class="form-group">
         <label for="operatorName" class="col-md-2 control-label">操作员</label>
         <div class="col-md-10">
-            <input type="text" class="form-control" id="operatorName" name="operatorName" readonly>
+            <input type="text" class="form-control" id="operatorName" name="operatorName" value="<%=user.mobile%>" readonly>
         </div>
     </div>
     <div class="form-group">
@@ -399,12 +399,6 @@
 
 <script>
     $(document).ready(function() {
-        $('#isEnable').bootstrapSwitch();
-        $('#imgPreview').sortable();
-        $('.date').datepicker({
-            "dateFormat": 'yy-mm-dd'
-        } );
-
     } );
 </script>
 

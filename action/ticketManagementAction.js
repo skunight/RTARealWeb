@@ -16,12 +16,19 @@ var template     = productType+'Management'
 
 //render search and modal
 exports.init = function(req,res){
-    var opt = {
-        hostname:Config.inf.host,
-        port:Config.inf.port
-    };
-    var viewData = {};
     try{
+        var opt = {
+            hostname:Config.inf.host,
+            port:Config.inf.port
+        };
+        var viewData = {};
+        if(_.isEmpty(req.session.user.modules)){
+            res.render("index",{error:1,errorMsg:"无法读取模块列表！"});
+        }if(_.isEmpty(req.session.user.mobile)){
+            res.render("index",{error:1,errorMsg:"无法读取手机号！"});
+        }if(_.isEmpty(req.session.user._id)){
+            res.render("index",{error:1,errorMsg:"无法读取用户编号！"});
+        }
         opt.path = '/city/shortList';
         opt.method='GET';
         var httpCity = new httpClient(opt);
@@ -34,11 +41,7 @@ exports.init = function(req,res){
             res.render(template,viewData);
         });
     } catch(e){
-        var ret={};
-        ret.error = 1;
-        ret.errMsg = e.message+"，请联系管理员！";
-        console.log("**********************************************");
-        console.log(ret);
+        res.render("errorPage",{});
     }
 };
 
@@ -87,7 +90,9 @@ exports.add = function(req,res){
     opt.path="/product/"+productType+"/create";
     opt.method="POST";
     var params = req.body;
-    console.log(params);
+    params.effectDate = new Date(params.effectDate+timeZone).getTime();
+    params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
+//    console.log('ticketManagement---add-params',params);
     try{
         new httpClient(opt).postReq(params,function(err,response){
             console.log(response);
@@ -109,7 +114,9 @@ exports.update = function(req,res){
     opt.method = "POST"
     try{
         var http = new httpClient(opt);
-        console.log(params);
+        params.effectDate = new Date(params.effectDate+timeZone).getTime();
+        params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
+        console.log('ticketManagement---update-params',params);
         http.postReq(params,function(err,response){
             res.json(response);
         });

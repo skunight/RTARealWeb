@@ -1,7 +1,30 @@
 $(document).ready(function(){
-    var timeZone = ' 00:00:00 +08:00';
     var images=[];
     var productType = 'hotel';
+    //清空模态框
+    var resetModal = function(){
+        $('#imgintro').val('');
+        $('#image').val('');//隐藏的用来读图片的文字串置空
+        $('#imgPreview').empty();
+        $('#name').val('');
+        $('#content').val('');
+        $('#intro').val('');
+        $('#addr').val('');
+        $('#lat').val('')+','+$('#lon').val('');
+        $('#level').val('');
+        $('#openTime').val('');
+        $('#bookRule').val('');
+        $('#useRule').val('');
+        $('#cancelRule').val('');
+        $('#transportation').val('');
+        $('#effectDate').val('');
+        $('#expiryDate').val('');
+        $('#contactName').val('');
+        $('#tel').val('');
+        $('#fax').val('');
+        $('#subType').val('');
+        $('#isEnable').bootstrapSwitch('state',true);
+    };
     //刷新分页以及表格数据
     var refershDataSet = function(url,data){
         $.ajax(
@@ -51,13 +74,8 @@ $(document).ready(function(){
     };
     //点击新增按钮
     $('#showCreate').click(function(){
+        resetModal();
         $('#modalType').html('新增');
-        $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',false);
-//    $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',true);
-
     });
     //点击编辑按钮
     $('#showEdit').click(function(){
@@ -160,10 +178,8 @@ $(document).ready(function(){
         postData.useRule     =$('#useRule').val();
         postData.cancelRule  =$('#cancelRule').val();
         postData.transportation =$('#transportation').val();
-        var effectDate          =  new Date($('#effectDate').val()+timeZone);
-        postData.effectDate     =  effectDate.getTime();
-        var expiryDate          =  new Date($('#expiryDate').val()+timeZone);
-        postData.expiryDate      = expiryDate.getTime();
+        postData.effectDate     =  $('#effectDate').val();
+        postData.expiryDate      = $('#expiryDate').val();
         postData.isEnable           = $('#isEnable').bootstrapSwitch('state').toString();
         postData.contactName        =$('#contactName').val();
         postData.tel                =$('#tel').val();

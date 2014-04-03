@@ -33,7 +33,7 @@
             <td><%=new Date(obj.effectDate).Format("yyyy-MM-dd")%></td>
             <td><%=new Date(obj.expiryDate).Format("yyyy-MM-dd")%></td>
             <td><%=new Date(obj.createTime).Format("yyyy-MM-dd")%></td>
-            <td><%=obj.subType%></td>
+            <td><%if(obj.subType==1){%>电子票<%}%><%if(obj.subType==2){%>实体票<%}%></td>
             <td><%=obj.isEnable%></td>
         </tr>
         <% })%>

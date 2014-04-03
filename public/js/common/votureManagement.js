@@ -1,7 +1,30 @@
 $(document).ready(function(){
-    var timeZone = ' 00:00:00 +08:00';
     var images=[];
     var productType="voture";
+    //清空模态框
+    var resetModal = function(){
+        $('#imgintro').val('');
+        $('#image').val('');//隐藏的用来读图片的文字串置空
+        $('#imgPreview').empty();
+        $('#name').val('');
+        $('#content').val('');
+        $('#intro').val('');
+        $('#addr').val('');
+        $('#lat').val('')+','+$('#lon').val('');
+        $('#level').val('');
+        $('#openTime').val('');
+        $('#bookRule').val('');
+        $('#useRule').val('');
+        $('#cancelRule').val('');
+        $('#transportation').val('');
+        $('#effectDate').val('');
+        $('#expiryDate').val('');
+        $('#contactName').val('');
+        $('#tel').val('');
+        $('#fax').val('');
+        $('#subType').val('');
+        $('#isEnable').bootstrapSwitch('state',true);
+    };
     //刷新分页以及表格数据
     var refershDataSet = function(url,data){
         $.ajax(
@@ -51,12 +74,7 @@ $(document).ready(function(){
     //点击新增按钮
     $('#showCreate').click(function(){
         $('#modalType').html('新增');
-        $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',false);
-//    $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',true);
-
+        resetModal();
     });
     //点击编辑按钮
     $('#showEdit').click(function(){
@@ -74,7 +92,6 @@ $(document).ready(function(){
                 cache:false
             }).done(function(data, textStatus){
                     if(data.error===0){
-
                         //insert Data
                         $('#name').val(data.data.name);
                         $('#content').val(data.data.content);
@@ -84,7 +101,7 @@ $(document).ready(function(){
                             addImage(value);
                         });
                         if(undefined!==data.data.city){
-                            $("#city option[value='"+data.data.city._id+"']").attr("selected",true);
+                            $("#city option[value='"+data.data.city._id+"']").prop("selected",true);
                         }
                         $('#addr').val(data.data.addr);
                         $('#lat').val(data.data.gps.lat);
@@ -104,11 +121,8 @@ $(document).ready(function(){
                         $('#tel').val(data.data.tel);
                         $('#fax').val(data.data.fax);
                         $('#type').val(data.data.type);
-//                    $('#subType').val(data.data.subType);
-//                    $('#operatorName').val(data.data.operatorName);
-//                    把数据填充完毕以后再显示详情
+                        //把数据填充完毕以后再显示详情
                         $('#createModal').modal("show");
-//                    console.log(data);
                     }else{
                         alert("获取详情出错："+data.errMsg);
                     }
@@ -159,16 +173,13 @@ $(document).ready(function(){
         postData.useRule     =$('#useRule').val();
         postData.cancelRule  =$('#cancelRule').val();
         postData.transportation =$('#transportation').val();
-        var effectDate          =  new Date($('#effectDate').val()+timeZone);
-        postData.effectDate     =  effectDate.getTime();
-        var expiryDate          =  new Date($('#expiryDate').val()+timeZone);
-        postData.expiryDate      = expiryDate.getTime();
+        postData.effectDate     =  $('#effectDate').val();
+        postData.expiryDate      = $('#effectDate').val();
         postData.isEnable           = $('#isEnable').bootstrapSwitch('state').toString();
         postData.contactName        =$('#contactName').val();
         postData.tel                =$('#tel').val();
         postData.fax                =$('#fax').val();
         postData.subType      = $('#subType').val();
-        postData.operator     = '50fe5af792ed2bfb07d20d37';//$('#operatorName').val();
         console.log(JSON.stringify(postData));
         if($('#modalType').html()=='新增'){
             url = "/"+productType+"Management/add";

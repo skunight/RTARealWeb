@@ -17,16 +17,23 @@ var template     = productType+'Management'
 
 //render search and modal
 exports.init = function(req,res){
-    var opt = {
-        hostname:Config.inf.host,
-        port:Config.inf.port
-    };
-    var viewData = {};
+    if(_.isEmpty(req.session.user.modules)){
+        res.render("index",{error:1,errorMsg:"无法读取模块列表！"});
+    }if(_.isEmpty(req.session.user.mobile)){
+        res.render("index",{error:1,errorMsg:"无法读取手机号！"});
+    }if(_.isEmpty(req.session.user._id)){
+        res.render("index",{error:1,errorMsg:"无法读取用户编号！"});
+    }
     try{
-        opt.path = '/city/shortList';
-        opt.method='GET';
+        var opt = {
+            hostname:Config.inf.host
+            ,port:Config.inf.port
+            ,method:"GET"
+            ,path : "/city/shortList"
+        };
         var httpCity = new httpClient(opt);
         httpCity.getReq(function(err,result){
+            var viewData = {};
             viewData.userModules = req.session.user.modules;
             viewData.user={};
             viewData.user.mobile=req.session.user.mobile;
@@ -35,11 +42,8 @@ exports.init = function(req,res){
             res.render(template,viewData);
         });
     } catch(e){
-        var ret={};
-        ret.error = 1;
-        ret.errMsg = e.message+"，请联系管理员！";
-        console.log("**********************************************");
-        console.log(ret);
+        res.render("errorPage",{error:1,errorMsg: e.message});
+        console.log(e.message);
     }
 };
 
@@ -52,7 +56,7 @@ exports.list = function(req,res){
     };
     var requestPage = _.isEmpty(req.query.current)?0:req.query.current-1;
     var otherParams = {
-        city:req.query.searchCity
+         city:req.query.searchCity
         ,effectDate:_.isEmpty(req.query.searchEffect)?undefined:new Date(req.query.searchEffect+timeZone).getTime()
         ,expiryDate:_.isEmpty(req.query.searchExpiry)?undefined:new Date(req.query.searchExpiry+timeZone).getTime()
         ,isEnable:req.query.searchIsEnable
@@ -73,26 +77,24 @@ exports.list = function(req,res){
             res.json(viewData);
         });
     } catch(e){
-        ret.error = 1;
-        ret.errMsg = e.message+"，请联系管理员！";
-        console.log("**********************************************");
-        console.log(ret);
+        res.json({error:1,errorMsg:e.message});
     }
 };
 
 exports.add = function(req,res){
-    var opt = {
-        hostname:Config.inf.host,
-        port:Config.inf.port
-    };
-    opt.path="/product/"+productType+"/create";
-    opt.method="POST";
-    var params = req.body;
-    console.log(params);
     try{
-        new httpClient(opt).postReq(params,function(err,response){
-            console.log(response);
-            res.json(response);
+        var opt = {
+             hostname:Config.inf.host
+            ,port:Config.inf.port
+            ,method:"POST"
+            ,path:"/product/"+productType+"/create"
+        };
+        var params = req.body;
+        params.effectDate = new Date(params.effectDate+timeZone).getTime();
+        params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
+        var http  = new httpClient(opt);
+        http.postReq(params,function(err,result){
+            res.json(result);
         });
     } catch(e){
         res.json({error:1,errMsg: e.message});
@@ -100,17 +102,20 @@ exports.add = function(req,res){
 };
 
 exports.update = function(req,res){
-    var params = req.body;
-    var opt = {
-        hostname:Config.inf.host,
-        port:Config.inf.port
-    };
-    opt.path = "/product/"+productType+"/update/"+req.params.id;
-    console.log(opt.path);
-    opt.method = "POST"
     try{
+        if(_.isEmpty(req.params.id)){
+            res.json({error:1,errorMsg:"url格式不正确，缺少参数id!"});
+        }
+        var opt = {
+            hostname:Config.inf.host
+            ,method:"POST"
+            ,port:Config.inf.port
+            ,path:"/product/"+productType+"/update/"+req.params.id
+        };
+        var params = req.body;
+        params.effectDate = new Date(params.effectDate+timeZone).getTime();
+        params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
         var http = new httpClient(opt);
-        console.log(params);
         http.postReq(params,function(err,response){
             res.json(response);
         });
@@ -120,22 +125,22 @@ exports.update = function(req,res){
 };
 
 exports.viewDetail = function(req,res){
-    var opt = {
-        hostname:Config.inf.host,
-        port:Config.inf.port
-    };
-    opt.path = "/product/"+productType+"/detail/"+req.params.id;
-    opt.method = 'GET'
-    console.log(opt.path);
-    var ret = {};
     try{
+        if(_.isEmpty(req.params.id)){
+            res.json({error:1,errorMsg:"url格式不正确，缺少参数id!"});
+        }
+        var opt = {
+            hostname:Config.inf.host
+            ,method:"GET"
+            ,port:Config.inf.port
+            ,path:"/product/"+productType+"/detail/"+req.params.id
+        };
         var http = new httpClient(opt);
         http.getReq(function(err,result){
            res.json(result);
         });
 
     } catch(e){
-        ret.error = 1;
-        ret.errMsg = e.message+"，请联系管理员！";
+       res.json({error:1,errorMsg: e.message});
     }
 }

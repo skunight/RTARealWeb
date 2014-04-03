@@ -3,6 +3,7 @@
  */
 var httpClient = require('./../tools/HttpClient.js');
 var config = require('./../tools/Config.js');
+var _ = require('underscore');
 //view
 exports.viewProviderManger = function(req,res){
     //init
@@ -13,29 +14,33 @@ exports.viewProviderManger = function(req,res){
         method:"GET"
     };
 
-    var ret = {};
+    var viewData = {};
+    if(_.isEmpty(req.session.user.modules)){
+        res.render("index",{error:1,errorMsg:"无法读取模块列表！"});
+    }if(_.isEmpty(req.session.user.mobile)){
+        res.render("index",{error:1,errorMsg:"无法读取手机号！"});
+    }if(_.isEmpty(req.session.user._id)){
+        res.render("index",{error:1,errorMsg:"无法读取用户编号！"});
+    }
     try{
         var http = new httpClient(opt);
         http.getReq(function(err,result){
-            ret = result;
-            ret.proName = "供应商";
-            ret.modName = "供应商管理";
-            ret.userModules = req.session.user.modules;
-            ret.user={};
-            ret.user.mobile=req.session.user.mobile;
-            ret.user._id=req.session.user._id;
-            ret.currentPage =1;
+            viewData = result;
+            viewData.userModules = req.session.user.modules;
+            viewData.user={};
+            viewData.user.mobile=req.session.user.mobile;
+            viewData.user._id=req.session.user._id;
+            viewData.proName = "供应商";
+            viewData.modName = "供应商管理";
+            viewData.currentPage =1;
 //            console.log(req.session.user.modules);
             if(result.totalPage===0){
-                ret.totalPage++;
+                viewData.totalPage++;
             }
-            res.render("providerManagement",ret);
+            res.render("providerManagement",viewData);
         });
     } catch(e){
-        ret.error = 1;
-        ret.errMsg = e.message+"，请联系管理员！";
-        console.log("**********************************************");
-        console.log(ret);
+        res.render("errorPage",{error:1,errorMsg: e.message});
     }
 
 

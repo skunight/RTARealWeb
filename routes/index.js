@@ -8,7 +8,7 @@ module.exports = function(app){
     var ProviderAction = require('./../action/ProviderAction');
     var ProviderMemberAction = require('./../action/ProviderMemberAction');
     var MemberAction = require('./../action/MemberAction');
-    var hotelPriceQueryAction = require('./../action/hotelPriceQueryAction');
+    var hotelPriceQueryAction = require('./../action/HotelPriceQueryAction');
     var HotelPriceInputAction = require('./../action/HotelPriceInputAction');
     var TicketPriceInputAction = require('./../action/TicketPriceInputAction');
     var VoturePriceInputAction = require('./../action/VoturePriceInputAction');
@@ -23,6 +23,8 @@ module.exports = function(app){
     var packagePackageManagementAction = require('./../action/PackageManagementAction');
     var newsManagementAction           = require('./../action/NewsManagementAction');
     var newsManagementAuditAction      = require('./../action/NewsManagementAuditAction');
+    var rightsManagementAction       = require('./../action/RightsManagementAction');
+    var shortListAction = require('./../action/ShortListAction');
 
 
 
@@ -110,4 +112,9 @@ module.exports = function(app){
     app.get('/newsManagementAudit/detail/:id',newsManagementAction.viewDetail);
     app.get('/newsManagementAudit/list',newsManagementAuditAction.list);
     app.post('/newsManagementAudit/audit/:id',newsManagementAuditAction.audit);
+
+// rightsManagement
+    app.get('/rightsManagement',rightsManagementAction.init);
+    app.get('/listMemberByProvider/:providerID',shortListAction.getMemberByProvider);
+
 };

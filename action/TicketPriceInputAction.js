@@ -121,7 +121,6 @@ exports.addInputLog = function(req,res){
     };
     try{
         new httpClient(opt).postReq(params,function(err,response){
-//                    console.log("save finish..."+err,response);
             res.json({error:response.error,errMsg:response.errorMsg});
         });
 
@@ -165,7 +164,7 @@ exports.getTicketPriceLogList = function(req,res){
         path:"/product/ticket/priceLog/list?"+params,
         method:"GET"
     };
-
+    console.log(opt.path);
     var ret = {};
     try{
         new httpClient(opt).getReq(function(err,result){

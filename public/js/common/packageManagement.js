@@ -1,7 +1,13 @@
 $(document).ready(function(){
-    var timeZone = ' 00:00:00 +08:00';
     var images=[];
     var productType = 'package';
+
+    $('#isEnable').bootstrapSwitch();
+
+    $('.date').datepicker({
+        "dateFormat": 'yy-mm-dd'
+    } );
+
     //刷新分页以及表格数据
     var refershDataSet = function(url,data){
     $.ajax(
@@ -137,9 +143,9 @@ $(document).ready(function(){
                         $('#intro').val(data.data.intro);
                         data.data.relatedProductID.forEach(function(d){
                             addRelatedProductInfo("", d.product.name, d.product._id, d.qty, d.day,false);
-                        })
+                        });
                         if(undefined!==data.data.city){
-                            $("#city option[value='"+data.data.city._id+"']").attr("selected",true);
+                            $("#city option[value='"+data.data.city._id+"']").prop("selected",true);
                         }
                         var newEffectDate = new Date(data.data.effectDate).Format('yyyy-MM-dd');
                         $('#effectDate').val(newEffectDate);
@@ -170,8 +176,7 @@ $(document).ready(function(){
     postData.content  = $('#content').val();
     postData.intro       = $('#intro').val();
 //    postData.image       = readImage();
-    postData.relatedProductID = readRelateProductInfo();
-    postData.image="";
+//    postData.image="";
     postData.city        = $('#city option:selected').val();
     postData.addr        =$('#addr').val();
     postData.gps         =$('#lat').val()+','+$('#lon').val();
@@ -181,18 +186,17 @@ $(document).ready(function(){
     postData.useRule     =$('#useRule').val();
     postData.cancelRule  =$('#cancelRule').val();
     postData.transportation =$('#transportation').val();
-        var effectDate          =  new Date($('#effectDate').val()+timeZone);
-        postData.effectDate     =  effectDate.getTime();
-        var expiryDate          =  new Date($('#expiryDate').val()+timeZone);
-        postData.expiryDate      = expiryDate.getTime();
+    postData.effectDate     =  $('#effectDate').val();
+    postData.expiryDate      = $('#expiryDate').val();
     postData.isEnable           = $('#isEnable').bootstrapSwitch('state').toString();
     postData.contactName        =$('#contactName').val();
     postData.tel                =$('#tel').val();
     postData.fax                =$('#fax').val();
     postData.subType      = $('#subType').val();
-    postData.operator     = '50fe5af792ed2bfb07d20d37';//$('#operatorName').val();
+//    postData.operator     = '50fe5af792ed2bfb07d20d37';//$('#operatorName').val();
     console.log(JSON.stringify(postData));
     if($('#modalType').html()=='新增'){
+        postData.relatedProductID = readRelateProductInfo();
         url = "/packageManagement/add";
     }else{
         url =  "/packageManagement/update/"+$('#selectedId').val();

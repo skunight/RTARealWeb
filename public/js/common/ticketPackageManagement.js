@@ -1,7 +1,35 @@
 $(document).ready(function(){
-    var timeZone = ' 00:00:00 +08:00';
     var images=[];
     var productType="ticketPackage";
+
+    $('#isEnable').bootstrapSwitch();
+    $('.date').datepicker({
+        "dateFormat": 'yy-mm-dd'
+    });
+
+    var resetModal = function(){
+        $('#imgintro').val('');
+        $('#image').val('');//隐藏的用来读图片的文字串置空
+        $('#imgPreview').empty();
+        $('#name').val('');
+        $('#content').val('');
+        $('#intro').val('');
+        $('#addr').val('');
+        $('#lat').val('')+','+$('#lon').val('');
+        $('#level').val('');
+        $('#openTime').val('');
+        $('#bookRule').val('');
+        $('#useRule').val('');
+        $('#cancelRule').val('');
+        $('#transportation').val('');
+        $('#effectDate').val('');
+        $('#expiryDate').val('');
+        $('#contactName').val('');
+        $('#tel').val('');
+        $('#fax').val('');
+        $('#subType').val('');
+        $('#isEnable').bootstrapSwitch('state',true);
+    };
 
     //刷新分页以及表格数据
     var refershDataSet = function(url,data){
@@ -110,12 +138,7 @@ $(document).ready(function(){
     //点击新增按钮
     $('#showCreate').click(function(){
         $('#modalType').html('新增');
-        $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',false);
-//    $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',true);
-//    $('#isEnable').bootstrapSwitch('state',true);
-
+        resetModal();
     });
     //点击编辑按钮
     $('#showEdit').click(function(){
@@ -138,13 +161,18 @@ $(document).ready(function(){
                         $('#name').val(data.data.name);
                         $('#content').val(data.data.content);
                         $('#intro').val(data.data.intro);
-                        $('#imgPreview').empty();
-                        $.each(data.data.image,function(index,value){
-                            addImage(value);
-                        });
+//                        $('#imgPreview').empty();
+//                        $.each(data.data.image,function(index,value){
+//                            addImage(value);
+//                        });
                         if(undefined!==data.data.city){
-                            $("#city option[value='"+data.data.city._id+"']").attr("selected",true);
+                            $("#city option[value='"+data.data.city._id+"']").prop("selected",true);
                         }
+//                        console.log(data.data.relatedProductID);
+                        data.data.relatedProductID.forEach(function(d){
+                            addRelatedProductInfo("", d.product.name, d.product._id, d.qty, d.day,false);
+                            console.log('a');
+                        });
                         $('#addr').val(data.data.addr);
                         $('#lat').val(data.data.gps.lat);
                         $('#lon').val(data.data.gps.lon);
@@ -162,7 +190,8 @@ $(document).ready(function(){
                         $('#contactName').val(data.data.contactName);
                         $('#tel').val(data.data.tel);
                         $('#fax').val(data.data.fax);
-                        $('#type').val(data.data.type);
+                        $('#subType option[value="'+data.data.subType+'"]').prop("selected",true);
+//                     $('#type').val(data.data.type);
 //                    $('#subType').val(data.data.subType);
 //                    $('#operatorName').val(data.data.operatorName);
 //                    把数据填充完毕以后再显示详情
@@ -181,10 +210,10 @@ $(document).ready(function(){
     //点击modal框中的保存按钮
     $('#doCreate').click(function(e){
         var postData={};
+
         postData.name     = $('#name').val();
         postData.content  = $('#content').val();
         postData.intro       = $('#intro').val();
-        postData.image       = readImage();
         postData.city        = $('#city option:selected').val();
         postData.addr        =$('#addr').val();
         postData.gps         =$('#lat').val()+','+$('#lon').val();
@@ -194,19 +223,17 @@ $(document).ready(function(){
         postData.useRule     =$('#useRule').val();
         postData.cancelRule  =$('#cancelRule').val();
         postData.transportation =$('#transportation').val();
-        var effectDate          =  new Date($('#effectDate').val()+timeZone);
-        postData.effectDate     =  effectDate.getTime();
-        var expiryDate          =  new Date($('#expiryDate').val()+timeZone);
-        postData.expiryDate      = expiryDate.getTime();
+        postData.effectDate       =  $('#effectDate').val();
+        postData.expiryDate       = $('#expiryDate').val();
         postData.isEnable           = $('#isEnable').bootstrapSwitch('state').toString();
         postData.contactName        =$('#contactName').val();
         postData.tel                =$('#tel').val();
         postData.fax                =$('#fax').val();
         postData.subType      = $('#subType').val();
-        postData.operator     = '50fe5af792ed2bfb07d20d37';//$('#operatorName').val();
         console.log(JSON.stringify(postData));
         if($('#modalType').html()=='新增'){
             url = "/"+productType+"Management/add";
+            postData.relatedProductID = readRelateProductInfo();
         }else{
             url =  "/"+productType+"Management/update/"+$('#selectedId').val();
         }

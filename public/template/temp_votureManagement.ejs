@@ -16,7 +16,7 @@
         <tr>
             <th>优惠券名称</th>
             <th>城市</th>
-            <th>推荐级别</th>
+            <!--<th>推荐级别</th>-->
             <th>有效期开始</th>
             <th>有效期结束</th>
             <th>创建时间</th>
@@ -29,7 +29,7 @@
         <tr id="<%=obj._id%>">
             <td><%=obj.name%></td>
             <td><%=obj.city.name%></td>
-            <td><%=obj.level%></td>
+            <!--<td></td>-->
             <td><%=new Date(obj.effectDate).Format("yyyy-MM-dd")%></td>
             <td><%=new Date(obj.expiryDate).Format("yyyy-MM-dd")%></td>
             <td><%=new Date(obj.createTime).Format("yyyy-MM-dd")%></td>

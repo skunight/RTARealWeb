@@ -22,6 +22,13 @@ exports.init = function(req,res){
         port:Config.inf.port
     };
     var viewData = {};
+    if(_.isEmpty(req.session.user.modules)){
+        res.render("index",{error:1,errorMsg:"无法读取模块列表！"});
+    }if(_.isEmpty(req.session.user.mobile)){
+        res.render("index",{error:1,errorMsg:"无法读取手机号！"});
+    }if(_.isEmpty(req.session.user._id)){
+        res.render("index",{error:1,errorMsg:"无法读取用户编号！"});
+    }
     try{
         opt.path = '/city/shortList';
         opt.method='GET';
@@ -88,6 +95,8 @@ exports.add = function(req,res){
     opt.path="/product/"+productType+"/create";
     opt.method="POST";
     var params = req.body;
+    params.effectDate = new Date(params.effectDate+timeZone).getTime();
+    params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
     console.log(params);
     try{
         new httpClient(opt).postReq(params,function(err,response){
@@ -110,6 +119,8 @@ exports.update = function(req,res){
     opt.method = "POST"
     try{
         var http = new httpClient(opt);
+        params.effectDate = new Date(params.effectDate+timeZone).getTime();
+        params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
         console.log(params);
         http.postReq(params,function(err,response){
             res.json(response);

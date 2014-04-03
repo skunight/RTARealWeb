@@ -10,12 +10,14 @@
         }else{
             url =  "/provider/update/"+$('#selectedId').val();
         }
+        var params = $('#providerForm').serialize();
+        params+='&isEnable='+$('#isEnable').bootstrapSwitch('state').toString();
         $.ajax({
             type: "post",
             url: url,
             cache:false,
 //            dataType:"json",
-            data:$('#providerForm').serialize(),
+            data:params,
             success: function(data, textStatus){
                 if(data.error!==0){
                     alert("保存供应商错误："+data.errMsg);

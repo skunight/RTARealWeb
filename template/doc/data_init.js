@@ -16,7 +16,7 @@ var a ={
     ,idCard:''
     ,postAddr:''
     ,signupDate:1394671086295
-    ,provider:ObjectId("5320ffb06532aa00951ff5e1")
+    ,provider:ObjectId("533ca827857c17cc25f88f08")
     ,isEnable:true
     ,operator:ObjectId("5320ff9b6532aa00951ff5e0")
 }
@@ -24,7 +24,8 @@ db.members.save(a)
 
 
 var a={
-    name:'路骋网'
+    _id:ObjectId("533ca827857c17cc25f88f08")
+    ,name:'路骋网'
     ,contactName:'管理员'
     ,contactEmail:'admin@justpayyou.com'
     ,contactPhone:'18616365242'
@@ -41,7 +42,8 @@ var a={
 db.ents.save(a)
 
 var a={
-    name:'wap'
+    _id:ObjectId("533ca82c857c17cc25f88f09")
+    ,name:'wap'
     ,contactName:'管理员'
     ,contactEmail:'admin@justpayyou.com'
     ,contactPhone:'18616365242'
@@ -58,7 +60,8 @@ var a={
 db.ents.save(a)
 
 var a={
-    name:'web'
+    _id:ObjectId("533ca831857c17cc25f88f0a")
+    ,name:'web'
     ,contactName:'管理员'
     ,contactEmail:'admin@justpayyou.com'
     ,contactPhone:'18616365242'
@@ -118,6 +121,21 @@ db.pro.modules.save(a);
 var a={code:'voturePrice/audit',name:'优惠券价格审核',cat:'价格审核',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:34}
 db.pro.modules.save(a);
 
+var a={code:'ticketPriceQuery',name:'门票价格查询',cat:'价格查询',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:41}
+db.pro.modules.save(a);
+var a={code:'ticketPackagePriceQuery',name:'套票价格查询',cat:'价格查询',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:42}
+db.pro.modules.save(a);
+var a={code:'hotelPriceQuery',name:'酒店价格查询',cat:'价格查询',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:43}
+db.pro.modules.save(a);
+var a={code:'voturePriceQuery',name:'优惠券价格查询',cat:'价格查询',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:44}
+db.pro.modules.save(a);
+var a={code:'voturePriceQuery',name:'打包产品价格查询',cat:'价格查询',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:45}
+db.pro.modules.save(a);
+
+var a={code:'newsManagement',name:'公告发布',cat:'公告管理',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:54}
+db.pro.modules.save(a);
+var a={code:'newsManagementAudit',name:'公告审核',cat:'公告管理',isEnable:true,createTime:1394671086295,updateTime:1394671086295,operator:ObjectId('5320ff9b6532aa00951ff5e0'),order:55}
+db.pro.modules.save(a);
 
 
 var a ={ "_id" : ObjectId("53217588af7d5b633f3361cc"), "isEnable" : true, "name" : "江苏" }

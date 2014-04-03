@@ -54,13 +54,13 @@
                  <tbody id="tblcontent">
                      <%data.forEach(function(obj){%>
                      <tr id="<%=obj._id%>">
-                         <td> <%=obj.name%></td>
-                         <td> <%=obj.contactName%></td>
-                         <td> <%=obj.contactEmail%></td>
-                         <td> <%=obj.contactPhone%></td>
-                         <td> <%=obj.proCode%></td>
-                         <td> <%=obj.isEnable%></td>
-                         <td> <%=obj.createTime%></td>
+                         <td><%=obj.name%></td>
+                         <td><%=obj.contactName%></td>
+                         <td><%=obj.contactEmail%></td>
+                         <td><%=obj.contactPhone%></td>
+                         <td><%=obj.proCode%></td>
+                         <td><%=new Date(obj.createTime).Format("yyyy-MM-dd")%></td>
+                         <td><%=obj.isEnable%></td>
                      </tr>
                      <%});%>
                  </tbody>
@@ -122,7 +122,7 @@
                        <label for="isEnable" class="col-md-2 control-label">是否启用</label>
                        <div class="col-md-10">
                             <div class="switch switch-small">
-                                <input id="isEnable" name="isEnable" type="checkbox" checked />
+                                <input id="isEnable" type="checkbox" checked />
                             </div>
                        </div>
                    </div>

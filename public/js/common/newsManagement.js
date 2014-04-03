@@ -54,6 +54,12 @@ $(document).ready(function(){
                         if(data.data.status==2){
                             alert('此公告已上线，无法修改!');
                             return;
+                        }if(data.data.status==3){
+                            alert('此公告已无法修改!');
+                            return;
+                        }if(data.data.status==0){
+                            alert('此公告已无法修改,还请重新提交!');
+                            return;
                         }
                         $('#title').val(data.data.title);
                         $('#content').val(data.data.content);

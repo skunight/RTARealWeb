@@ -5,7 +5,7 @@
     <td><%=obj.email%></td>
     <td><%=obj.tel%></td>
     <td><%=obj.gender%></td>
-    <td><%=obj.signupDate%></td>
+    <td><%=new Date(obj.signUpDate).Format("yyyy-MM-dd")%></td>
     <td>
         <%if(obj.provider&&null!==obj.provider){%>
         <%=obj.provider.name%>

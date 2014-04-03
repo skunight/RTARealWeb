@@ -8,39 +8,25 @@ var _ = require('underscore');
 var  querystring  = require('querystring');
 var timeZone = ' 00:00:00 +08:00';
 
-
-
-var propName     = "供应商"
+var propName     = Config.inf.projectName;
 var modName      = "供应商管理"
 var productType  = 'news'
 var template     = productType+'Management'
 
 //render search and modal
 exports.init = function(req,res){
-//    var opt = {
-//        hostname:Config.inf.host,
-//        port:Config.inf.port
-//    };
     var viewData = {};
-//    try{
-//        opt.path = '/city/shortList';
-//        opt.method='GET';
-//        var httpCity = new httpClient(opt);
-//        httpCity.getReq(function(err,result){
-//            viewData.userModules = req.session.user.modules;
-//            viewData.user={};
-//            viewData.user.mobile=req.session.user.mobile;
-//            viewData.user._id=req.session.user._id;
-//            viewData.cityInfo = result.data;
-//            res.render(template,viewData);
-//        });
-//    } catch(e){
-//        var ret={};
-//        ret.error = 1;
-//        ret.errMsg = e.message+"，请联系管理员！";
-//        console.log("**********************************************");
-//        console.log(ret);
-//    }
+    if(_.isEmpty(req.session.user.modules)){
+        res.render("index",{error:1,errorMsg:"无法读取模块列表！"});
+    }if(_.isEmpty(req.session.user.mobile)){
+        res.render("index",{error:1,errorMsg:"无法读取手机号！"});
+    }if(_.isEmpty(req.session.user._id)){
+        res.render("index",{error:1,errorMsg:"无法读取用户编号！"});
+    }
+    viewData.userModules = req.session.user.modules;
+    viewData.user={};
+    viewData.user.mobile=req.session.user.mobile;
+    viewData.user._id=req.session.user._id;
     res.render(template,viewData);
 };
 

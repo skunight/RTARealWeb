@@ -22,6 +22,13 @@ exports.init = function(req,res){
         port:Config.inf.port
     };
     var viewData = {};
+    if(_.isEmpty(req.session.user.modules)){
+        res.render("index",{error:1,errorMsg:"无法读取模块列表！"});
+    }if(_.isEmpty(req.session.user.mobile)){
+        res.render("index",{error:1,errorMsg:"无法读取手机号！"});
+    }if(_.isEmpty(req.session.user._id)){
+        res.render("index",{error:1,errorMsg:"无法读取用户编号！"});
+    }
     try{
         opt.path = '/city/shortList';
         opt.method='GET';
@@ -87,7 +94,9 @@ exports.add = function(req,res){
     opt.path="/product/"+productType+"/create";
     opt.method="POST";
     var params = req.body;
-    console.log(params);
+    params.effectDate = new Date(params.effectDate+timeZone).getTime();
+    params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
+    console.log('PackageManagementAction add params',params);
     try{
         new httpClient(opt).postReq(params,function(err,response){
             console.log(response);
@@ -99,17 +108,20 @@ exports.add = function(req,res){
 };
 
 exports.update = function(req,res){
-    var params = req.body;
+
     var opt = {
-        hostname:Config.inf.host,
-        port:Config.inf.port
+        hostname:Config.inf.host
+        ,port:Config.inf.port
+        ,method:"POST"
+        ,path:"/product/"+productType+"/update/"+req.params.id
     };
-    opt.path = "/product/"+productType+"/update/"+req.params.id;
     console.log(opt.path);
-    opt.method = "POST"
+    var params = req.body;
+    params.effectDate = new Date(params.effectDate+timeZone).getTime();
+    params.expiryDate = new Date(params.expiryDate+timeZone).getTime();
+    console.log('PackageManagementAction update params',params);
     try{
         var http = new httpClient(opt);
-        console.log(params);
         http.postReq(params,function(err,response){
             res.json(response);
         });
